@@ -1,7 +1,7 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-09-22T10:07:17.717008-05:00",
+    "updatedAt": "2026-09-22T10:11:15.139887-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
@@ -9,8 +9,8 @@
     "checkpoint": "refresh"
   },
   "quote": {
-    "price": 1.333974,
-    "asOf": 1790089626
+    "price": 1.334134,
+    "asOf": 1790089866
   },
   "previousMonth": {
     "start": "2026-08-01",
@@ -205,7 +205,7 @@
     "levelCount": {
       "label": "Level 1 drop",
       "direction": "below",
-      "distancePips": 23.3,
+      "distancePips": 21.8,
       "bandPips": 25,
       "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
     },
@@ -215,16 +215,16 @@
       "usedPercent": 128.4
     },
     "emas": {
-      "ema13": 1.334791,
-      "ema50": 1.335629,
-      "mayo200": 1.336506,
+      "ema13": 1.334743,
+      "ema50": 1.335585,
+      "mayo200": 1.336486,
       "alignment": "bearish",
-      "mayoDistancePips": -25.3,
+      "mayoDistancePips": -23.5,
       "recentMayoTouch": false
     },
     "tdiProxy": {
-      "rsi13": 31.2,
-      "signal2": 31.4,
+      "rsi13": 33.5,
+      "signal2": 34.1,
       "state": "bearish",
       "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
     },
@@ -325,33 +325,26 @@
     {
       "key": "EMA13",
       "label": "BTMM fast EMA",
-      "price": 1.334791,
+      "price": 1.334743,
       "side": "buy",
       "group": "btmm"
     },
     {
       "key": "EMA50",
       "label": "BTMM 50 EMA",
-      "price": 1.335629,
+      "price": 1.335585,
       "side": "mid",
       "group": "btmm"
     },
     {
       "key": "MAYO",
       "label": "BTMM 200 EMA",
-      "price": 1.336506,
+      "price": 1.336486,
       "side": "open",
       "group": "btmm"
     }
   ],
   "candles": [
-    {
-      "t": 1789739100,
-      "o": 1.334917,
-      "h": 1.335007,
-      "l": 1.334632,
-      "c": 1.334632
-    },
     {
       "t": 1789739400,
       "o": 1.334579,
@@ -4366,16 +4359,23 @@
     {
       "t": 1790089500,
       "o": 1.334098,
-      "h": 1.334098,
-      "l": 1.334009,
-      "c": 1.334009
+      "h": 1.334134,
+      "l": 1.333902,
+      "c": 1.334134
     },
     {
-      "t": 1790089626,
-      "o": 1.333974,
-      "h": 1.333974,
-      "l": 1.333974,
-      "c": 1.333974
+      "t": 1790089800,
+      "o": 1.334241,
+      "h": 1.334241,
+      "l": 1.334241,
+      "c": 1.334241
+    },
+    {
+      "t": 1790089866,
+      "o": 1.334134,
+      "h": 1.334134,
+      "l": 1.334134,
+      "c": 1.334134
     }
   ],
   "calendar": [
