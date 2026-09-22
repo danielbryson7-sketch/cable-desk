@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "market.json"
+FORECASTS = ROOT / "data" / "forecasts.json"
 CHICAGO = ZoneInfo("America/Chicago")
 NEW_YORK = ZoneInfo("America/New_York")
 UTC = timezone.utc
@@ -268,6 +269,17 @@ def today_news(events: list[dict], now: datetime) -> tuple[list[dict], str]:
     return selected, risk
 
 
+def trade_day_news(events: list[dict], trade_day: date) -> tuple[list[dict], str]:
+    selected = []
+    for event in events:
+        if not event.get("timeUtc"):
+            continue
+        if datetime.fromisoformat(event["timeUtc"]).astimezone(NEW_YORK).date() == trade_day:
+            selected.append(event)
+    risk = "high" if any(event["impact"] == "High" for event in selected) else "medium" if any(event["impact"] == "Medium" for event in selected) else "low"
+    return selected, risk
+
+
 def build_top_down(month: dict, week: dict, day: dict, four_hour: dict, one_hour: dict, price: float, events: list[dict], now: datetime) -> dict:
     weights = [
         ("Previous month", month, 5), ("Previous week", week, 4), ("Prior day", day, 3),
@@ -331,6 +343,176 @@ def build_levels(month: dict, week: dict, day: dict, sessions: dict) -> list[dic
     return levels
 
 
+def load_forecasts() -> dict:
+    if not FORECASTS.exists():
+        return {"modelVersion": "1.0", "records": {}}
+    try:
+        saved = json.loads(FORECASTS.read_text(encoding="utf-8"))
+        if not isinstance(saved.get("records"), dict):
+            raise ValueError("forecast records must be an object")
+        return saved
+    except (json.JSONDecodeError, OSError, ValueError):
+        return {"modelVersion": "1.0", "records": {}}
+
+
+def scheduled_checkpoint(now: datetime) -> str | None:
+    """Return the New York checkpoint represented by this scheduled run."""
+    hour = now.astimezone(NEW_YORK).hour
+    return {0: "midnight", 5: "london", 10: "newYork", 16: "final"}.get(hour)
+
+
+def event_digest(events: list[dict], trade_day: date) -> dict:
+    selected, risk = trade_day_news(events, trade_day)
+    disruptive = [event for event in selected if event["impact"] in {"High", "Medium"}]
+    return {
+        "risk": risk,
+        "eventCount": len(selected),
+        "disruptiveCount": len(disruptive),
+        "events": [{"title": item["title"], "currency": item["currency"], "impact": item["impact"], "timeUtc": item["timeUtc"]} for item in disruptive],
+    }
+
+
+def frozen_prediction(bias: dict, sessions: dict) -> dict:
+    asia = sessions["asia"]
+    direction = bias["direction"]
+    if direction == "Bullish":
+        expected_raid = "Asian low"
+        target_label = bias["draw"] if bias["drawPrice"] > asia["midnightOpen"] else "Asian high"
+        target_price = bias["drawPrice"] if bias["drawPrice"] > asia["midnightOpen"] else asia["high"]
+        invalidation_label, invalidation_price = "Top-down sell-side invalidation", bias["invalidation"]
+    elif direction == "Bearish":
+        expected_raid = "Asian high"
+        target_label = bias["draw"] if bias["drawPrice"] < asia["midnightOpen"] else "Asian low"
+        target_price = bias["drawPrice"] if bias["drawPrice"] < asia["midnightOpen"] else asia["low"]
+        invalidation_label, invalidation_price = "Top-down buy-side invalidation", bias["invalidation"]
+    else:
+        expected_raid = "Either edge"
+        target_label, target_price = "No directional target", None
+        invalidation_label, invalidation_price = "Wait for London confirmation", None
+    return {
+        "direction": direction,
+        "score": bias["score"],
+        "maxScore": bias["maxScore"],
+        "confidence": bias["confidence"],
+        "expectedFirstRaid": expected_raid,
+        "targetLabel": target_label,
+        "targetPrice": target_price,
+        "invalidationLabel": invalidation_label,
+        "invalidationPrice": invalidation_price,
+        "confirmation": bias["confirmation"],
+        "reason": f"Frozen top-down score {bias['score']:+d}/15; {bias['location'].lower()}.",
+    }
+
+
+def compact_session(session: dict) -> dict:
+    keys = ("start", "end", "open", "high", "low", "close", "rangePips", "firstSweep", "sweptAsiaHigh", "sweptAsiaLow")
+    return {key: session[key] for key in keys if key in session}
+
+
+def first_level_touch(rows: list[dict], start: datetime, end: datetime, asia: dict) -> tuple[str | None, int | None]:
+    for row in window_rows(rows, start.astimezone(UTC), end.astimezone(UTC)):
+        hit_high, hit_low = row["h"] > asia["high"], row["l"] < asia["low"]
+        if hit_high and hit_low:
+            return "Both in one candle", row["t"]
+        if hit_high:
+            return "Asian high", row["t"]
+        if hit_low:
+            return "Asian low", row["t"]
+    return None, None
+
+
+def first_target_touch(rows: list[dict], start: datetime, end: datetime, price: float | None, direction: str) -> int | None:
+    if price is None:
+        return None
+    for row in window_rows(rows, start.astimezone(UTC), end.astimezone(UTC)):
+        if (direction == "Bullish" and row["h"] >= price) or (direction == "Bearish" and row["l"] <= price):
+            return row["t"]
+    return None
+
+
+def grade_forecast(record: dict, rows: list[dict], trade_day: date) -> dict:
+    forecast, asia = record["forecast"], record["asianRange"]
+    start = datetime.combine(trade_day, time(0, 0), NEW_YORK)
+    end = datetime.combine(trade_day, time(16, 0), NEW_YORK)
+    selected = window_rows(rows, start.astimezone(UTC), end.astimezone(UTC))
+    if not selected:
+        return {"grade": "unresolved", "note": "No post-midnight candles were available."}
+    first_raid, first_raid_at = first_level_touch(rows, start, end, asia)
+    direction = forecast["direction"]
+    final_close = selected[-1]["c"]
+    if direction == "Neutral":
+        return {
+            "grade": "no-trade", "directionCorrect": None, "expectedRaidCorrect": None,
+            "firstRaid": first_raid, "firstRaidAt": first_raid_at, "finalClose": final_close,
+            "note": "The frozen model made no directional commitment.",
+        }
+    direction_correct = final_close > asia["midnightOpen"] if direction == "Bullish" else final_close < asia["midnightOpen"]
+    expected_raid_correct = first_raid == forecast["expectedFirstRaid"]
+    target_at = first_target_touch(rows, start, end, forecast.get("targetPrice"), direction)
+    invalidation_direction = "Bearish" if direction == "Bullish" else "Bullish"
+    invalidated_at = first_target_touch(rows, start, end, forecast.get("invalidationPrice"), invalidation_direction)
+    target_first = bool(target_at and (not invalidated_at or target_at < invalidated_at))
+    favorable = (max(row["h"] for row in selected) - asia["midnightOpen"]) if direction == "Bullish" else (asia["midnightOpen"] - min(row["l"] for row in selected))
+    adverse = (asia["midnightOpen"] - min(row["l"] for row in selected)) if direction == "Bullish" else (max(row["h"] for row in selected) - asia["midnightOpen"])
+    if direction_correct and expected_raid_correct:
+        grade = "right"
+    elif not direction_correct and not target_first:
+        grade = "wrong"
+    else:
+        grade = "mixed"
+    return {
+        "grade": grade, "directionCorrect": direction_correct, "expectedRaidCorrect": expected_raid_correct,
+        "firstRaid": first_raid, "firstRaidAt": first_raid_at, "targetReached": bool(target_at),
+        "targetReachedAt": target_at, "invalidated": bool(invalidated_at), "invalidatedAt": invalidated_at,
+        "targetBeforeInvalidation": target_first, "finalClose": final_close,
+        "favorablePips": round(max(0, favorable) * 10000, 1), "adversePips": round(max(0, adverse) * 10000, 1),
+        "note": "Right requires both the closing direction and the predicted first Asian-edge raid to match.",
+    }
+
+
+def update_forecast_history(history: dict, checkpoint: str | None, now: datetime, bias: dict, sessions: dict, events: list[dict], rows: list[dict]) -> dict | None:
+    trade_day = date.fromisoformat(sessions["tradeDate"])
+    key = trade_day.isoformat()
+    records = history["records"]
+    if checkpoint == "midnight" and key not in records and sessions.get("asia", {}).get("complete") and sessions["asia"].get("midnightOpen") is not None:
+        records[key] = {
+            "tradeDate": key,
+            "capturedAt": now.astimezone(NEW_YORK).isoformat(),
+            "locked": True,
+            "forecast": frozen_prediction(bias, sessions),
+            "asianRange": {**compact_session(sessions["asia"]), "midpoint": sessions["asia"]["midpoint"], "midnightOpen": sessions["asia"]["midnightOpen"], "quality": sessions["asia"]["quality"]},
+            "topDown": bias["stack"],
+            "news": event_digest(events, trade_day),
+            "checkpoints": {"midnight": {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "forecast locked"}},
+            "result": None,
+        }
+    record = records.get(key)
+    if not record:
+        return None
+    checkpoints = record.setdefault("checkpoints", {})
+    if checkpoint == "london" and "london" not in checkpoints:
+        checkpoints["london"] = {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "recorded", **compact_session(sessions["london"])}
+    elif checkpoint == "newYork" and "newYork" not in checkpoints:
+        checkpoints["newYork"] = {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "recorded", **compact_session(sessions["newYork"])}
+    elif checkpoint == "final" and "final" not in checkpoints:
+        checkpoints["final"] = {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "graded"}
+        record["result"] = grade_forecast(record, rows, trade_day)
+    return record
+
+
+def forecast_stats(history: dict) -> dict:
+    results = [record.get("result") for record in history["records"].values() if record.get("result")]
+    directional = [item for item in results if item.get("grade") in {"right", "wrong", "mixed"}]
+    right = sum(item["grade"] == "right" for item in directional)
+    return {
+        "completed": len(results), "directional": len(directional), "right": right,
+        "wrong": sum(item["grade"] == "wrong" for item in directional),
+        "mixed": sum(item["grade"] == "mixed" for item in directional),
+        "noTrade": sum(item["grade"] == "no-trade" for item in results),
+        "strictHitRate": round(right / len(directional) * 100, 1) if directional else None,
+    }
+
+
 def main() -> None:
     now = datetime.now(UTC).astimezone(CHICAGO)
     daily, hourly, intraday, events = yahoo("1d", "1y"), yahoo("1h", "1mo"), yahoo("5m", "5d"), parse_calendar()
@@ -339,16 +521,23 @@ def main() -> None:
     price = intraday[-1]["c"]
     bias = build_top_down(month, week, day, four_hour, one_hour, price, events, now)
     sessions = build_sessions(intraday, now, bias)
+    checkpoint = scheduled_checkpoint(now)
+    history = load_forecasts()
+    current_forecast = update_forecast_history(history, checkpoint, now, bias, sessions, events, intraday)
+    history["lastUpdatedAt"] = now.isoformat()
+    history["records"] = dict(sorted(history["records"].items())[-500:])
     payload = {
-        "meta": {"symbol": "GBP/USD", "updatedAt": now.isoformat(), "timezone": "America/Chicago", "priceSource": "Yahoo Finance indicative GBPUSD=X", "calendarSource": "Forex Factory public weekly calendar", "modelVersion": "2.0 top-down + Asian range"},
+        "meta": {"symbol": "GBP/USD", "updatedAt": now.isoformat(), "timezone": "America/Chicago", "priceSource": "Yahoo Finance indicative GBPUSD=X", "calendarSource": "Forex Factory public weekly calendar", "modelVersion": "3.0 frozen forecast audit", "checkpoint": checkpoint or "refresh"},
         "quote": {"price": price, "asOf": intraday[-1]["t"]},
         "previousMonth": month, "lastWeek": week, "priorDay": day, "fourHour": four_hour, "oneHour": one_hour,
         "bias": bias, "sessions": sessions,
+        "forecastAudit": current_forecast, "forecastStats": forecast_stats(history),
         "levels": build_levels(month, week, day, sessions), "candles": intraday[-576:], "calendar": events,
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(f"Wrote {OUTPUT} with {len(payload['candles'])} candles, {len(payload['levels'])} levels, and {len(events)} events")
+    FORECASTS.write_text(json.dumps(history, indent=2) + "\n", encoding="utf-8")
+    print(f"Wrote market data at {checkpoint or 'refresh'} checkpoint with {len(history['records'])} frozen forecast(s)")
 
 
 if __name__ == "__main__":

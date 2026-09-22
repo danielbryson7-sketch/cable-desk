@@ -41,6 +41,44 @@ function renderBrief(data) {
     </div>`;
 }
 
+function renderForecastAudit(data) {
+  const record = data.forecastAudit;
+  const stats = data.forecastStats || {};
+  const recordLabel = stats.directional
+    ? `${stats.right} right · ${stats.wrong} wrong · ${stats.mixed} mixed · ${stats.strictHitRate}% strict`
+    : "No completed directional forecasts yet";
+  $("#forecast-record").textContent = recordLabel;
+  if (!record) return;
+
+  const forecast = record.forecast;
+  $("#audit-lock").textContent = `LOCKED · ${record.tradeDate}`;
+  $("#audit-lock").classList.add("locked");
+  $("#frozen-direction").textContent = `${forecast.direction} · ${forecast.score > 0 ? "+" : ""}${forecast.score}/15`;
+  $("#frozen-raid").textContent = forecast.expectedFirstRaid;
+  $("#frozen-target").textContent = forecast.targetLabel;
+  $("#frozen-target-price").textContent = forecast.targetPrice == null ? "No commitment" : fmtPrice(forecast.targetPrice);
+  $("#frozen-invalidation").textContent = forecast.invalidationLabel;
+  $("#frozen-invalidation-price").textContent = forecast.invalidationPrice == null ? "Confirmation required" : fmtPrice(forecast.invalidationPrice);
+  $("#forecast-reason").textContent = `${forecast.reason} Captured ${timeLabel(record.capturedAt)} CT; these fields are immutable.`;
+
+  const checkpointIds = { midnight: "#cp-midnight", london: "#cp-london", newYork: "#cp-newyork", final: "#cp-final" };
+  Object.entries(checkpointIds).forEach(([key, selector]) => {
+    const item = record.checkpoints?.[key];
+    if (!item) return;
+    const target = $(selector);
+    target.textContent = item.status === "graded" ? "Complete" : item.firstSweep ? `First raid: ${item.firstSweep}` : "Recorded";
+    target.closest(".checkpoint").classList.add("done");
+  });
+
+  if (record.result) {
+    const result = record.result;
+    const grade = result.grade.replace("-", " ");
+    $("#forecast-grade").textContent = grade.toUpperCase();
+    $("#forecast-grade").className = result.grade;
+    $("#forecast-excursion").textContent = result.favorablePips == null ? "Observation recorded" : `+${result.favorablePips} / −${result.adversePips} pips`;
+  }
+}
+
 function renderAsia(data) {
   const { asia, london, playbook } = data.sessions;
   if (!asia || asia.high == null) {
@@ -237,6 +275,7 @@ async function init() {
     if (!response.ok) throw new Error(`Data request failed: ${response.status}`);
     state.data = await response.json();
     renderBrief(state.data);
+    renderForecastAudit(state.data);
     renderAsia(state.data);
     renderCalendar(state.data);
     setupChartModes(state.data);

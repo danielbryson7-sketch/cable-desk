@@ -11,6 +11,7 @@ A public, observation-only GBP/USD top-down and Asian-range dashboard. It combin
 - current five-minute indicative candles;
 - scheduled GBP and USD economic events; and
 - a transparent monthly → weekly → daily directional score with an Asia-led confirmation plan.
+- an immutable midnight forecast followed by London, New York, and end-of-day checkpoints.
 
 The dashboard is context, not an automated trade signal.
 
@@ -29,7 +30,7 @@ Open `http://localhost:8000`.
 2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
 3. Run **Refresh and publish Cable Desk** from the repository's Actions tab.
 
-The included workflow refreshes the data each weekday and deploys the site. The refresh uses public, no-key endpoints; no repository secrets are required.
+The included workflow checks four New York-time checkpoints each weekday: 00:05 freezes the Asian range and forecast, 05:05 records London, 10:05 records New York AM, and 16:15 grades the day. Paired UTC schedules keep those local times stable through daylight-saving changes. The refresh uses public, no-key endpoints; no repository secrets are required.
 
 ## Data notes
 
