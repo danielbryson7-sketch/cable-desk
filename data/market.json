@@ -1,15 +1,15 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-09-22T09:23:34.243610-05:00",
+    "updatedAt": "2026-09-22T09:26:11.484735-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
     "modelVersion": "2.0 top-down + Asian range"
   },
   "quote": {
-    "price": 1.335417,
-    "asOf": 1790086990
+    "price": 1.335648,
+    "asOf": 1790087110
   },
   "previousMonth": {
     "start": "2026-08-01",
@@ -171,14 +171,15 @@
       "count": 36
     },
     "playbook": {
-      "state": "Two-sided observation",
-      "verdict": "Let London reveal the first raid; trade only a reclaim plus structure shift.",
-      "expectedRaid": "Either edge",
-      "firstTarget": "Opposite Asian edge",
+      "state": "Asian-low break holding",
+      "verdict": "Bearish continuation candidate: price remains below ARL after the first raid.",
+      "expectedRaid": "ARL retest from below",
+      "firstTarget": "Previous-week low",
       "steps": [
-        "Manipulation: watch Either edge for the first meaningful liquidity raid.",
-        "Confirmation: require a directional 5m displacement and market-structure shift back through the range.",
-        "Distribution: use Opposite Asian edge as the first objective, then the higher-timeframe draw."
+        "Liquidity condition: watch ARL retest from below.",
+        "Confirmation: require a bearish 5m displacement and market-structure shift away from the rejected edge.",
+        "Distribution: use Previous-week low as the first objective, then the higher-timeframe draw.",
+        "Flip condition: reclaim ARL and PDL with bullish displacement; then target AREQ and ARH."
       ],
       "noTradeIf": "Both Asian edges are swept, price never reclaims the raided edge, or high-impact news is imminent."
     }
@@ -263,13 +264,6 @@
     }
   ],
   "candles": [
-    {
-      "t": 1789736400,
-      "o": 1.33481,
-      "h": 1.33481,
-      "l": 1.334472,
-      "c": 1.33465
-    },
     {
       "t": 1789736700,
       "o": 1.334704,
@@ -4284,16 +4278,23 @@
     {
       "t": 1790086800,
       "o": 1.335167,
-      "h": 1.335399,
+      "h": 1.335524,
       "l": 1.335167,
-      "c": 1.335399
+      "c": 1.335524
     },
     {
-      "t": 1790086990,
-      "o": 1.335417,
-      "h": 1.335417,
-      "l": 1.335417,
-      "c": 1.335417
+      "t": 1790087100,
+      "o": 1.335648,
+      "h": 1.335648,
+      "l": 1.335648,
+      "c": 1.335648
+    },
+    {
+      "t": 1790087110,
+      "o": 1.335648,
+      "h": 1.335648,
+      "l": 1.335648,
+      "c": 1.335648
     }
   ],
   "calendar": [

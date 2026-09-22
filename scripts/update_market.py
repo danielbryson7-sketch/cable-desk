@@ -171,7 +171,8 @@ def current_trade_date(now_ny: datetime) -> date:
     return now_ny.date() + timedelta(days=1) if now_ny.time() >= time(20, 0) else now_ny.date()
 
 
-def build_sessions(rows: list[dict], now: datetime, direction: str) -> dict:
+def build_sessions(rows: list[dict], now: datetime, bias: dict) -> dict:
+    direction = bias["direction"]
     now_ny = now.astimezone(NEW_YORK)
     trade_day = current_trade_date(now_ny)
     prior_date = trade_day - timedelta(days=1)
@@ -196,7 +197,8 @@ def build_sessions(rows: list[dict], now: datetime, direction: str) -> dict:
     candidates = []
     if high_sweeps: candidates.append((high_sweeps[0]["t"], "Asian high"))
     if low_sweeps: candidates.append((low_sweeps[0]["t"], "Asian low"))
-    london.update({"sweptAsiaHigh": swept_high, "sweptAsiaLow": swept_low, "firstSweep": min(candidates)[1] if candidates else None})
+    first_sweep = min(candidates)[1] if candidates else None
+    london.update({"sweptAsiaHigh": swept_high, "sweptAsiaLow": swept_low, "firstSweep": first_sweep})
 
     width = asia["rangePips"]
     if width < 8:
@@ -209,25 +211,51 @@ def build_sessions(rows: list[dict], now: datetime, direction: str) -> dict:
         quality, quality_note = "overextended", "Range exceeds 40 pips; the classic London Judas profile is degraded."
     asia.update({"quality": quality, "qualityNote": quality_note, "midnightOpen": midnight})
 
+    latest_price = rows[-1]["c"]
     if swept_high and swept_low:
         state, verdict = "Both sides raided", "Stand aside: the Asian box has already been cleared on both sides."
     elif direction == "Bullish":
         state, verdict = "Bullish AMD watch", "Prefer an Asian-low raid and reclaim before expansion higher."
     elif direction == "Bearish":
         state, verdict = "Bearish AMD watch", "Prefer an Asian-high raid and rejection before expansion lower."
+    elif first_sweep == "Asian low" and latest_price < asia["low"]:
+        state, verdict = "Asian-low break holding", "Bearish continuation candidate: price remains below ARL after the first raid."
+    elif first_sweep == "Asian low":
+        state, verdict = "Asian-low raid reclaimed", "Bullish reversal candidate: ARL has been reclaimed after the sell-side raid."
+    elif first_sweep == "Asian high" and latest_price > asia["high"]:
+        state, verdict = "Asian-high break holding", "Bullish continuation candidate: price remains above ARH after the first raid."
+    elif first_sweep == "Asian high":
+        state, verdict = "Asian-high raid rejected", "Bearish reversal candidate: ARH has been rejected after the buy-side raid."
     else:
         state, verdict = "Two-sided observation", "Let London reveal the first raid; trade only a reclaim plus structure shift."
-    expected_raid = "Asian low" if direction == "Bullish" else "Asian high" if direction == "Bearish" else "Either edge"
-    opposing_target = "Asian high" if direction == "Bullish" else "Asian low" if direction == "Bearish" else "Opposite Asian edge"
-    action = "bullish" if direction == "Bullish" else "bearish" if direction == "Bearish" else "directional"
+
+    if direction == "Neutral" and state == "Asian-low break holding":
+        expected_raid, opposing_target, action = "ARL retest from below", bias["draw"], "bearish"
+        flip = "Flip condition: reclaim ARL and PDL with bullish displacement; then target AREQ and ARH."
+    elif direction == "Neutral" and state == "Asian-low raid reclaimed":
+        expected_raid, opposing_target, action = "ARL support retest", "Asian high", "bullish"
+        flip = "Flip condition: lose ARL again with bearish acceptance; then target lower external sell-side."
+    elif direction == "Neutral" and state == "Asian-high break holding":
+        expected_raid, opposing_target, action = "ARH support retest", bias["draw"], "bullish"
+        flip = "Flip condition: lose ARH with bearish displacement; then target AREQ and ARL."
+    elif direction == "Neutral" and state == "Asian-high raid rejected":
+        expected_raid, opposing_target, action = "ARH resistance retest", "Asian low", "bearish"
+        flip = "Flip condition: reclaim ARH with bullish acceptance; then target higher external buy-side."
+    else:
+        expected_raid = "Asian low" if direction == "Bullish" else "Asian high" if direction == "Bearish" else "Either edge"
+        opposing_target = "Asian high" if direction == "Bullish" else "Asian low" if direction == "Bearish" else "Opposite Asian edge"
+        action = "bullish" if direction == "Bullish" else "bearish" if direction == "Bearish" else "directional"
+        flip = "Flip condition: the expected raid fails to reclaim and price accepts beyond the opposite side."
+    confirmation_context = "away from the rejected edge" if "break holding" in state else "back through the range"
     return {
         "tradeDate": trade_day.isoformat(), "asia": asia, "london": london, "newYork": new_york,
         "playbook": {
             "state": state, "verdict": verdict, "expectedRaid": expected_raid, "firstTarget": opposing_target,
             "steps": [
-                f"Manipulation: watch {expected_raid} for the first meaningful liquidity raid.",
-                f"Confirmation: require a {action} 5m displacement and market-structure shift back through the range.",
+                f"Liquidity condition: watch {expected_raid}.",
+                f"Confirmation: require a {action} 5m displacement and market-structure shift {confirmation_context}.",
                 f"Distribution: use {opposing_target} as the first objective, then the higher-timeframe draw.",
+                flip,
             ],
             "noTradeIf": "Both Asian edges are swept, price never reclaims the raided edge, or high-impact news is imminent.",
         },
@@ -310,7 +338,7 @@ def main() -> None:
     four_hour, one_hour = four_hour_frame(hourly, now), one_hour_frame(hourly, now)
     price = intraday[-1]["c"]
     bias = build_top_down(month, week, day, four_hour, one_hour, price, events, now)
-    sessions = build_sessions(intraday, now, bias["direction"])
+    sessions = build_sessions(intraday, now, bias)
     payload = {
         "meta": {"symbol": "GBP/USD", "updatedAt": now.isoformat(), "timezone": "America/Chicago", "priceSource": "Yahoo Finance indicative GBPUSD=X", "calendarSource": "Forex Factory public weekly calendar", "modelVersion": "2.0 top-down + Asian range"},
         "quote": {"price": price, "asOf": intraday[-1]["t"]},
