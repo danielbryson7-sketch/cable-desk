@@ -5,6 +5,7 @@ A public, observation-only GBP/USD top-down and Asian-range dashboard. It combin
 - previous-month direction and liquidity;
 - last week's open, high, low, close, midpoint, and range;
 - prior-day direction and range;
+- completed four-hour and one-hour directional structure;
 - the 20:00–00:00 New York Asian range, midpoint, and midnight open;
 - London and New York session delivery and Asian-edge sweeps;
 - current five-minute indicative candles;

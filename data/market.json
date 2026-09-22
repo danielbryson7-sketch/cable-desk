@@ -1,15 +1,15 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-09-22T09:20:47.328351-05:00",
+    "updatedAt": "2026-09-22T09:23:18.621078-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
     "modelVersion": "2.0 top-down + Asian range"
   },
   "quote": {
-    "price": 1.335167,
-    "asOf": 1790086810
+    "price": 1.335417,
+    "asOf": 1790086990
   },
   "previousMonth": {
     "start": "2026-08-01",
@@ -49,10 +49,32 @@
     "rangePips": 30.5,
     "direction": "bearish"
   },
+  "fourHour": {
+    "start": "2026-09-22T04:00:00-04:00",
+    "end": "2026-09-22T08:00:00-04:00",
+    "open": 1.33547,
+    "high": 1.337327,
+    "low": 1.332924,
+    "close": 1.336112,
+    "midpoint": 1.335125,
+    "rangePips": 44.0,
+    "direction": "bullish"
+  },
+  "oneHour": {
+    "start": "2026-09-22T13:00:00+00:00",
+    "end": "2026-09-22T14:00:00+00:00",
+    "open": 1.335595,
+    "high": 1.336595,
+    "low": 1.335488,
+    "close": 1.336041,
+    "midpoint": 1.336041,
+    "rangePips": 11.1,
+    "direction": "bullish"
+  },
   "bias": {
     "direction": "Neutral",
-    "score": 0,
-    "maxScore": 6,
+    "score": 1,
+    "maxScore": 15,
     "confidence": "event-risk",
     "newsRisk": "medium",
     "draw": "Previous-week low",
@@ -64,28 +86,42 @@
       {
         "label": "Previous month",
         "direction": "bullish",
-        "weight": 3,
+        "weight": 5,
         "range": "1.3420\u20131.3675",
         "close": 1.354041
       },
       {
         "label": "Previous week",
         "direction": "bearish",
-        "weight": 2,
+        "weight": 4,
         "range": "1.3337\u20131.3528",
         "close": 1.3358
       },
       {
         "label": "Prior day",
         "direction": "bearish",
-        "weight": 1,
+        "weight": 3,
         "range": "1.3369\u20131.3399",
         "close": 1.338867
+      },
+      {
+        "label": "Completed 4H",
+        "direction": "bullish",
+        "weight": 2,
+        "range": "1.3329\u20131.3373",
+        "close": 1.336112
+      },
+      {
+        "label": "Completed 1H",
+        "direction": "bullish",
+        "weight": 1,
+        "range": "1.3355\u20131.3366",
+        "close": 1.336041
       }
     ],
     "todayEventCount": 9,
     "disruptiveEventCount": 1,
-    "method": "Monthly \u2192 weekly \u2192 daily narrative; Asia supplies the intraday manipulation map."
+    "method": "Monthly \u2192 weekly \u2192 daily \u2192 4H \u2192 1H narrative; Asia supplies the intraday manipulation map and 5m confirms execution."
   },
   "sessions": {
     "tradeDate": "2026-09-22",
@@ -227,13 +263,6 @@
     }
   ],
   "candles": [
-    {
-      "t": 1789736100,
-      "o": 1.334846,
-      "h": 1.335131,
-      "l": 1.334846,
-      "c": 1.334935
-    },
     {
       "t": 1789736400,
       "o": 1.33481,
@@ -4253,11 +4282,18 @@
       "c": 1.335007
     },
     {
-      "t": 1790086810,
+      "t": 1790086800,
       "o": 1.335167,
-      "h": 1.335167,
+      "h": 1.335399,
       "l": 1.335167,
-      "c": 1.335167
+      "c": 1.335399
+    },
+    {
+      "t": 1790086990,
+      "o": 1.335417,
+      "h": 1.335417,
+      "l": 1.335417,
+      "c": 1.335417
     }
   ],
   "calendar": [

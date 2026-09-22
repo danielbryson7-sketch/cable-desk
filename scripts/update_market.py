@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import math
+import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, time, timedelta, timezone
@@ -87,8 +88,46 @@ def prior_day(rows: list[dict], now: datetime) -> dict:
     }
 
 
+def one_hour_frame(rows: list[dict], now: datetime) -> dict:
+    cutoff = now.astimezone(UTC).replace(minute=0, second=0, microsecond=0)
+    completed = [row for row in rows if datetime.fromtimestamp(row["t"], UTC) < cutoff]
+    row = completed[-1]
+    start = datetime.fromtimestamp(row["t"], UTC)
+    return {
+        "start": start.isoformat(), "end": (start + timedelta(hours=1)).isoformat(),
+        "open": row["o"], "high": row["h"], "low": row["l"], "close": row["c"],
+        "midpoint": round((row["h"] + row["l"]) / 2, 6),
+        "rangePips": round((row["h"] - row["l"]) * 10000, 1),
+        "direction": "bullish" if row["c"] > row["o"] else "bearish",
+    }
+
+
+def four_hour_frame(rows: list[dict], now: datetime) -> dict:
+    groups: dict[datetime, list[dict]] = {}
+    for row in rows:
+        moment = datetime.fromtimestamp(row["t"], UTC).astimezone(NEW_YORK)
+        block = moment.replace(hour=(moment.hour // 4) * 4, minute=0, second=0, microsecond=0)
+        groups.setdefault(block, []).append(row)
+    completed = [(start, block_rows) for start, block_rows in groups.items() if start + timedelta(hours=4) <= now.astimezone(NEW_YORK)]
+    start, selected = max(completed, key=lambda item: item[0])
+    high, low = max(row["h"] for row in selected), min(row["l"] for row in selected)
+    return {
+        "start": start.isoformat(), "end": (start + timedelta(hours=4)).isoformat(),
+        "open": selected[0]["o"], "high": high, "low": low, "close": selected[-1]["c"],
+        "midpoint": round((high + low) / 2, 6), "rangePips": round((high - low) * 10000, 1),
+        "direction": "bullish" if selected[-1]["c"] > selected[0]["o"] else "bearish",
+    }
+
+
 def parse_calendar() -> list[dict]:
-    root = ET.fromstring(fetch(CALENDAR))
+    try:
+        root = ET.fromstring(fetch(CALENDAR))
+    except urllib.error.HTTPError as error:
+        if error.code == 429 and OUTPUT.exists():
+            cached = json.loads(OUTPUT.read_text(encoding="utf-8")).get("calendar", [])
+            if cached:
+                return cached
+        raise
     events = []
     for node in root.findall(".//event"):
         item = {child.tag: (child.text or "").strip() for child in node}
@@ -201,10 +240,13 @@ def today_news(events: list[dict], now: datetime) -> tuple[list[dict], str]:
     return selected, risk
 
 
-def build_top_down(month: dict, week: dict, day: dict, price: float, events: list[dict], now: datetime) -> dict:
-    weights = [("Previous month", month, 3), ("Previous week", week, 2), ("Prior day", day, 1)]
+def build_top_down(month: dict, week: dict, day: dict, four_hour: dict, one_hour: dict, price: float, events: list[dict], now: datetime) -> dict:
+    weights = [
+        ("Previous month", month, 5), ("Previous week", week, 4), ("Prior day", day, 3),
+        ("Completed 4H", four_hour, 2), ("Completed 1H", one_hour, 1),
+    ]
     score = sum(weight if frame["direction"] == "bullish" else -weight for _, frame, weight in weights)
-    direction = "Bullish" if score >= 3 else "Bearish" if score <= -3 else "Neutral"
+    direction = "Bullish" if score >= 5 else "Bearish" if score <= -5 else "Neutral"
     stack = [{"label": label, "direction": frame["direction"], "weight": weight, "range": f"{frame['low']:.4f}–{frame['high']:.4f}", "close": frame["close"]} for label, frame, weight in weights]
     if direction == "Bullish":
         candidates = [("Prior-day high", day["high"]), ("Previous-week high", week["high"]), ("Previous-month high", month["high"])]
@@ -219,19 +261,23 @@ def build_top_down(month: dict, week: dict, day: dict, price: float, events: lis
         location = "Weekly premium supports shorts" if price >= week["midpoint"] else "Weekly discount: do not chase shorts"
         invalidation, confirmation = day["high"], "Sweep buy-side liquidity, reject it, then print bearish 5m displacement"
     else:
-        candidates = [("Prior-day high", day["high"]), ("Prior-day low", day["low"]), ("Previous-week high", week["high"]), ("Previous-week low", week["low"])]
-        draw_label, draw_price = min(candidates, key=lambda item: abs(item[1] - price))
+        candidates = [
+            ("Prior-day high", day["high"], "buy"), ("Prior-day low", day["low"], "sell"),
+            ("Previous-week high", week["high"], "buy"), ("Previous-week low", week["low"], "sell"),
+        ]
+        unswept = [item for item in candidates if (item[2] == "buy" and item[1] > price) or (item[2] == "sell" and item[1] < price)]
+        draw_label, draw_price, _ = min(unswept or candidates, key=lambda item: abs(item[1] - price))
         location, invalidation = "Higher timeframes disagree", week["midpoint"]
         confirmation = "Wait for one side to be swept; the reclaim and displacement define direction"
     today_events, news_risk = today_news(events, now)
     confidence = "aligned" if len({frame["direction"] for _, frame, _ in weights}) == 1 else "mixed"
     if news_risk in {"high", "medium"}: confidence = "event-risk"
     return {
-        "direction": direction, "score": score, "maxScore": 6, "confidence": confidence, "newsRisk": news_risk,
+        "direction": direction, "score": score, "maxScore": 15, "confidence": confidence, "newsRisk": news_risk,
         "draw": draw_label, "drawPrice": draw_price, "invalidation": invalidation, "confirmation": confirmation,
         "location": location, "stack": stack, "todayEventCount": len(today_events),
         "disruptiveEventCount": sum(event["impact"] in {"High", "Medium"} for event in today_events),
-        "method": "Monthly → weekly → daily narrative; Asia supplies the intraday manipulation map.",
+        "method": "Monthly → weekly → daily → 4H → 1H narrative; Asia supplies the intraday manipulation map and 5m confirms execution.",
     }
 
 
@@ -259,15 +305,17 @@ def build_levels(month: dict, week: dict, day: dict, sessions: dict) -> list[dic
 
 def main() -> None:
     now = datetime.now(UTC).astimezone(CHICAGO)
-    daily, intraday, events = yahoo("1d", "1y"), yahoo("5m", "5d"), parse_calendar()
+    daily, hourly, intraday, events = yahoo("1d", "1y"), yahoo("1h", "1mo"), yahoo("5m", "5d"), parse_calendar()
     month, week, day = previous_month(daily, now), previous_week(daily, now), prior_day(daily, now)
+    four_hour, one_hour = four_hour_frame(hourly, now), one_hour_frame(hourly, now)
     price = intraday[-1]["c"]
-    bias = build_top_down(month, week, day, price, events, now)
+    bias = build_top_down(month, week, day, four_hour, one_hour, price, events, now)
     sessions = build_sessions(intraday, now, bias["direction"])
     payload = {
         "meta": {"symbol": "GBP/USD", "updatedAt": now.isoformat(), "timezone": "America/Chicago", "priceSource": "Yahoo Finance indicative GBPUSD=X", "calendarSource": "Forex Factory public weekly calendar", "modelVersion": "2.0 top-down + Asian range"},
         "quote": {"price": price, "asOf": intraday[-1]["t"]},
-        "previousMonth": month, "lastWeek": week, "priorDay": day, "bias": bias, "sessions": sessions,
+        "previousMonth": month, "lastWeek": week, "priorDay": day, "fourHour": four_hour, "oneHour": one_hour,
+        "bias": bias, "sessions": sessions,
         "levels": build_levels(month, week, day, sessions), "candles": intraday[-576:], "calendar": events,
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
