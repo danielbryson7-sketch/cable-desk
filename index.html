@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A transparent daily GBP/USD directional briefing built from prior-week structure, liquidity, and scheduled news.">
+  <meta name="theme-color" content="#080b10">
+  <title>Cable Desk — GBP/USD Daily Bias</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%23080b10'/%3E%3Cpath d='M14 42 25 31l8 7 17-19' fill='none' stroke='%236fe3b1' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='19' r='4' fill='%23ffcb66'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Cable Desk home">
+      <span class="brand-mark">CD</span>
+      <span>Cable Desk</span>
+    </a>
+    <div class="topbar-meta">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span id="updated-label">Loading daily brief…</span>
+      <span class="paper-badge">OBSERVATION ONLY</span>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="briefing-shell" aria-labelledby="briefing-title">
+      <div class="section-kicker"><span>01</span> Daily briefing</div>
+      <div class="brief-grid">
+        <article class="bias-card">
+          <div class="bias-heading">
+            <div>
+              <p class="eyebrow">GBP/USD directional context</p>
+              <h1 id="briefing-title"><span id="bias-word">—</span> <span class="soft">bias</span></h1>
+            </div>
+            <div class="confidence" id="confidence-chip">Calculating</div>
+          </div>
+          <p class="bias-summary" id="bias-summary">Reading last week’s structure, current location, and today’s event risk.</p>
+
+          <div class="level-rail" aria-label="Last week's price range">
+            <div class="rail-labels"><span id="week-low">—</span><span>LAST WEEK RANGE</span><span id="week-high">—</span></div>
+            <div class="rail-track">
+              <span class="rail-mid" aria-hidden="true"></span>
+              <span class="rail-price" id="price-marker" aria-label="Current price"></span>
+            </div>
+            <div class="rail-caption"><span>Sell-side liquidity</span><span id="midpoint-label">Midpoint —</span><span>Buy-side liquidity</span></div>
+          </div>
+
+          <div class="plan-grid">
+            <div class="plan-cell accent">
+              <span class="cell-label">Likely draw</span>
+              <strong id="draw-label">—</strong>
+              <small id="draw-price">—</small>
+            </div>
+            <div class="plan-cell">
+              <span class="cell-label">Wait for</span>
+              <strong id="confirmation-label">—</strong>
+            </div>
+            <div class="plan-cell">
+              <span class="cell-label">Bias weakens beyond</span>
+              <strong id="invalidation-label">—</strong>
+              <small>Context level, not a stop</small>
+            </div>
+          </div>
+        </article>
+
+        <aside class="evidence-card">
+          <div class="card-title-row">
+            <div>
+              <p class="eyebrow">Why this bias?</p>
+              <h2>Evidence stack</h2>
+            </div>
+            <div class="score-orbit"><span id="score-value">0</span><small>score</small></div>
+          </div>
+          <div id="evidence-list" class="evidence-list"></div>
+          <div class="news-risk">
+            <div class="risk-icon">!</div>
+            <div><span class="cell-label">Today’s news risk</span><strong id="news-risk-label">—</strong></div>
+            <div class="risk-count" id="risk-count">0 events</div>
+          </div>
+          <p class="method-note">The score creates a starting hypothesis. Price still has to sweep liquidity and confirm on the five-minute chart.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="market-shell" aria-labelledby="chart-title">
+      <div class="section-kicker"><span>02</span> Price delivery</div>
+      <div class="market-card">
+        <div class="market-heading">
+          <div>
+            <p class="eyebrow">Five-minute indicative candles</p>
+            <h2 id="chart-title">Where price is hunting</h2>
+          </div>
+          <div class="quote-block"><span id="current-price">—</span><small>GBP/USD</small></div>
+        </div>
+        <div class="chart-legend" aria-hidden="true">
+          <span><i class="legend-line high"></i>Last week high</span>
+          <span><i class="legend-line mid"></i>Midpoint</span>
+          <span><i class="legend-line low"></i>Last week low</span>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="price-chart" role="img" aria-label="GBP/USD five-minute candlestick chart"></canvas>
+          <div class="chart-empty" id="chart-empty" hidden>Price data unavailable.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="news-shell" aria-labelledby="news-title">
+      <div class="section-kicker"><span>03</span> Event map</div>
+      <div class="news-heading">
+        <div>
+          <p class="eyebrow">GBP & USD calendar · Chicago time</p>
+          <h2 id="news-title">News that can break the script</h2>
+        </div>
+        <div class="day-tabs" id="day-tabs" role="tablist" aria-label="Calendar days"></div>
+      </div>
+      <div id="event-list" class="event-list"></div>
+    </section>
+
+    <section class="rules-shell" aria-labelledby="rules-title">
+      <div class="section-kicker"><span>04</span> Paranoia, with rules</div>
+      <div class="rules-grid">
+        <div>
+          <p class="eyebrow">The market-maker lens</p>
+          <h2 id="rules-title">Assume the obvious level is bait.<br>Demand confirmation anyway.</h2>
+        </div>
+        <ol class="rules-list">
+          <li><span>01</span><div><strong>Mark the magnets</strong><p>Last week’s high, low, midpoint, and the prior day’s extremes.</p></div></li>
+          <li><span>02</span><div><strong>Let price raid first</strong><p>No prediction entry. Wait for a sweep of obvious buy-side or sell-side liquidity.</p></div></li>
+          <li><span>03</span><div><strong>Make displacement prove it</strong><p>A five-minute structure shift and imbalance must agree with the daily hypothesis.</p></div></li>
+          <li><span>04</span><div><strong>News can void the script</strong><p>High-impact events downgrade confidence until the first post-release structure forms.</p></div></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Cable Desk</strong> is a public paper-trading notebook, not financial advice.</p>
+    <p>Indicative prices can differ from broker quotes. Bias is context—not a promise.</p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
