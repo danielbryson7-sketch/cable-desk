@@ -28,8 +28,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/market.json
-          git diff --cached --quiet || git commit -m "data: refresh daily GBPUSD briefing"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "data: refresh daily GBPUSD briefing"
+            git pull --rebase origin main
+            git push
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
