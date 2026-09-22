@@ -1,7 +1,7 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-09-22T10:53:37.523283-05:00",
+    "updatedAt": "2026-09-22T10:54:19.200672-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
@@ -9,8 +9,8 @@
     "checkpoint": "refresh"
   },
   "quote": {
-    "price": 1.332782,
-    "asOf": 1790092387
+    "price": 1.3328,
+    "asOf": 1790092447
   },
   "previousMonth": {
     "start": "2026-08-01",
@@ -205,7 +205,7 @@
     "levelCount": {
       "label": "Level 2 drop",
       "direction": "below",
-      "distancePips": 35.3,
+      "distancePips": 35.1,
       "bandPips": 25,
       "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
     },
@@ -215,16 +215,16 @@
       "usedPercent": 136.9
     },
     "emas": {
-      "ema13": 1.333584,
-      "ema50": 1.334945,
-      "mayo200": 1.33624,
+      "ema13": 1.333599,
+      "ema50": 1.33495,
+      "mayo200": 1.336241,
       "alignment": "bearish",
-      "mayoDistancePips": -34.6,
+      "mayoDistancePips": -34.4,
       "recentMayoTouch": false
     },
     "tdiProxy": {
-      "rsi13": 26.9,
-      "signal2": 25.8,
+      "rsi13": 27.1,
+      "signal2": 27.0,
       "state": "mixed",
       "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
     },
@@ -237,11 +237,11 @@
   "dayStory": {
     "status": "live",
     "headline": "Sell-side delivery is holding below Asia",
-    "summary": "From the Asian open, GBP/USD is -41.2 pips. From the midnight open, it is -55.1 pips and currently sits below the Asian low. The live ICT reading is neutral; the BTMM scanner shows half batman (confirmed).",
-    "asOf": "2026-09-22T11:53:07-04:00",
+    "summary": "From the Asian open, GBP/USD is -41.0 pips. From the midnight open, it is -54.9 pips and currently sits below the Asian low. The live ICT reading is neutral; the BTMM scanner shows half batman (confirmed).",
+    "asOf": "2026-09-22T11:54:07-04:00",
     "metrics": {
-      "sinceAsiaPips": -41.2,
-      "sinceMidnightPips": -55.1,
+      "sinceAsiaPips": -41.0,
+      "sinceMidnightPips": -54.9,
       "high": 1.33876,
       "highAt": "2026-09-22T01:00:00-04:00",
       "low": 1.332534,
@@ -316,10 +316,10 @@
         "open": 1.335916,
         "high": 1.336309,
         "low": 1.332534,
-        "close": 1.332782,
+        "close": 1.3328,
         "rangePips": 37.7,
-        "movePips": -31.3,
-        "text": "Price fell 31.3 pips from 1.3359 to 1.3328; the phase covered 37.7 pips. It traded through Asian low. It ended below the Asian low."
+        "movePips": -31.2,
+        "text": "Price fell 31.2 pips from 1.3359 to 1.3328; the phase covered 37.7 pips. It traded through Asian low. It ended below the Asian low."
       }
     ],
     "method": "Deterministic five-minute candle summary from 20:00 New York through the latest available candle; no AI generation is used during refreshes."
@@ -415,21 +415,21 @@
     {
       "key": "EMA13",
       "label": "BTMM fast EMA",
-      "price": 1.333584,
+      "price": 1.333599,
       "side": "buy",
       "group": "btmm"
     },
     {
       "key": "EMA50",
       "label": "BTMM 50 EMA",
-      "price": 1.334945,
+      "price": 1.33495,
       "side": "mid",
       "group": "btmm"
     },
     {
       "key": "MAYO",
       "label": "BTMM 200 EMA",
-      "price": 1.33624,
+      "price": 1.336241,
       "side": "open",
       "group": "btmm"
     }
@@ -4456,16 +4456,16 @@
     {
       "t": 1790092200,
       "o": 1.332569,
-      "h": 1.332676,
+      "h": 1.332782,
       "l": 1.332569,
-      "c": 1.332676
+      "c": 1.332782
     },
     {
-      "t": 1790092387,
-      "o": 1.332782,
-      "h": 1.332782,
-      "l": 1.332782,
-      "c": 1.332782
+      "t": 1790092447,
+      "o": 1.3328,
+      "h": 1.3328,
+      "l": 1.3328,
+      "c": 1.3328
     }
   ],
   "calendar": [
