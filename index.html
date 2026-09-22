@@ -57,7 +57,7 @@
               <strong id="confirmation-label">—</strong>
             </div>
             <div class="plan-cell">
-              <span class="cell-label">Bias weakens beyond</span>
+              <span class="cell-label" id="invalidation-title">Bias weakens beyond</span>
               <strong id="invalidation-label">—</strong>
               <small>Context level, not a stop</small>
             </div>
@@ -67,8 +67,8 @@
         <aside class="evidence-card">
           <div class="card-title-row">
             <div>
-              <p class="eyebrow">Why this bias?</p>
-              <h2>Evidence stack</h2>
+              <p class="eyebrow">Monthly → weekly → daily</p>
+              <h2>Top-down stack</h2>
             </div>
             <div class="score-orbit"><span id="score-value">0</span><small>score</small></div>
           </div>
@@ -78,35 +78,74 @@
             <div><span class="cell-label">Today’s news risk</span><strong id="news-risk-label">—</strong></div>
             <div class="risk-count" id="risk-count">0 events</div>
           </div>
-          <p class="method-note">The score creates a starting hypothesis. Price still has to sweep liquidity and confirm on the five-minute chart.</p>
+          <p class="method-note">Higher-timeframe direction defines the narrative. Asia supplies the intraday manipulation map; five-minute displacement must confirm it.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="asia-shell" aria-labelledby="asia-title">
+      <div class="section-kicker"><span>02</span> Asian range model</div>
+      <div class="asia-grid">
+        <article class="asia-card">
+          <div class="asia-heading">
+            <div>
+              <p class="eyebrow">20:00–00:00 New York · accumulation</p>
+              <h2 id="asia-title">Asia builds the box.<br>London reveals the raid.</h2>
+            </div>
+            <span class="range-quality" id="range-quality">—</span>
+          </div>
+          <div class="asia-range-map" aria-label="Asian session range">
+            <div class="asia-level high"><span>ARH · BUY-SIDE</span><strong id="asia-high">—</strong></div>
+            <div class="asia-box">
+              <span class="asia-eq" aria-hidden="true"></span>
+              <div><span>ASIAN RANGE</span><strong id="asia-range-pips">—</strong></div>
+            </div>
+            <div class="asia-level low"><span>ARL · SELL-SIDE</span><strong id="asia-low">—</strong></div>
+          </div>
+          <p class="asia-quality-note" id="asia-quality-note">Reading the overnight accumulation range.</p>
+          <div class="sweep-row">
+            <div><span class="cell-label">London first raid</span><strong id="first-sweep">—</strong></div>
+            <div><span class="cell-label">Midnight open</span><strong id="midnight-open">—</strong></div>
+            <div><span class="cell-label">Model state</span><strong id="asia-state">—</strong></div>
+          </div>
+        </article>
+        <aside class="look-card">
+          <p class="eyebrow">Today’s sequence</p>
+          <h2>What to look for</h2>
+          <p class="look-verdict" id="asia-verdict">Waiting for the Asian range.</p>
+          <ol class="look-list" id="asia-steps"></ol>
+          <div class="no-trade"><span>NO-TRADE CONDITION</span><p id="no-trade-rule">—</p></div>
         </aside>
       </div>
     </section>
 
     <section class="market-shell" aria-labelledby="chart-title">
-      <div class="section-kicker"><span>02</span> Price delivery</div>
+      <div class="section-kicker"><span>03</span> Price delivery</div>
       <div class="market-card">
         <div class="market-heading">
           <div>
             <p class="eyebrow">Five-minute indicative candles</p>
             <h2 id="chart-title">Where price is hunting</h2>
           </div>
-          <div class="quote-block"><span id="current-price">—</span><small>GBP/USD</small></div>
+          <div class="market-actions">
+            <div class="chart-modes" role="group" aria-label="Chart levels">
+              <button class="chart-mode active" data-mode="session" aria-pressed="true">Session map</button>
+              <button class="chart-mode" data-mode="htf" aria-pressed="false">HTF map</button>
+            </div>
+            <div class="quote-block"><span id="current-price">—</span><small>GBP/USD</small></div>
+          </div>
         </div>
-        <div class="chart-legend" aria-hidden="true">
-          <span><i class="legend-line high"></i>Last week high</span>
-          <span><i class="legend-line mid"></i>Midpoint</span>
-          <span><i class="legend-line low"></i>Last week low</span>
-        </div>
+        <div class="chart-instruction" id="chart-instruction">Session map: watch the Asian edge expected to be raided, then require a reclaim.</div>
         <div class="chart-wrap">
           <canvas id="price-chart" role="img" aria-label="GBP/USD five-minute candlestick chart"></canvas>
           <div class="chart-empty" id="chart-empty" hidden>Price data unavailable.</div>
         </div>
+        <div class="level-strip" id="level-strip" aria-label="Active price levels"></div>
       </div>
     </section>
 
     <section class="news-shell" aria-labelledby="news-title">
-      <div class="section-kicker"><span>03</span> Event map</div>
+      <div class="section-kicker"><span>04</span> Event map</div>
       <div class="news-heading">
         <div>
           <p class="eyebrow">GBP & USD calendar · Chicago time</p>
@@ -118,16 +157,16 @@
     </section>
 
     <section class="rules-shell" aria-labelledby="rules-title">
-      <div class="section-kicker"><span>04</span> Paranoia, with rules</div>
+      <div class="section-kicker"><span>05</span> Paranoia, with rules</div>
       <div class="rules-grid">
         <div>
           <p class="eyebrow">The market-maker lens</p>
           <h2 id="rules-title">Assume the obvious level is bait.<br>Demand confirmation anyway.</h2>
         </div>
         <ol class="rules-list">
-          <li><span>01</span><div><strong>Mark the magnets</strong><p>Last week’s high, low, midpoint, and the prior day’s extremes.</p></div></li>
+          <li><span>01</span><div><strong>Mark the magnets</strong><p>Previous-month, previous-week, prior-day, and Asian-range liquidity.</p></div></li>
           <li><span>02</span><div><strong>Let price raid first</strong><p>No prediction entry. Wait for a sweep of obvious buy-side or sell-side liquidity.</p></div></li>
-          <li><span>03</span><div><strong>Make displacement prove it</strong><p>A five-minute structure shift and imbalance must agree with the daily hypothesis.</p></div></li>
+          <li><span>03</span><div><strong>Make displacement prove it</strong><p>A five-minute structure shift and imbalance must agree with the top-down narrative.</p></div></li>
           <li><span>04</span><div><strong>News can void the script</strong><p>High-impact events downgrade confidence until the first post-release structure forms.</p></div></li>
         </ol>
       </div>

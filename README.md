@@ -1,12 +1,15 @@
 # Cable Desk
 
-A public, observation-only GBP/USD daily bias dashboard. It combines:
+A public, observation-only GBP/USD top-down and Asian-range dashboard. It combines:
 
+- previous-month direction and liquidity;
 - last week's open, high, low, close, midpoint, and range;
 - prior-day direction and range;
+- the 20:00–00:00 New York Asian range, midpoint, and midnight open;
+- London and New York session delivery and Asian-edge sweeps;
 - current five-minute indicative candles;
 - scheduled GBP and USD economic events; and
-- a transparent directional score with a liquidity-based confirmation plan.
+- a transparent monthly → weekly → daily directional score with an Asia-led confirmation plan.
 
 The dashboard is context, not an automated trade signal.
 
