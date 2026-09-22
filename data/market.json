@@ -1,7 +1,7 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-09-22T09:56:14.305481-05:00",
+    "updatedAt": "2026-09-22T09:57:25.635845-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
@@ -9,8 +9,8 @@
     "checkpoint": "newYork"
   },
   "quote": {
-    "price": 1.334686,
-    "asOf": 1790088966
+    "price": 1.334526,
+    "asOf": 1790089026
   },
   "previousMonth": {
     "start": "2026-08-01",
@@ -4296,16 +4296,16 @@
     {
       "t": 1790088900,
       "o": 1.334454,
-      "h": 1.334454,
+      "h": 1.334686,
       "l": 1.334454,
-      "c": 1.334454
+      "c": 1.334686
     },
     {
-      "t": 1790088966,
-      "o": 1.334686,
-      "h": 1.334686,
-      "l": 1.334686,
-      "c": 1.334686
+      "t": 1790089026,
+      "o": 1.334526,
+      "h": 1.334526,
+      "l": 1.334526,
+      "c": 1.334526
     }
   ],
   "calendar": [
