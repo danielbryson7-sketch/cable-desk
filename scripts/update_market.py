@@ -498,6 +498,91 @@ def build_btmm(daily: list[dict], rows: list[dict], sessions: dict, now: datetim
     }
 
 
+def price_relation(price: float, asia: dict) -> str:
+    if price > asia["high"]:
+        return "above the Asian high"
+    if price < asia["low"]:
+        return "below the Asian low"
+    if price >= asia["midpoint"]:
+        return "inside the upper half of Asia"
+    return "inside the lower half of Asia"
+
+
+def phase_story(rows: list[dict], start: datetime, end: datetime, now: datetime, asia: dict, title: str, label: str) -> dict | None:
+    actual_end = min(end, now.astimezone(NEW_YORK))
+    if actual_end <= start:
+        return None
+    selected = window_rows(rows, start.astimezone(UTC), actual_end.astimezone(UTC) + timedelta(minutes=1))
+    if not selected:
+        return None
+    opening, closing = selected[0]["o"], selected[-1]["c"]
+    high, low = max(row["h"] for row in selected), min(row["l"] for row in selected)
+    move = round((closing - opening) * 10000, 1)
+    swept = []
+    if title != "Asian range" and high > asia["high"]:
+        swept.append("Asian high")
+    if title != "Asian range" and low < asia["low"]:
+        swept.append("Asian low")
+    direction = "rose" if move > 0 else "fell" if move < 0 else "finished flat"
+    sweep_text = f" It traded through {' and '.join(swept)}." if swept else " It did not clear an Asian edge."
+    return {
+        "title": title, "time": label,
+        "status": "complete" if now.astimezone(NEW_YORK) >= end else "live",
+        "open": opening, "high": high, "low": low, "close": closing,
+        "rangePips": round((high - low) * 10000, 1), "movePips": move,
+        "text": f"Price {direction} {abs(move):.1f} pips from {opening:.4f} to {closing:.4f}; the phase covered {round((high-low)*10000,1):.1f} pips.{sweep_text} It ended {price_relation(closing, asia)}.",
+    }
+
+
+def build_day_story(rows: list[dict], sessions: dict, bias: dict, btmm: dict, now: datetime) -> dict:
+    asia = sessions.get("asia", {})
+    if asia.get("high") is None:
+        return {"status": "waiting", "headline": "Waiting for the Asian range", "summary": "The rolling account begins when the 20:00 New York candle opens.", "timeline": []}
+    now_ny = now.astimezone(NEW_YORK)
+    trade_day = date.fromisoformat(sessions["tradeDate"])
+    asia_start = datetime.fromisoformat(asia["start"])
+    midnight = datetime.combine(trade_day, time(0, 0), NEW_YORK)
+    london_start, london_end = datetime.combine(trade_day, time(2, 0), NEW_YORK), datetime.combine(trade_day, time(5, 0), NEW_YORK)
+    ny_start, ny_end = datetime.combine(trade_day, time(7, 0), NEW_YORK), datetime.combine(trade_day, time(10, 0), NEW_YORK)
+    close_time = datetime.combine(trade_day, time(16, 0), NEW_YORK)
+    phases = [
+        (asia_start, midnight, "Asian range", "20:00–00:00 NY"),
+        (midnight, london_start, "Midnight handoff", "00:00–02:00 NY"),
+        (london_start, london_end, "London window", "02:00–05:00 NY"),
+        (london_end, ny_start, "Post-London handoff", "05:00–07:00 NY"),
+        (ny_start, ny_end, "New York AM", "07:00–10:00 NY"),
+        (ny_end, close_time, "After New York AM", "10:00–16:00 NY"),
+    ]
+    timeline = [phase for start, end, title, label in phases if (phase := phase_story(rows, start, end, now, asia, title, label))]
+    available = window_rows(rows, asia_start.astimezone(UTC), now_ny.astimezone(UTC) + timedelta(minutes=1))
+    midnight_rows = window_rows(rows, midnight.astimezone(UTC), now_ny.astimezone(UTC) + timedelta(minutes=1))
+    latest = rows[-1]["c"]
+    start_price = available[0]["o"] if available else asia["open"]
+    midnight_open = asia.get("midnightOpen") or (midnight_rows[0]["o"] if midnight_rows else latest)
+    since_asia = round((latest - start_price) * 10000, 1)
+    since_midnight = round((latest - midnight_open) * 10000, 1)
+    high_row = max(available, key=lambda row: row["h"]) if available else None
+    low_row = min(available, key=lambda row: row["l"]) if available else None
+    relation = price_relation(latest, asia)
+    headline = "Sell-side delivery is holding below Asia" if latest < asia["low"] else "Buy-side delivery is holding above Asia" if latest > asia["high"] else "Price is rotating back inside Asia"
+    sign_asia, sign_midnight = "+" if since_asia >= 0 else "", "+" if since_midnight >= 0 else ""
+    summary = f"From the Asian open, GBP/USD is {sign_asia}{since_asia:.1f} pips. From the midnight open, it is {sign_midnight}{since_midnight:.1f} pips and currently sits {relation}. The live ICT reading is {bias['direction'].lower()}; the BTMM scanner shows {btmm['pattern']['name'].lower()} ({btmm['pattern']['status']})."
+    return {
+        "status": "live", "headline": headline, "summary": summary,
+        "asOf": datetime.fromtimestamp(rows[-1]["t"], UTC).astimezone(NEW_YORK).isoformat(),
+        "metrics": {
+            "sinceAsiaPips": since_asia, "sinceMidnightPips": since_midnight,
+            "high": high_row["h"] if high_row else None,
+            "highAt": datetime.fromtimestamp(high_row["t"], UTC).astimezone(NEW_YORK).isoformat() if high_row else None,
+            "low": low_row["l"] if low_row else None,
+            "lowAt": datetime.fromtimestamp(low_row["t"], UTC).astimezone(NEW_YORK).isoformat() if low_row else None,
+            "currentRelation": relation,
+        },
+        "timeline": timeline,
+        "method": "Deterministic five-minute candle summary from 20:00 New York through the latest available candle; no AI generation is used during refreshes.",
+    }
+
+
 def load_forecasts() -> dict:
     if not FORECASTS.exists():
         return {"modelVersion": "1.0", "records": {}}
@@ -512,7 +597,10 @@ def load_forecasts() -> dict:
 
 def scheduled_checkpoint(now: datetime) -> str | None:
     """Return the New York checkpoint represented by this scheduled run."""
-    hour = now.astimezone(NEW_YORK).hour
+    local = now.astimezone(NEW_YORK)
+    if local.minute < 10:
+        return None
+    hour = local.hour
     return {0: "midnight", 5: "london", 10: "newYork", 16: "final"}.get(hour)
 
 
@@ -687,16 +775,17 @@ def main() -> None:
     bias = build_top_down(month, week, day, four_hour, one_hour, price, events, now)
     sessions = build_sessions(intraday, now, bias)
     btmm = build_btmm(daily, intraday, sessions, now)
+    day_story = build_day_story(intraday, sessions, bias, btmm, now)
     checkpoint = scheduled_checkpoint(now)
     history = load_forecasts()
     current_forecast = update_forecast_history(history, checkpoint, now, bias, sessions, events, intraday, btmm)
     history["lastUpdatedAt"] = now.isoformat()
     history["records"] = dict(sorted(history["records"].items())[-500:])
     payload = {
-        "meta": {"symbol": "GBP/USD", "updatedAt": now.isoformat(), "timezone": "America/Chicago", "priceSource": "Yahoo Finance indicative GBPUSD=X", "calendarSource": "Forex Factory public weekly calendar", "modelVersion": "3.1 frozen forecast + BTMM audit", "checkpoint": checkpoint or "refresh"},
+        "meta": {"symbol": "GBP/USD", "updatedAt": now.isoformat(), "timezone": "America/Chicago", "priceSource": "Yahoo Finance indicative GBPUSD=X", "calendarSource": "Forex Factory public weekly calendar", "modelVersion": "3.2 rolling day tape", "checkpoint": checkpoint or "refresh"},
         "quote": {"price": price, "asOf": intraday[-1]["t"]},
         "previousMonth": month, "lastWeek": week, "priorDay": day, "fourHour": four_hour, "oneHour": one_hour,
-        "bias": bias, "sessions": sessions, "btmm": btmm,
+        "bias": bias, "sessions": sessions, "btmm": btmm, "dayStory": day_story,
         "forecastAudit": current_forecast, "forecastStats": forecast_stats(history),
         "levels": build_levels(month, week, day, sessions, btmm), "candles": intraday[-576:], "calendar": events,
     }

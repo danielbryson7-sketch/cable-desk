@@ -13,6 +13,7 @@ A public, observation-only GBP/USD top-down and Asian-range dashboard. It combin
 - a transparent monthly → weekly → daily directional score with an Asia-led confirmation plan.
 - an immutable midnight forecast followed by London, New York, and end-of-day checkpoints.
 - a separate, non-voting BTMM lens for M/W and Half Batman structures, Asian stop hunts, HOD/LOD candidates, three-level distance, ADR use, EMA 13/50, the 200 EMA “Mayo” line, a transparent TDI proxy, and railroad-track candles.
+- a deterministic rolling account of each phase from the Asian open through the latest five-minute candle.
 
 The dashboard is context, not an automated trade signal.
 
@@ -33,7 +34,7 @@ Open `http://localhost:8000`.
 2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
 3. Run **Refresh and publish Cable Desk** from the repository's Actions tab.
 
-The included workflow checks four New York-time checkpoints each weekday: 00:05 freezes the Asian range and forecast, 05:05 records London, 10:05 records New York AM, and 16:15 grades the day. Paired UTC schedules keep those local times stable through daylight-saving changes. The refresh uses public, no-key endpoints; no repository secrets are required.
+The included workflow refreshes every 15 minutes on weekdays. New York-time checkpoints at 00:15, 05:15, 10:15, and 16:15 freeze the forecast, record London, record New York AM, and grade the day. The refresh uses public, no-key endpoints; no repository secrets or AI calls are required.
 
 ## Data notes
 

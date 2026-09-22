@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#080b10">
   <title>Cable Desk — GBP/USD Daily Bias</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%23080b10'/%3E%3Cpath d='M14 42 25 31l8 7 17-19' fill='none' stroke='%236fe3b1' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='19' r='4' fill='%23ffcb66'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=3.1.1">
+  <link rel="stylesheet" href="styles.css?v=3.2.0">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -88,7 +88,7 @@
       <div class="audit-card">
         <div class="audit-heading">
           <div>
-            <p class="eyebrow">Written once at 00:05 New York · never recalculated</p>
+            <p class="eyebrow">Written once at 00:15 New York · never recalculated</p>
             <h2 id="audit-title">Prediction first.<br>Evidence afterward.</h2>
           </div>
           <span class="audit-lock" id="audit-lock">ARMED FOR NEXT CAPTURE</span>
@@ -101,9 +101,9 @@
         </div>
         <p class="forecast-reason" id="forecast-reason">The first automatic forecast will be captured after the next 20:00–00:00 New York Asian range completes.</p>
         <div class="checkpoint-track" id="checkpoint-track" aria-label="Daily forecast checkpoints">
-          <div class="checkpoint"><span>00:05</span><strong>Freeze forecast</strong><small id="cp-midnight">Waiting</small></div>
-          <div class="checkpoint"><span>05:05</span><strong>Record London</strong><small id="cp-london">Waiting</small></div>
-          <div class="checkpoint"><span>10:05</span><strong>Record New York</strong><small id="cp-newyork">Waiting</small></div>
+          <div class="checkpoint"><span>00:15</span><strong>Freeze forecast</strong><small id="cp-midnight">Waiting</small></div>
+          <div class="checkpoint"><span>05:15</span><strong>Record London</strong><small id="cp-london">Waiting</small></div>
+          <div class="checkpoint"><span>10:15</span><strong>Record New York</strong><small id="cp-newyork">Waiting</small></div>
           <div class="checkpoint"><span>16:15</span><strong>Grade the day</strong><small id="cp-final">Waiting</small></div>
         </div>
         <div class="scoreboard">
@@ -150,8 +150,31 @@
       </div>
     </section>
 
+    <section class="tape-shell" aria-labelledby="tape-title">
+      <div class="section-kicker"><span>04</span> Rolling day tape</div>
+      <div class="tape-card">
+        <div class="tape-heading">
+          <div>
+            <p class="eyebrow">Asian open → midnight → now · refreshed every 15 minutes</p>
+            <h2 id="tape-title">What price has<br>actually done today.</h2>
+          </div>
+          <span class="tape-asof" id="tape-asof">Loading latest candle…</span>
+        </div>
+        <h3 class="tape-headline" id="tape-headline">Building the session account…</h3>
+        <p class="tape-summary" id="tape-summary">Reading five-minute candles from the beginning of the Asian range.</p>
+        <div class="tape-metrics">
+          <div><span class="cell-label">From Asian open</span><strong id="tape-from-asia">—</strong></div>
+          <div><span class="cell-label">From midnight open</span><strong id="tape-from-midnight">—</strong></div>
+          <div><span class="cell-label">Day high</span><strong id="tape-high">—</strong><small id="tape-high-time">—</small></div>
+          <div><span class="cell-label">Day low</span><strong id="tape-low">—</strong><small id="tape-low-time">—</small></div>
+        </div>
+        <div class="day-timeline" id="day-timeline" aria-label="Price-action timeline"></div>
+        <p class="tape-method" id="tape-method">This account is generated from candle arithmetic, not AI commentary.</p>
+      </div>
+    </section>
+
     <section class="btmm-shell" aria-labelledby="btmm-title">
-      <div class="section-kicker"><span>04</span> BTMM observation lens</div>
+      <div class="section-kicker"><span>05</span> BTMM observation lens</div>
       <div class="btmm-card">
         <div class="btmm-heading">
           <div>
@@ -180,7 +203,7 @@
     </section>
 
     <section class="market-shell" aria-labelledby="chart-title">
-      <div class="section-kicker"><span>05</span> Price delivery</div>
+      <div class="section-kicker"><span>06</span> Price delivery</div>
       <div class="market-card">
         <div class="market-heading">
           <div>
@@ -206,7 +229,7 @@
     </section>
 
     <section class="news-shell" aria-labelledby="news-title">
-      <div class="section-kicker"><span>06</span> Event map</div>
+      <div class="section-kicker"><span>07</span> Event map</div>
       <div class="news-heading">
         <div>
           <p class="eyebrow">GBP & USD calendar · Chicago time</p>
@@ -218,7 +241,7 @@
     </section>
 
     <section class="rules-shell" aria-labelledby="rules-title">
-      <div class="section-kicker"><span>07</span> Paranoia, with rules</div>
+      <div class="section-kicker"><span>08</span> Paranoia, with rules</div>
       <div class="rules-grid">
         <div>
           <p class="eyebrow">The market-maker lens</p>
@@ -239,6 +262,6 @@
     <p>Indicative prices can differ from broker quotes. Bias is context—not a promise.</p>
   </footer>
 
-  <script src="app.js?v=3.1.1" defer></script>
+  <script src="app.js?v=3.2.0" defer></script>
 </body>
 </html>

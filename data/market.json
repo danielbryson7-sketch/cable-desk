@@ -1,16 +1,16 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-09-22T10:11:15.139887-05:00",
+    "updatedAt": "2026-09-22T10:53:37.523283-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
-    "modelVersion": "3.1 frozen forecast + BTMM audit",
+    "modelVersion": "3.2 rolling day tape",
     "checkpoint": "refresh"
   },
   "quote": {
-    "price": 1.334134,
-    "asOf": 1790089866
+    "price": 1.332782,
+    "asOf": 1790092387
   },
   "previousMonth": {
     "start": "2026-08-01",
@@ -78,8 +78,8 @@
     "maxScore": 15,
     "confidence": "event-risk",
     "newsRisk": "medium",
-    "draw": "Previous-week low",
-    "drawPrice": 1.333671,
+    "draw": "Prior-day high",
+    "drawPrice": 1.339944,
     "invalidation": 1.343243,
     "confirmation": "Wait for one side to be swept; the reclaim and displacement define direction",
     "location": "Higher timeframes disagree",
@@ -175,11 +175,11 @@
       "state": "Asian-low break holding",
       "verdict": "Bearish continuation candidate: price remains below ARL after the first raid.",
       "expectedRaid": "ARL retest from below",
-      "firstTarget": "Previous-week low",
+      "firstTarget": "Prior-day high",
       "steps": [
         "Liquidity condition: watch ARL retest from below.",
         "Confirmation: require a bearish 5m displacement and market-structure shift away from the rejected edge.",
-        "Distribution: use Previous-week low as the first objective, then the higher-timeframe draw.",
+        "Distribution: use Prior-day high as the first objective, then the higher-timeframe draw.",
         "Flip condition: reclaim ARL and PDL with bullish displacement; then target AREQ and ARH."
       ],
       "noTradeIf": "Both Asian edges are swept, price never reclaims the raided edge, or high-impact news is imminent."
@@ -193,39 +193,39 @@
       "shape": "M",
       "direction": "bearish",
       "status": "confirmed",
-      "firstExtreme": 1.336595,
-      "secondExtreme": 1.335773,
-      "apex": 1.335007,
-      "gapPips": 8.2,
-      "at": 1790087700,
+      "firstExtreme": 1.335773,
+      "secondExtreme": 1.334704,
+      "apex": 1.333796,
+      "gapPips": 10.7,
+      "at": 1790090400,
       "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
     },
     "asiaStopHunt": "Asian low",
     "hodLod": "Unconfirmed \u00b7 no completed rejection",
     "levelCount": {
-      "label": "Level 1 drop",
+      "label": "Level 2 drop",
       "direction": "below",
-      "distancePips": 21.8,
+      "distancePips": 35.3,
       "bandPips": 25,
       "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
     },
     "adr": {
       "averagePips": 45.5,
-      "usedPips": 58.4,
-      "usedPercent": 128.4
+      "usedPips": 62.3,
+      "usedPercent": 136.9
     },
     "emas": {
-      "ema13": 1.334743,
-      "ema50": 1.335585,
-      "mayo200": 1.336486,
+      "ema13": 1.333584,
+      "ema50": 1.334945,
+      "mayo200": 1.33624,
       "alignment": "bearish",
-      "mayoDistancePips": -23.5,
+      "mayoDistancePips": -34.6,
       "recentMayoTouch": false
     },
     "tdiProxy": {
-      "rsi13": 33.5,
-      "signal2": 34.1,
-      "state": "bearish",
+      "rsi13": 26.9,
+      "signal2": 25.8,
+      "state": "mixed",
       "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
     },
     "railroadTracks": {
@@ -233,6 +233,96 @@
       "direction": "neutral",
       "note": "No qualified two-candle railroad-track reversal."
     }
+  },
+  "dayStory": {
+    "status": "live",
+    "headline": "Sell-side delivery is holding below Asia",
+    "summary": "From the Asian open, GBP/USD is -41.2 pips. From the midnight open, it is -55.1 pips and currently sits below the Asian low. The live ICT reading is neutral; the BTMM scanner shows half batman (confirmed).",
+    "asOf": "2026-09-22T11:53:07-04:00",
+    "metrics": {
+      "sinceAsiaPips": -41.2,
+      "sinceMidnightPips": -55.1,
+      "high": 1.33876,
+      "highAt": "2026-09-22T01:00:00-04:00",
+      "low": 1.332534,
+      "lowAt": "2026-09-22T11:45:00-04:00",
+      "currentRelation": "below the Asian low"
+    },
+    "timeline": [
+      {
+        "title": "Asian range",
+        "time": "20:00\u201300:00 NY",
+        "status": "complete",
+        "open": 1.336898,
+        "high": 1.338437,
+        "low": 1.336309,
+        "close": 1.33824,
+        "rangePips": 21.3,
+        "movePips": 13.4,
+        "text": "Price rose 13.4 pips from 1.3369 to 1.3382; the phase covered 21.3 pips. It did not clear an Asian edge. It ended inside the upper half of Asia."
+      },
+      {
+        "title": "Midnight handoff",
+        "time": "00:00\u201302:00 NY",
+        "status": "complete",
+        "open": 1.338294,
+        "high": 1.33876,
+        "low": 1.337685,
+        "close": 1.337685,
+        "rangePips": 10.7,
+        "movePips": -6.1,
+        "text": "Price fell 6.1 pips from 1.3383 to 1.3377; the phase covered 10.7 pips. It traded through Asian high. It ended inside the upper half of Asia."
+      },
+      {
+        "title": "London window",
+        "time": "02:00\u201305:00 NY",
+        "status": "complete",
+        "open": 1.338079,
+        "high": 1.338079,
+        "low": 1.332924,
+        "close": 1.335113,
+        "rangePips": 51.6,
+        "movePips": -29.7,
+        "text": "Price fell 29.7 pips from 1.3381 to 1.3351; the phase covered 51.6 pips. It traded through Asian low. It ended below the Asian low."
+      },
+      {
+        "title": "Post-London handoff",
+        "time": "05:00\u201307:00 NY",
+        "status": "complete",
+        "open": 1.335666,
+        "high": 1.337327,
+        "low": 1.334917,
+        "close": 1.336344,
+        "rangePips": 24.1,
+        "movePips": 6.8,
+        "text": "Price rose 6.8 pips from 1.3357 to 1.3363; the phase covered 24.1 pips. It traded through Asian low. It ended inside the lower half of Asia."
+      },
+      {
+        "title": "New York AM",
+        "time": "07:00\u201310:00 NY",
+        "status": "complete",
+        "open": 1.336612,
+        "high": 1.337077,
+        "low": 1.335488,
+        "close": 1.336309,
+        "rangePips": 15.9,
+        "movePips": -3.0,
+        "text": "Price fell 3.0 pips from 1.3366 to 1.3363; the phase covered 15.9 pips. It traded through Asian low. It ended inside the lower half of Asia."
+      },
+      {
+        "title": "After New York AM",
+        "time": "10:00\u201316:00 NY",
+        "status": "live",
+        "open": 1.335916,
+        "high": 1.336309,
+        "low": 1.332534,
+        "close": 1.332782,
+        "rangePips": 37.7,
+        "movePips": -31.3,
+        "text": "Price fell 31.3 pips from 1.3359 to 1.3328; the phase covered 37.7 pips. It traded through Asian low. It ended below the Asian low."
+      }
+    ],
+    "method": "Deterministic five-minute candle summary from 20:00 New York through the latest available candle; no AI generation is used during refreshes."
   },
   "forecastAudit": null,
   "forecastStats": {
@@ -325,82 +415,26 @@
     {
       "key": "EMA13",
       "label": "BTMM fast EMA",
-      "price": 1.334743,
+      "price": 1.333584,
       "side": "buy",
       "group": "btmm"
     },
     {
       "key": "EMA50",
       "label": "BTMM 50 EMA",
-      "price": 1.335585,
+      "price": 1.334945,
       "side": "mid",
       "group": "btmm"
     },
     {
       "key": "MAYO",
       "label": "BTMM 200 EMA",
-      "price": 1.336486,
+      "price": 1.33624,
       "side": "open",
       "group": "btmm"
     }
   ],
   "candles": [
-    {
-      "t": 1789739400,
-      "o": 1.334579,
-      "h": 1.334615,
-      "l": 1.334401,
-      "c": 1.334401
-    },
-    {
-      "t": 1789739700,
-      "o": 1.334134,
-      "h": 1.334223,
-      "l": 1.334098,
-      "c": 1.334223
-    },
-    {
-      "t": 1789740000,
-      "o": 1.334009,
-      "h": 1.334615,
-      "l": 1.334009,
-      "c": 1.334543
-    },
-    {
-      "t": 1789740300,
-      "o": 1.334526,
-      "h": 1.334579,
-      "l": 1.334241,
-      "c": 1.334579
-    },
-    {
-      "t": 1789740600,
-      "o": 1.334704,
-      "h": 1.334846,
-      "l": 1.334704,
-      "c": 1.334846
-    },
-    {
-      "t": 1789740900,
-      "o": 1.335007,
-      "h": 1.335007,
-      "l": 1.33449,
-      "c": 1.334561
-    },
-    {
-      "t": 1789741200,
-      "o": 1.33449,
-      "h": 1.33465,
-      "l": 1.33433,
-      "c": 1.33465
-    },
-    {
-      "t": 1789741500,
-      "o": 1.334721,
-      "h": 1.335007,
-      "l": 1.334721,
-      "c": 1.335007
-    },
     {
       "t": 1789741800,
       "o": 1.334917,
@@ -4367,15 +4401,71 @@
       "t": 1790089800,
       "o": 1.334241,
       "h": 1.334241,
-      "l": 1.334241,
+      "l": 1.333796,
+      "c": 1.334045
+    },
+    {
+      "t": 1790090100,
+      "o": 1.333992,
+      "h": 1.334294,
+      "l": 1.333992,
       "c": 1.334241
     },
     {
-      "t": 1790089866,
-      "o": 1.334134,
-      "h": 1.334134,
-      "l": 1.334134,
-      "c": 1.334134
+      "t": 1790090400,
+      "o": 1.334205,
+      "h": 1.334704,
+      "l": 1.334205,
+      "c": 1.334383
+    },
+    {
+      "t": 1790090700,
+      "o": 1.334508,
+      "h": 1.334508,
+      "l": 1.334205,
+      "c": 1.334205
+    },
+    {
+      "t": 1790091000,
+      "o": 1.334223,
+      "h": 1.334223,
+      "l": 1.333725,
+      "c": 1.333725
+    },
+    {
+      "t": 1790091300,
+      "o": 1.333582,
+      "h": 1.333618,
+      "l": 1.333209,
+      "c": 1.333209
+    },
+    {
+      "t": 1790091600,
+      "o": 1.333084,
+      "h": 1.33312,
+      "l": 1.332907,
+      "c": 1.332924
+    },
+    {
+      "t": 1790091900,
+      "o": 1.332853,
+      "h": 1.332853,
+      "l": 1.332534,
+      "c": 1.332587
+    },
+    {
+      "t": 1790092200,
+      "o": 1.332569,
+      "h": 1.332676,
+      "l": 1.332569,
+      "c": 1.332676
+    },
+    {
+      "t": 1790092387,
+      "o": 1.332782,
+      "h": 1.332782,
+      "l": 1.332782,
+      "c": 1.332782
     }
   ],
   "calendar": [

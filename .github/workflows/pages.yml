@@ -4,12 +4,7 @@ on:
   push:
     branches: [main]
   schedule:
-    # Each pair covers New York daylight and standard time. The updater gates
-    # writes by the actual New York hour, so only the matching run records a checkpoint.
-    - cron: "5 4,5 * * 1-5"    # 00:05 New York — freeze Asia + forecast
-    - cron: "5 9,10 * * 1-5"   # 05:05 New York — record London
-    - cron: "5 14,15 * * 1-5"  # 10:05 New York — record New York AM
-    - cron: "15 20,21 * * 1-5" # 16:15 New York — grade the day
+    - cron: "*/15 * * * 1-5"
   workflow_dispatch:
 
 permissions:

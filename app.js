@@ -3,7 +3,9 @@ const $ = selector => document.querySelector(selector);
 const fmtPrice = value => Number(value).toFixed(4);
 const chicagoDate = iso => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(iso));
 const timeLabel = iso => new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", hour: "numeric", minute: "2-digit" }).format(new Date(iso));
+const nyTimeLabel = iso => new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" }).format(new Date(iso));
 const dayLabel = date => new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", weekday: "short", month: "short", day: "numeric" }).format(new Date(`${date}T12:00:00-05:00`));
+const signedPips = value => `${value >= 0 ? "+" : ""}${Number(value).toFixed(1)} pips`;
 
 function renderBrief(data) {
   const { bias, lastWeek, quote } = data;
@@ -96,6 +98,31 @@ function renderAsia(data) {
   $("#asia-verdict").textContent = playbook.verdict;
   $("#asia-steps").innerHTML = playbook.steps.map(step => `<li>${step}</li>`).join("");
   $("#no-trade-rule").textContent = playbook.noTradeIf;
+}
+
+function renderDayStory(data) {
+  const story = data.dayStory;
+  if (!story) return;
+  $("#tape-headline").textContent = story.headline;
+  $("#tape-summary").textContent = story.summary;
+  $("#tape-method").textContent = story.method || "The timeline will begin when Asian candles are available.";
+  if (story.asOf) $("#tape-asof").textContent = `Through ${nyTimeLabel(story.asOf)} NY`;
+  if (story.metrics) {
+    $("#tape-from-asia").textContent = signedPips(story.metrics.sinceAsiaPips);
+    $("#tape-from-midnight").textContent = signedPips(story.metrics.sinceMidnightPips);
+    $("#tape-high").textContent = story.metrics.high == null ? "—" : fmtPrice(story.metrics.high);
+    $("#tape-high-time").textContent = story.metrics.highAt ? `${nyTimeLabel(story.metrics.highAt)} NY` : "—";
+    $("#tape-low").textContent = story.metrics.low == null ? "—" : fmtPrice(story.metrics.low);
+    $("#tape-low-time").textContent = story.metrics.lowAt ? `${nyTimeLabel(story.metrics.lowAt)} NY` : "—";
+  }
+  const timeline = $("#day-timeline");
+  timeline.innerHTML = story.timeline.length ? story.timeline.map(item => `
+    <article class="timeline-item ${item.status}">
+      <span class="timeline-time">${item.time}</span>
+      <span class="timeline-state">${item.status}</span>
+      <h3>${item.title}</h3>
+      <p>${item.text}</p>
+    </article>`).join("") : `<div class="empty-state">Waiting for the first Asian candles.</div>`;
 }
 
 function renderBtmm(data) {
@@ -313,6 +340,7 @@ async function init() {
     renderBrief(state.data);
     renderForecastAudit(state.data);
     renderAsia(state.data);
+    renderDayStory(state.data);
     renderBtmm(state.data);
     renderCalendar(state.data);
     setupChartModes(state.data);
