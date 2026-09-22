@@ -1,7 +1,7 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-09-22T10:06:14.460912-05:00",
+    "updatedAt": "2026-09-22T10:07:17.717008-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
@@ -9,8 +9,8 @@
     "checkpoint": "refresh"
   },
   "quote": {
-    "price": 1.334009,
-    "asOf": 1790089566
+    "price": 1.333974,
+    "asOf": 1790089626
   },
   "previousMonth": {
     "start": "2026-08-01",
@@ -205,7 +205,7 @@
     "levelCount": {
       "label": "Level 1 drop",
       "direction": "below",
-      "distancePips": 23.0,
+      "distancePips": 23.3,
       "bandPips": 25,
       "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
     },
@@ -215,16 +215,16 @@
       "usedPercent": 128.4
     },
     "emas": {
-      "ema13": 1.334806,
-      "ema50": 1.335634,
-      "mayo200": 1.336507,
+      "ema13": 1.334791,
+      "ema50": 1.335629,
+      "mayo200": 1.336506,
       "alignment": "bearish",
-      "mayoDistancePips": -25.0,
+      "mayoDistancePips": -25.3,
       "recentMayoTouch": false
     },
     "tdiProxy": {
-      "rsi13": 31.5,
-      "signal2": 31.9,
+      "rsi13": 31.2,
+      "signal2": 31.4,
       "state": "bearish",
       "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
     },
@@ -325,21 +325,21 @@
     {
       "key": "EMA13",
       "label": "BTMM fast EMA",
-      "price": 1.334806,
+      "price": 1.334791,
       "side": "buy",
       "group": "btmm"
     },
     {
       "key": "EMA50",
       "label": "BTMM 50 EMA",
-      "price": 1.335634,
+      "price": 1.335629,
       "side": "mid",
       "group": "btmm"
     },
     {
       "key": "MAYO",
       "label": "BTMM 200 EMA",
-      "price": 1.336507,
+      "price": 1.336506,
       "side": "open",
       "group": "btmm"
     }
@@ -4367,15 +4367,15 @@
       "t": 1790089500,
       "o": 1.334098,
       "h": 1.334098,
-      "l": 1.334098,
-      "c": 1.334098
-    },
-    {
-      "t": 1790089566,
-      "o": 1.334009,
-      "h": 1.334009,
       "l": 1.334009,
       "c": 1.334009
+    },
+    {
+      "t": 1790089626,
+      "o": 1.333974,
+      "h": 1.333974,
+      "l": 1.333974,
+      "c": 1.333974
     }
   ],
   "calendar": [
