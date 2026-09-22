@@ -12,8 +12,11 @@ A public, observation-only GBP/USD top-down and Asian-range dashboard. It combin
 - scheduled GBP and USD economic events; and
 - a transparent monthly → weekly → daily directional score with an Asia-led confirmation plan.
 - an immutable midnight forecast followed by London, New York, and end-of-day checkpoints.
+- a separate, non-voting BTMM lens for M/W and Half Batman structures, Asian stop hunts, HOD/LOD candidates, three-level distance, ADR use, EMA 13/50, the 200 EMA “Mayo” line, a transparent TDI proxy, and railroad-track candles.
 
 The dashboard is context, not an automated trade signal.
+
+BTMM observations are deliberately kept separate from the ICT directional score. The pattern scanner uses published mechanical thresholds so the labels can be backtested instead of assigned by hindsight.
 
 ## Refresh locally
 

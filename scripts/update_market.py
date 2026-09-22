@@ -8,6 +8,7 @@ import math
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
+from copy import deepcopy
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -321,7 +322,7 @@ def build_top_down(month: dict, week: dict, day: dict, four_hour: dict, one_hour
     }
 
 
-def build_levels(month: dict, week: dict, day: dict, sessions: dict) -> list[dict]:
+def build_levels(month: dict, week: dict, day: dict, sessions: dict, btmm: dict | None = None) -> list[dict]:
     levels = [
         {"key": "PMH", "label": "Previous month high", "price": month["high"], "side": "buy", "group": "htf"},
         {"key": "PML", "label": "Previous month low", "price": month["low"], "side": "sell", "group": "htf"},
@@ -340,7 +341,161 @@ def build_levels(month: dict, week: dict, day: dict, sessions: dict) -> list[dic
         ])
         if asia.get("midnightOpen") is not None:
             levels.append({"key": "MO", "label": "Midnight open", "price": asia["midnightOpen"], "side": "open", "group": "session"})
+    if btmm:
+        levels.extend([
+            {"key": "EMA13", "label": "BTMM fast EMA", "price": btmm["emas"]["ema13"], "side": "buy", "group": "btmm"},
+            {"key": "EMA50", "label": "BTMM 50 EMA", "price": btmm["emas"]["ema50"], "side": "mid", "group": "btmm"},
+            {"key": "MAYO", "label": "BTMM 200 EMA", "price": btmm["emas"]["mayo200"], "side": "open", "group": "btmm"},
+        ])
     return levels
+
+
+def ema_series(values: list[float], period: int) -> list[float]:
+    if not values:
+        return []
+    alpha = 2 / (period + 1)
+    output = [values[0]]
+    for value in values[1:]:
+        output.append(value * alpha + output[-1] * (1 - alpha))
+    return output
+
+
+def rsi_series(values: list[float], period: int = 13) -> list[float | None]:
+    output: list[float | None] = [None] * len(values)
+    if len(values) <= period:
+        return output
+    gains, losses = [], []
+    for index in range(1, period + 1):
+        change = values[index] - values[index - 1]
+        gains.append(max(change, 0))
+        losses.append(max(-change, 0))
+    average_gain, average_loss = sum(gains) / period, sum(losses) / period
+    output[period] = 100 if average_loss == 0 else 100 - 100 / (1 + average_gain / average_loss)
+    for index in range(period + 1, len(values)):
+        change = values[index] - values[index - 1]
+        average_gain = (average_gain * (period - 1) + max(change, 0)) / period
+        average_loss = (average_loss * (period - 1) + max(-change, 0)) / period
+        output[index] = 100 if average_loss == 0 else 100 - 100 / (1 + average_gain / average_loss)
+    return output
+
+
+def swing_points(rows: list[dict], radius: int = 2) -> tuple[list[tuple[int, dict]], list[tuple[int, dict]]]:
+    highs, lows = [], []
+    for index in range(radius, len(rows) - radius):
+        sample = rows[index - radius:index + radius + 1]
+        if rows[index]["h"] == max(row["h"] for row in sample):
+            highs.append((index, rows[index]))
+        if rows[index]["l"] == min(row["l"] for row in sample):
+            lows.append((index, rows[index]))
+    return highs, lows
+
+
+def reversal_pattern(rows: list[dict]) -> dict:
+    sample = rows[-180:]
+    highs, lows = swing_points(sample)
+    candidates = []
+    for name, points, price_key, direction in (("M", highs, "h", "bearish"), ("W", lows, "l", "bullish")):
+        for (first_index, first), (second_index, second) in zip(points, points[1:]):
+            spacing = second_index - first_index
+            if not 6 <= spacing <= 48:
+                continue
+            difference = (second[price_key] - first[price_key]) * 10000
+            absolute_difference = abs(difference)
+            between = sample[first_index:second_index + 1]
+            apex = min(row["l"] for row in between) if name == "M" else max(row["h"] for row in between)
+            excursion = (min(first[price_key], second[price_key]) - apex) * 10000 if name == "M" else (apex - max(first[price_key], second[price_key])) * 10000
+            if excursion < 5:
+                continue
+            after = sample[second_index + 1:]
+            shifted = any(row["c"] < apex for row in after) if name == "M" else any(row["c"] > apex for row in after)
+            if absolute_difference <= 4:
+                pattern_name = f"{name} pattern"
+            elif 5 <= absolute_difference <= 12 and ((name == "M" and difference < 0) or (name == "W" and difference > 0)):
+                pattern_name = "Half Batman"
+            else:
+                continue
+            candidates.append({
+                "name": pattern_name, "shape": name, "direction": direction,
+                "status": "confirmed" if shifted else "forming",
+                "firstExtreme": first[price_key], "secondExtreme": second[price_key],
+                "apex": apex, "gapPips": round(absolute_difference, 1), "at": second["t"],
+                "rule": "Two swing extremes 6–48 candles apart; Half Batman misses the first extreme by 5–12 pips; confirmation requires an apex close.",
+            })
+    if not candidates:
+        return {"name": "No qualified M/W", "shape": None, "direction": "neutral", "status": "none", "rule": "No recent structure passed the fixed swing, spacing, distance, and apex rules."}
+    return max(candidates, key=lambda item: item["at"])
+
+
+def railroad_tracks(rows: list[dict]) -> dict:
+    if len(rows) < 22:
+        return {"active": False, "direction": "neutral"}
+    first, second = rows[-2], rows[-1]
+    bodies = [abs(row["c"] - row["o"]) for row in rows[-22:-2]]
+    median = sorted(bodies)[len(bodies) // 2] or .00001
+    first_body, second_body = abs(first["c"] - first["o"]), abs(second["c"] - second["o"])
+    opposite = (first["c"] > first["o"]) != (second["c"] > second["o"])
+    balanced = .6 <= second_body / (first_body or .00001) <= 1.67
+    active = opposite and balanced and min(first_body, second_body) >= median * 1.5
+    return {
+        "active": active,
+        "direction": "bullish" if active and second["c"] > second["o"] else "bearish" if active else "neutral",
+        "note": "Two opposing bodies, each at least 1.5× the recent median and within a 0.6–1.67 size ratio." if active else "No qualified two-candle railroad-track reversal.",
+    }
+
+
+def average_daily_range(rows: list[dict], now: datetime, periods: int = 5) -> float:
+    completed = [row for row in rows if daily_trading_date(row["t"]) < now.astimezone(NEW_YORK).date()]
+    selected = completed[-periods:]
+    return round(sum((row["h"] - row["l"]) * 10000 for row in selected) / len(selected), 1) if selected else 0
+
+
+def build_btmm(daily: list[dict], rows: list[dict], sessions: dict, now: datetime) -> dict:
+    closes = [row["c"] for row in rows]
+    ema13_values, ema50_values, ema200_values = ema_series(closes, 13), ema_series(closes, 50), ema_series(closes, 200)
+    ema13, ema50, mayo = ema13_values[-1], ema50_values[-1], ema200_values[-1]
+    price = closes[-1]
+    mayo_distance = round((price - mayo) * 10000, 1)
+    recent_mayo_touch = any(row["l"] <= ema <= row["h"] for row, ema in zip(rows[-12:], ema200_values[-12:]))
+    rsi_values = rsi_series(closes, 13)
+    valid_rsi = [value for value in rsi_values if value is not None]
+    rsi = valid_rsi[-1] if valid_rsi else 50
+    signal = sum(valid_rsi[-2:]) / min(2, len(valid_rsi)) if valid_rsi else 50
+    tdi_state = "bullish" if rsi > signal and rsi > 50 else "bearish" if rsi < signal and rsi < 50 else "mixed"
+    adr = average_daily_range(daily, now)
+    trade_day = date.fromisoformat(sessions["tradeDate"])
+    day_start = datetime.combine(trade_day, time(0, 0), NEW_YORK)
+    today_rows = window_rows(rows, day_start.astimezone(UTC), now.astimezone(UTC) + timedelta(minutes=1))
+    day_range = round((max(row["h"] for row in today_rows) - min(row["l"] for row in today_rows)) * 10000, 1) if today_rows else 0
+    asia = sessions.get("asia", {})
+    level_label, level_direction, distance = "Level 0 · accumulation", "inside", 0.0
+    if asia.get("high") is not None:
+        if price > asia["high"]:
+            distance = round((price - asia["high"]) * 10000, 1)
+            level_label, level_direction = f"Level {min(3, int(distance // 25) + 1)} rise", "above"
+        elif price < asia["low"]:
+            distance = round((asia["low"] - price) * 10000, 1)
+            level_label, level_direction = f"Level {min(3, int(distance // 25) + 1)} drop", "below"
+    london = sessions.get("london", {})
+    if london.get("sweptAsiaHigh") and price < asia.get("high", -math.inf):
+        hod_lod = "HOD candidate · high swept and rejected"
+    elif london.get("sweptAsiaLow") and price > asia.get("low", math.inf):
+        hod_lod = "LOD candidate · low swept and reclaimed"
+    else:
+        hod_lod = "Unconfirmed · no completed rejection"
+    pattern = reversal_pattern(rows)
+    expected_pattern = "W / Half Batman below ARL" if sessions.get("playbook", {}).get("expectedRaid") == "Asian low" else "M / Half Batman above ARH" if sessions.get("playbook", {}).get("expectedRaid") == "Asian high" else "M or W after the first stop hunt"
+    return {
+        "separateMethod": "Steve Mauro BTMM observation layer; it does not alter the ICT score.",
+        "expectedPattern": expected_pattern,
+        "pattern": pattern,
+        "asiaStopHunt": london.get("firstSweep") or "None recorded",
+        "hodLod": hod_lod,
+        "levelCount": {"label": level_label, "direction": level_direction, "distancePips": distance, "bandPips": 25, "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."},
+        "adr": {"averagePips": adr, "usedPips": day_range, "usedPercent": round(day_range / adr * 100, 1) if adr else None},
+        "emas": {"ema13": round(ema13, 6), "ema50": round(ema50, 6), "mayo200": round(mayo, 6), "alignment": "bullish" if ema13 > ema50 else "bearish", "mayoDistancePips": mayo_distance, "recentMayoTouch": recent_mayo_touch},
+        "tdiProxy": {"rsi13": round(rsi, 1), "signal2": round(signal, 1), "state": tdi_state, "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."},
+        "railroadTracks": railroad_tracks(rows),
+    }
 
 
 def load_forecasts() -> dict:
@@ -470,7 +625,16 @@ def grade_forecast(record: dict, rows: list[dict], trade_day: date) -> dict:
     }
 
 
-def update_forecast_history(history: dict, checkpoint: str | None, now: datetime, bias: dict, sessions: dict, events: list[dict], rows: list[dict]) -> dict | None:
+def compact_btmm(btmm: dict) -> dict:
+    return deepcopy({
+        "expectedPattern": btmm["expectedPattern"], "pattern": btmm["pattern"],
+        "asiaStopHunt": btmm["asiaStopHunt"], "hodLod": btmm["hodLod"],
+        "levelCount": btmm["levelCount"], "adr": btmm["adr"], "emas": btmm["emas"],
+        "tdiProxy": btmm["tdiProxy"], "railroadTracks": btmm["railroadTracks"],
+    })
+
+
+def update_forecast_history(history: dict, checkpoint: str | None, now: datetime, bias: dict, sessions: dict, events: list[dict], rows: list[dict], btmm: dict) -> dict | None:
     trade_day = date.fromisoformat(sessions["tradeDate"])
     key = trade_day.isoformat()
     records = history["records"]
@@ -482,6 +646,7 @@ def update_forecast_history(history: dict, checkpoint: str | None, now: datetime
             "forecast": frozen_prediction(bias, sessions),
             "asianRange": {**compact_session(sessions["asia"]), "midpoint": sessions["asia"]["midpoint"], "midnightOpen": sessions["asia"]["midnightOpen"], "quality": sessions["asia"]["quality"]},
             "topDown": bias["stack"],
+            "btmmAtCapture": compact_btmm(btmm),
             "news": event_digest(events, trade_day),
             "checkpoints": {"midnight": {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "forecast locked"}},
             "result": None,
@@ -491,11 +656,11 @@ def update_forecast_history(history: dict, checkpoint: str | None, now: datetime
         return None
     checkpoints = record.setdefault("checkpoints", {})
     if checkpoint == "london" and "london" not in checkpoints:
-        checkpoints["london"] = {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "recorded", **compact_session(sessions["london"])}
+        checkpoints["london"] = {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "recorded", **compact_session(sessions["london"]), "btmm": compact_btmm(btmm)}
     elif checkpoint == "newYork" and "newYork" not in checkpoints:
-        checkpoints["newYork"] = {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "recorded", **compact_session(sessions["newYork"])}
+        checkpoints["newYork"] = {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "recorded", **compact_session(sessions["newYork"]), "btmm": compact_btmm(btmm)}
     elif checkpoint == "final" and "final" not in checkpoints:
-        checkpoints["final"] = {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "graded"}
+        checkpoints["final"] = {"observedAt": now.astimezone(NEW_YORK).isoformat(), "status": "graded", "btmm": compact_btmm(btmm)}
         record["result"] = grade_forecast(record, rows, trade_day)
     return record
 
@@ -521,18 +686,19 @@ def main() -> None:
     price = intraday[-1]["c"]
     bias = build_top_down(month, week, day, four_hour, one_hour, price, events, now)
     sessions = build_sessions(intraday, now, bias)
+    btmm = build_btmm(daily, intraday, sessions, now)
     checkpoint = scheduled_checkpoint(now)
     history = load_forecasts()
-    current_forecast = update_forecast_history(history, checkpoint, now, bias, sessions, events, intraday)
+    current_forecast = update_forecast_history(history, checkpoint, now, bias, sessions, events, intraday, btmm)
     history["lastUpdatedAt"] = now.isoformat()
     history["records"] = dict(sorted(history["records"].items())[-500:])
     payload = {
-        "meta": {"symbol": "GBP/USD", "updatedAt": now.isoformat(), "timezone": "America/Chicago", "priceSource": "Yahoo Finance indicative GBPUSD=X", "calendarSource": "Forex Factory public weekly calendar", "modelVersion": "3.0 frozen forecast audit", "checkpoint": checkpoint or "refresh"},
+        "meta": {"symbol": "GBP/USD", "updatedAt": now.isoformat(), "timezone": "America/Chicago", "priceSource": "Yahoo Finance indicative GBPUSD=X", "calendarSource": "Forex Factory public weekly calendar", "modelVersion": "3.1 frozen forecast + BTMM audit", "checkpoint": checkpoint or "refresh"},
         "quote": {"price": price, "asOf": intraday[-1]["t"]},
         "previousMonth": month, "lastWeek": week, "priorDay": day, "fourHour": four_hour, "oneHour": one_hour,
-        "bias": bias, "sessions": sessions,
+        "bias": bias, "sessions": sessions, "btmm": btmm,
         "forecastAudit": current_forecast, "forecastStats": forecast_stats(history),
-        "levels": build_levels(month, week, day, sessions), "candles": intraday[-576:], "calendar": events,
+        "levels": build_levels(month, week, day, sessions, btmm), "candles": intraday[-576:], "calendar": events,
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

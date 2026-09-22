@@ -1,16 +1,16 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-09-22T09:57:25.635845-05:00",
+    "updatedAt": "2026-09-22T10:06:14.460912-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
-    "modelVersion": "3.0 frozen forecast audit",
-    "checkpoint": "newYork"
+    "modelVersion": "3.1 frozen forecast + BTMM audit",
+    "checkpoint": "refresh"
   },
   "quote": {
-    "price": 1.334526,
-    "asOf": 1790089026
+    "price": 1.334009,
+    "asOf": 1790089566
   },
   "previousMonth": {
     "start": "2026-08-01",
@@ -62,19 +62,19 @@
     "direction": "bullish"
   },
   "oneHour": {
-    "start": "2026-09-22T13:00:00+00:00",
-    "end": "2026-09-22T14:00:00+00:00",
-    "open": 1.335595,
-    "high": 1.336595,
-    "low": 1.335488,
-    "close": 1.336041,
-    "midpoint": 1.336041,
-    "rangePips": 11.1,
-    "direction": "bullish"
+    "start": "2026-09-22T14:00:00+00:00",
+    "end": "2026-09-22T15:00:00+00:00",
+    "open": 1.335916,
+    "high": 1.336309,
+    "low": 1.334454,
+    "close": 1.33465,
+    "midpoint": 1.335381,
+    "rangePips": 18.5,
+    "direction": "bearish"
   },
   "bias": {
     "direction": "Neutral",
-    "score": 1,
+    "score": -1,
     "maxScore": 15,
     "confidence": "event-risk",
     "newsRisk": "medium",
@@ -114,10 +114,10 @@
       },
       {
         "label": "Completed 1H",
-        "direction": "bullish",
+        "direction": "bearish",
         "weight": 1,
-        "range": "1.3355\u20131.3366",
-        "close": 1.336041
+        "range": "1.3345\u20131.3363",
+        "close": 1.33465
       }
     ],
     "todayEventCount": 9,
@@ -183,6 +183,55 @@
         "Flip condition: reclaim ARL and PDL with bullish displacement; then target AREQ and ARH."
       ],
       "noTradeIf": "Both Asian edges are swept, price never reclaims the raided edge, or high-impact news is imminent."
+    }
+  },
+  "btmm": {
+    "separateMethod": "Steve Mauro BTMM observation layer; it does not alter the ICT score.",
+    "expectedPattern": "M or W after the first stop hunt",
+    "pattern": {
+      "name": "Half Batman",
+      "shape": "M",
+      "direction": "bearish",
+      "status": "confirmed",
+      "firstExtreme": 1.336595,
+      "secondExtreme": 1.335773,
+      "apex": 1.335007,
+      "gapPips": 8.2,
+      "at": 1790087700,
+      "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
+    },
+    "asiaStopHunt": "Asian low",
+    "hodLod": "Unconfirmed \u00b7 no completed rejection",
+    "levelCount": {
+      "label": "Level 1 drop",
+      "direction": "below",
+      "distancePips": 23.0,
+      "bandPips": 25,
+      "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
+    },
+    "adr": {
+      "averagePips": 45.5,
+      "usedPips": 58.4,
+      "usedPercent": 128.4
+    },
+    "emas": {
+      "ema13": 1.334806,
+      "ema50": 1.335634,
+      "mayo200": 1.336507,
+      "alignment": "bearish",
+      "mayoDistancePips": -25.0,
+      "recentMayoTouch": false
+    },
+    "tdiProxy": {
+      "rsi13": 31.5,
+      "signal2": 31.9,
+      "state": "bearish",
+      "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
+    },
+    "railroadTracks": {
+      "active": false,
+      "direction": "neutral",
+      "note": "No qualified two-candle railroad-track reversal."
     }
   },
   "forecastAudit": null,
@@ -272,23 +321,30 @@
       "price": 1.338294,
       "side": "open",
       "group": "session"
+    },
+    {
+      "key": "EMA13",
+      "label": "BTMM fast EMA",
+      "price": 1.334806,
+      "side": "buy",
+      "group": "btmm"
+    },
+    {
+      "key": "EMA50",
+      "label": "BTMM 50 EMA",
+      "price": 1.335634,
+      "side": "mid",
+      "group": "btmm"
+    },
+    {
+      "key": "MAYO",
+      "label": "BTMM 200 EMA",
+      "price": 1.336507,
+      "side": "open",
+      "group": "btmm"
     }
   ],
   "candles": [
-    {
-      "t": 1789738500,
-      "o": 1.334632,
-      "h": 1.334632,
-      "l": 1.334276,
-      "c": 1.334347
-    },
-    {
-      "t": 1789738800,
-      "o": 1.334241,
-      "h": 1.334757,
-      "l": 1.334241,
-      "c": 1.334757
-    },
     {
       "t": 1789739100,
       "o": 1.334917,
@@ -4296,16 +4352,30 @@
     {
       "t": 1790088900,
       "o": 1.334454,
-      "h": 1.334686,
+      "h": 1.334721,
       "l": 1.334454,
-      "c": 1.334686
+      "c": 1.33465
     },
     {
-      "t": 1790089026,
-      "o": 1.334526,
-      "h": 1.334526,
-      "l": 1.334526,
-      "c": 1.334526
+      "t": 1790089200,
+      "o": 1.334704,
+      "h": 1.334704,
+      "l": 1.334187,
+      "c": 1.334187
+    },
+    {
+      "t": 1790089500,
+      "o": 1.334098,
+      "h": 1.334098,
+      "l": 1.334098,
+      "c": 1.334098
+    },
+    {
+      "t": 1790089566,
+      "o": 1.334009,
+      "h": 1.334009,
+      "l": 1.334009,
+      "c": 1.334009
     }
   ],
   "calendar": [

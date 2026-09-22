@@ -98,6 +98,34 @@ function renderAsia(data) {
   $("#no-trade-rule").textContent = playbook.noTradeIf;
 }
 
+function renderBtmm(data) {
+  const btmm = data.btmm;
+  if (!btmm) return;
+  const pattern = btmm.pattern;
+  $("#btmm-expected").textContent = data.forecastAudit?.btmmAtCapture?.expectedPattern || btmm.expectedPattern;
+  $("#btmm-pattern").textContent = `${pattern.name} · ${pattern.status}`;
+  $("#btmm-pattern-note").textContent = pattern.shape
+    ? `${pattern.shape}-shape, ${pattern.direction}; second extreme gap ${pattern.gapPips.toFixed(1)} pips. ${pattern.rule}`
+    : pattern.rule;
+  $("#btmm-stop-hunt").textContent = btmm.asiaStopHunt;
+  $("#btmm-hod-lod").textContent = btmm.hodLod;
+  $("#btmm-level").textContent = btmm.levelCount.label;
+  $("#btmm-level-note").textContent = btmm.levelCount.direction === "inside"
+    ? "Price remains inside the Asian box."
+    : `${btmm.levelCount.distancePips.toFixed(1)} pips ${btmm.levelCount.direction} Asia; fixed ${btmm.levelCount.bandPips}-pip bands.`;
+  $("#btmm-adr").textContent = btmm.adr.usedPercent == null ? "—" : `${btmm.adr.usedPercent.toFixed(0)}%`;
+  $("#btmm-adr-note").textContent = `${btmm.adr.usedPips.toFixed(1)} pips used of ${btmm.adr.averagePips.toFixed(1)}-pip five-day ADR.`;
+  const mayoSide = btmm.emas.mayoDistancePips >= 0 ? "above" : "below";
+  $("#btmm-mayo").textContent = `${Math.abs(btmm.emas.mayoDistancePips).toFixed(1)} pips ${mayoSide}`;
+  $("#btmm-mayo-note").textContent = `${fmtPrice(btmm.emas.mayo200)}${btmm.emas.recentMayoTouch ? " · touched within the last hour" : " · no recent touch"}`;
+  $("#btmm-ema").textContent = `${btmm.emas.alignment} alignment`;
+  $("#btmm-ema-note").textContent = `EMA13 ${fmtPrice(btmm.emas.ema13)} · EMA50 ${fmtPrice(btmm.emas.ema50)}`;
+  $("#btmm-tdi").textContent = `${btmm.tdiProxy.state} · RSI ${btmm.tdiProxy.rsi13.toFixed(1)}`;
+  $("#btmm-tdi-note").textContent = `RSI-13 versus 2-period signal ${btmm.tdiProxy.signal2.toFixed(1)}.`;
+  $("#btmm-rrt").textContent = btmm.railroadTracks.active ? `${btmm.railroadTracks.direction} RRT` : "None active";
+  $("#btmm-rrt-note").textContent = btmm.railroadTracks.note;
+}
+
 function renderCalendar(data) {
   const dated = data.calendar.filter(event => event.timeChicago);
   const dates = [...new Set(dated.map(event => chicagoDate(event.timeChicago)))].sort();
@@ -138,7 +166,11 @@ function renderEvents() {
 }
 
 function activeLevels(data) {
-  return data.levels.filter(level => state.chartMode === "session" ? ["session", "both"].includes(level.group) : ["htf", "both"].includes(level.group));
+  return data.levels.filter(level => {
+    if (state.chartMode === "session") return ["session", "both"].includes(level.group);
+    if (state.chartMode === "btmm") return level.group === "btmm";
+    return ["htf", "both"].includes(level.group);
+  });
 }
 
 function levelSwept(level, price) {
@@ -156,6 +188,10 @@ function chartInstruction(data) {
   if (state.chartMode === "session") {
     const playbook = data.sessions.playbook;
     return `${playbook.state}: ${playbook.verdict} Expected raid: ${playbook.expectedRaid}. First target: ${playbook.firstTarget}.`;
+  }
+  if (state.chartMode === "btmm") {
+    const btmm = data.btmm;
+    return `${btmm.pattern.name} (${btmm.pattern.status}). ${btmm.levelCount.label}; ADR used ${btmm.adr.usedPercent == null ? "—" : btmm.adr.usedPercent.toFixed(0) + "%"}. Mayo/EMA200 ${fmtPrice(btmm.emas.mayo200)}. These tags do not alter the ICT bias.`;
   }
   return `${data.bias.direction} top-down narrative. ${data.bias.location}. Primary draw: ${data.bias.draw} at ${fmtPrice(data.bias.drawPrice)}.`;
 }
@@ -277,6 +313,7 @@ async function init() {
     renderBrief(state.data);
     renderForecastAudit(state.data);
     renderAsia(state.data);
+    renderBtmm(state.data);
     renderCalendar(state.data);
     setupChartModes(state.data);
     drawChart(state.data);
