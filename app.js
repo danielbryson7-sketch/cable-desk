@@ -208,13 +208,14 @@ function levelSwept(level, price) {
 
 function renderLevelStrip(data) {
   $("#level-strip").innerHTML = activeLevels(data).map(level => `
-    <span class="level-pill ${level.side} ${levelSwept(level, data.quote.price) ? "swept" : ""}"><b>${level.key}</b>${fmtPrice(level.price)} · ${level.label}${levelSwept(level, data.quote.price) ? " · swept" : ""}</span>`).join("");
+    <span class="level-pill ${level.side} ${level.focus ? "focus" : ""} ${levelSwept(level, data.quote.price) ? "swept" : ""}"><b>${level.key}</b>${fmtPrice(level.price)} · ${level.label}${levelSwept(level, data.quote.price) ? " · passed" : ""}</span>`).join("");
 }
 
 function chartInstruction(data) {
   if (state.chartMode === "session") {
     const playbook = data.sessions.playbook;
-    return `${playbook.state}: ${playbook.verdict} Expected raid: ${playbook.expectedRaid}. First target: ${playbook.firstTarget}.`;
+    const target = playbook.firstTargetPrice == null ? playbook.firstTarget : `${playbook.firstTarget} at ${fmtPrice(playbook.firstTargetPrice)}`;
+    return `${playbook.state}: ${playbook.verdict} Expected raid: ${playbook.expectedRaid}. First target: ${target}.`;
   }
   if (state.chartMode === "btmm") {
     const btmm = data.btmm;
@@ -293,12 +294,20 @@ function drawChart(data) {
   });
   labelPositions.forEach(({ level, py, labelY }) => {
     const color = colors[level.side] || "#8d99a7";
-    ctx.setLineDash(level.side === "open" ? [2, 3] : [5, 5]);
+    ctx.setLineDash(level.focus ? [] : level.side === "open" ? [2, 3] : [5, 5]);
+    ctx.lineWidth = level.focus ? 2 : 1;
     ctx.strokeStyle = color; ctx.globalAlpha = levelSwept(level, data.quote.price) ? .28 : .72;
     ctx.beginPath(); ctx.moveTo(0, py); ctx.lineTo(rect.width - pad.right + 8, py); ctx.stroke();
-    ctx.globalAlpha = 1; ctx.setLineDash([]); ctx.fillStyle = color; ctx.textAlign = "right";
+    ctx.globalAlpha = 1; ctx.setLineDash([]); ctx.lineWidth = 1; ctx.fillStyle = color; ctx.textAlign = "right";
+    ctx.font = level.focus ? "700 10px ui-monospace, monospace" : "10px ui-monospace, monospace";
     ctx.fillText(`${level.key} ${fmtPrice(level.price)}`, rect.width - 3, labelY + 3);
   });
+
+  const currentY = y(data.quote.price);
+  ctx.setLineDash([]); ctx.lineWidth = 1.5; ctx.strokeStyle = "#f2f5f7"; ctx.globalAlpha = .9;
+  ctx.beginPath(); ctx.moveTo(0, currentY); ctx.lineTo(rect.width - pad.right + 8, currentY); ctx.stroke();
+  ctx.globalAlpha = 1; ctx.fillStyle = "#f2f5f7"; ctx.textAlign = "right"; ctx.font = "700 10px ui-monospace, monospace";
+  ctx.fillText(`NOW ${fmtPrice(data.quote.price)}`, rect.width - 3, currentY + 3);
 
   candles.forEach((candle, index) => {
     const px = pad.left + index * step + step / 2;
