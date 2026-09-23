@@ -214,6 +214,25 @@ def build_sessions(rows: list[dict], now: datetime, bias: dict) -> dict:
     asia.update({"quality": quality, "qualityNote": quality_note, "midnightOpen": midnight})
 
     latest_price = rows[-1]["c"]
+
+    def continuation_target(side: str) -> tuple[str, float]:
+        """Return the next unswept Asian-range extension in the trade direction."""
+        range_size = asia["high"] - asia["low"]
+        if side == "bearish":
+            extensions = [
+                ("Asian range −1× extension", asia["low"] - range_size),
+                ("Asian range −2× extension", asia["low"] - 2 * range_size),
+                ("Asian range −3× extension", asia["low"] - 3 * range_size),
+            ]
+            label, price = next((item for item in extensions if item[1] < latest_price), extensions[-1])
+            return label, round(price, 6)
+        extensions = [
+            ("Asian range +1× extension", asia["high"] + range_size),
+            ("Asian range +2× extension", asia["high"] + 2 * range_size),
+            ("Asian range +3× extension", asia["high"] + 3 * range_size),
+        ]
+        label, price = next((item for item in extensions if item[1] > latest_price), extensions[-1])
+        return label, round(price, 6)
     if swept_high and swept_low:
         state, verdict = "Both sides raided", "Stand aside: the Asian box has already been cleared on both sides."
     elif direction == "Bullish":
@@ -232,31 +251,36 @@ def build_sessions(rows: list[dict], now: datetime, bias: dict) -> dict:
         state, verdict = "Two-sided observation", "Let London reveal the first raid; trade only a reclaim plus structure shift."
 
     if direction == "Neutral" and state == "Asian-low break holding":
-        expected_raid, opposing_target, action = "ARL retest from below", bias["draw"], "bearish"
+        opposing_target, target_price = continuation_target("bearish")
+        expected_raid, action = "ARL retest from below", "bearish"
         flip = "Flip condition: reclaim ARL and PDL with bullish displacement; then target AREQ and ARH."
     elif direction == "Neutral" and state == "Asian-low raid reclaimed":
-        expected_raid, opposing_target, action = "ARL support retest", "Asian high", "bullish"
+        expected_raid, opposing_target, target_price, action = "ARL support retest", "Asian high", asia["high"], "bullish"
         flip = "Flip condition: lose ARL again with bearish acceptance; then target lower external sell-side."
     elif direction == "Neutral" and state == "Asian-high break holding":
-        expected_raid, opposing_target, action = "ARH support retest", bias["draw"], "bullish"
+        opposing_target, target_price = continuation_target("bullish")
+        expected_raid, action = "ARH support retest", "bullish"
         flip = "Flip condition: lose ARH with bearish displacement; then target AREQ and ARL."
     elif direction == "Neutral" and state == "Asian-high raid rejected":
-        expected_raid, opposing_target, action = "ARH resistance retest", "Asian low", "bearish"
+        expected_raid, opposing_target, target_price, action = "ARH resistance retest", "Asian low", asia["low"], "bearish"
         flip = "Flip condition: reclaim ARH with bullish acceptance; then target higher external buy-side."
     else:
         expected_raid = "Asian low" if direction == "Bullish" else "Asian high" if direction == "Bearish" else "Either edge"
         opposing_target = "Asian high" if direction == "Bullish" else "Asian low" if direction == "Bearish" else "Opposite Asian edge"
+        target_price = asia["high"] if direction == "Bullish" else asia["low"] if direction == "Bearish" else asia["midpoint"]
         action = "bullish" if direction == "Bullish" else "bearish" if direction == "Bearish" else "directional"
         flip = "Flip condition: the expected raid fails to reclaim and price accepts beyond the opposite side."
     confirmation_context = "away from the rejected edge" if "break holding" in state else "back through the range"
+    follow_through = "then reassess at the extension" if "break holding" in state else "then the higher-timeframe draw"
     return {
         "tradeDate": trade_day.isoformat(), "asia": asia, "london": london, "newYork": new_york,
         "playbook": {
-            "state": state, "verdict": verdict, "expectedRaid": expected_raid, "firstTarget": opposing_target,
+            "state": state, "verdict": verdict, "expectedRaid": expected_raid,
+            "firstTarget": opposing_target, "firstTargetPrice": target_price, "direction": action,
             "steps": [
                 f"Liquidity condition: watch {expected_raid}.",
                 f"Confirmation: require a {action} 5m displacement and market-structure shift {confirmation_context}.",
-                f"Distribution: use {opposing_target} as the first objective, then the higher-timeframe draw.",
+                f"Distribution: use {opposing_target} as the first objective, {follow_through}.",
                 flip,
             ],
             "noTradeIf": "Both Asian edges are swept, price never reclaims the raided edge, or high-impact news is imminent.",
@@ -341,6 +365,13 @@ def build_levels(month: dict, week: dict, day: dict, sessions: dict, btmm: dict 
         ])
         if asia.get("midnightOpen") is not None:
             levels.append({"key": "MO", "label": "Midnight open", "price": asia["midnightOpen"], "side": "open", "group": "session"})
+        playbook = sessions.get("playbook", {})
+        if playbook.get("firstTargetPrice") is not None:
+            target_side = "sell" if playbook.get("direction") == "bearish" else "buy" if playbook.get("direction") == "bullish" else "mid"
+            levels.append({
+                "key": "TGT", "label": playbook["firstTarget"], "price": playbook["firstTargetPrice"],
+                "side": target_side, "group": "session", "focus": True,
+            })
     if btmm:
         levels.extend([
             {"key": "EMA13", "label": "BTMM fast EMA", "price": btmm["emas"]["ema13"], "side": "buy", "group": "btmm"},
