@@ -1,5 +1,141 @@
 {
   "modelVersion": "1.0",
-  "records": {},
-  "lastUpdatedAt": "2026-09-23T19:44:05.753203-05:00"
+  "records": {
+    "2026-09-24": {
+      "tradeDate": "2026-09-24",
+      "capturedAt": "2026-09-24T00:19:22.126874-04:00",
+      "locked": true,
+      "forecast": {
+        "direction": "Neutral",
+        "score": 1,
+        "maxScore": 15,
+        "confidence": "event-risk",
+        "expectedFirstRaid": "Either edge",
+        "targetLabel": "No directional target",
+        "targetPrice": null,
+        "invalidationLabel": "Wait for London confirmation",
+        "invalidationPrice": null,
+        "confirmation": "Wait for one side to be swept; the reclaim and displacement define direction",
+        "reason": "Frozen top-down score +1/15; higher timeframes disagree."
+      },
+      "asianRange": {
+        "start": "2026-09-23T20:00:00-04:00",
+        "end": "2026-09-24T00:00:00-04:00",
+        "open": 1.32389,
+        "high": 1.324503,
+        "low": 1.322419,
+        "close": 1.323574,
+        "rangePips": 20.8,
+        "midpoint": 1.323461,
+        "midnightOpen": 1.323522,
+        "quality": "clean"
+      },
+      "topDown": [
+        {
+          "label": "Previous month",
+          "direction": "bullish",
+          "weight": 5,
+          "range": "1.3420\u20131.3675",
+          "close": 1.354041
+        },
+        {
+          "label": "Previous week",
+          "direction": "bearish",
+          "weight": 4,
+          "range": "1.3337\u20131.3528",
+          "close": 1.3358
+        },
+        {
+          "label": "Prior day",
+          "direction": "bullish",
+          "weight": 3,
+          "range": "1.3324\u20131.3389",
+          "close": 1.33709
+        },
+        {
+          "label": "Completed 4H",
+          "direction": "bearish",
+          "weight": 2,
+          "range": "1.3224\u20131.3245",
+          "close": 1.323574
+        },
+        {
+          "label": "Completed 1H",
+          "direction": "bearish",
+          "weight": 1,
+          "range": "1.3236\u20131.3245",
+          "close": 1.323574
+        }
+      ],
+      "btmmAtCapture": {
+        "expectedPattern": "M or W after the first stop hunt",
+        "pattern": {
+          "name": "Half Batman",
+          "shape": "W",
+          "direction": "bullish",
+          "status": "forming",
+          "firstExtreme": 1.322559,
+          "secondExtreme": 1.323557,
+          "apex": 1.324503,
+          "gapPips": 10.0,
+          "at": 1790221200,
+          "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
+        },
+        "asiaStopHunt": "None recorded",
+        "hodLod": "Unconfirmed \u00b7 no completed rejection",
+        "levelCount": {
+          "label": "Level 0 \u00b7 accumulation",
+          "direction": "inside",
+          "distancePips": 0.0,
+          "bandPips": 25,
+          "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
+        },
+        "adr": {
+          "averagePips": 60.0,
+          "usedPips": 4.2,
+          "usedPercent": 7.0
+        },
+        "emas": {
+          "ema13": 1.323706,
+          "ema50": 1.323684,
+          "mayo200": 1.325144,
+          "alignment": "bullish",
+          "mayoDistancePips": -14.3,
+          "recentMayoTouch": false
+        },
+        "tdiProxy": {
+          "rsi13": 50.7,
+          "signal2": 52.1,
+          "state": "mixed",
+          "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
+        },
+        "railroadTracks": {
+          "active": false,
+          "direction": "neutral",
+          "note": "No qualified two-candle railroad-track reversal."
+        }
+      },
+      "news": {
+        "risk": "medium",
+        "eventCount": 13,
+        "disruptiveCount": 1,
+        "events": [
+          {
+            "title": "Unemployment Claims",
+            "currency": "USD",
+            "impact": "Medium",
+            "timeUtc": "2026-09-24T12:30:00+00:00"
+          }
+        ]
+      },
+      "checkpoints": {
+        "midnight": {
+          "observedAt": "2026-09-24T00:19:22.126874-04:00",
+          "status": "forecast locked"
+        }
+      },
+      "result": null
+    }
+  },
+  "lastUpdatedAt": "2026-09-23T23:19:22.126874-05:00"
 }
