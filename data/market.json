@@ -1,7 +1,7 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-09-25T18:07:48.478796-05:00",
+    "updatedAt": "2026-09-25T20:34:49.877108-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
@@ -51,15 +51,15 @@
     "direction": "bullish"
   },
   "fourHour": {
-    "start": "2026-09-25T12:00:00-04:00",
-    "end": "2026-09-25T16:00:00-04:00",
-    "open": 1.324942,
-    "high": 1.32619,
-    "low": 1.323942,
-    "close": 1.324995,
-    "midpoint": 1.325066,
-    "rangePips": 22.5,
-    "direction": "bullish"
+    "start": "2026-09-25T16:00:00-04:00",
+    "end": "2026-09-25T20:00:00-04:00",
+    "open": 1.32496,
+    "high": 1.3251,
+    "low": 1.324433,
+    "close": 1.324644,
+    "midpoint": 1.324766,
+    "rangePips": 6.7,
+    "direction": "bearish"
   },
   "oneHour": {
     "start": "2026-09-25T21:00:00+00:00",
@@ -73,16 +73,16 @@
     "direction": "bearish"
   },
   "bias": {
-    "direction": "Bullish",
-    "score": 5,
+    "direction": "Neutral",
+    "score": 1,
     "maxScore": 15,
     "confidence": "event-risk",
     "newsRisk": "high",
     "draw": "Prior-day high",
     "drawPrice": 1.325574,
-    "invalidation": 1.321126,
-    "confirmation": "Sweep sell-side liquidity, reclaim it, then print bullish 5m displacement",
-    "location": "Weekly discount supports longs",
+    "invalidation": 1.343243,
+    "confirmation": "Wait for one side to be swept; the reclaim and displacement define direction",
+    "location": "Higher timeframes disagree",
     "stack": [
       {
         "label": "Previous month",
@@ -107,10 +107,10 @@
       },
       {
         "label": "Completed 4H",
-        "direction": "bullish",
+        "direction": "bearish",
         "weight": 2,
-        "range": "1.3239\u20131.3262",
-        "close": 1.324995
+        "range": "1.3244\u20131.3251",
+        "close": 1.324644
       },
       {
         "label": "Completed 1H",
@@ -125,71 +125,33 @@
     "method": "Monthly \u2192 weekly \u2192 daily \u2192 4H \u2192 1H narrative; Asia supplies the intraday manipulation map and 5m confirms execution."
   },
   "sessions": {
-    "tradeDate": "2026-09-25",
+    "tradeDate": "2026-09-26",
     "asia": {
       "name": "Asian range",
-      "start": "2026-09-24T20:00:00-04:00",
-      "end": "2026-09-25T00:00:00-04:00",
-      "open": 1.321074,
-      "high": 1.322349,
-      "low": 1.321021,
-      "midpoint": 1.321685,
-      "close": 1.321248,
-      "rangePips": 13.3,
-      "complete": true,
-      "count": 48,
-      "quality": "clean",
-      "qualityNote": "Compact accumulation range; suitable for watching a one-sided raid.",
-      "midnightOpen": 1.321196
+      "start": "2026-09-25T20:00:00-04:00",
+      "end": "2026-09-26T00:00:00-04:00",
+      "complete": false
     },
     "london": {
       "name": "London kill zone",
-      "start": "2026-09-25T02:00:00-04:00",
-      "end": "2026-09-25T05:00:00-04:00",
-      "open": 1.321877,
-      "high": 1.324065,
-      "low": 1.321772,
-      "midpoint": 1.322919,
-      "close": 1.323399,
-      "rangePips": 22.9,
-      "complete": true,
-      "count": 36,
-      "sweptAsiaHigh": true,
-      "sweptAsiaLow": false,
-      "firstSweep": "Asian high"
+      "start": "2026-09-26T02:00:00-04:00",
+      "end": "2026-09-26T05:00:00-04:00",
+      "complete": false
     },
     "newYork": {
       "name": "New York AM",
-      "start": "2026-09-25T07:00:00-04:00",
-      "end": "2026-09-25T10:00:00-04:00",
-      "open": 1.324433,
-      "high": 1.326277,
-      "low": 1.324433,
-      "midpoint": 1.325355,
-      "close": 1.325381,
-      "rangePips": 18.4,
-      "complete": true,
-      "count": 36
+      "start": "2026-09-26T07:00:00-04:00",
+      "end": "2026-09-26T10:00:00-04:00",
+      "complete": false
     },
     "playbook": {
-      "state": "Bullish AMD watch",
-      "verdict": "Prefer an Asian-low raid and reclaim before expansion higher.",
-      "expectedRaid": "Asian low",
-      "firstTarget": "Asian high",
-      "firstTargetPrice": 1.322349,
-      "direction": "bullish",
-      "steps": [
-        "Liquidity condition: watch Asian low.",
-        "Confirmation: require a bullish 5m displacement and market-structure shift back through the range.",
-        "Distribution: use Asian high as the first objective, then the higher-timeframe draw.",
-        "Flip condition: the expected raid fails to reclaim and price accepts beyond the opposite side."
-      ],
-      "noTradeIf": "Both Asian edges are swept, price never reclaims the raided edge, or high-impact news is imminent."
+      "state": "Awaiting Asian range",
+      "steps": []
     }
   },
   "btmm": {
     "separateMethod": "Steve Mauro BTMM observation layer; it does not alter the ICT score.",
-    "expectedPattern": "W / Half Batman below ARL",
+    "expectedPattern": "M or W after the first stop hunt",
     "pattern": {
       "name": "Half Batman",
       "shape": "W",
@@ -202,19 +164,19 @@
       "at": 1790361600,
       "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
     },
-    "asiaStopHunt": "Asian high",
+    "asiaStopHunt": "None recorded",
     "hodLod": "Unconfirmed \u00b7 no completed rejection",
     "levelCount": {
-      "label": "Level 1 rise",
-      "direction": "above",
-      "distancePips": 22.9,
+      "label": "Level 0 \u00b7 accumulation",
+      "direction": "inside",
+      "distancePips": 0.0,
       "bandPips": 25,
       "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
     },
     "adr": {
       "averagePips": 55.2,
-      "usedPips": 51.5,
-      "usedPercent": 93.3
+      "usedPips": 0,
+      "usedPercent": 0.0
     },
     "emas": {
       "ema13": 1.32468,
@@ -237,94 +199,10 @@
     }
   },
   "dayStory": {
-    "status": "live",
-    "headline": "Buy-side delivery is holding above Asia",
-    "summary": "From the Asian open, GBP/USD is +35.7 pips. From the midnight open, it is +34.5 pips and currently sits above the Asian high. The live ICT reading is bullish; the BTMM scanner shows half batman (confirmed).",
-    "asOf": "2026-09-25T17:25:00-04:00",
-    "metrics": {
-      "sinceAsiaPips": 35.7,
-      "sinceMidnightPips": 34.5,
-      "high": 1.326277,
-      "highAt": "2026-09-25T09:05:00-04:00",
-      "low": 1.321021,
-      "lowAt": "2026-09-24T20:20:00-04:00",
-      "currentRelation": "above the Asian high"
-    },
-    "timeline": [
-      {
-        "title": "Asian range",
-        "time": "20:00\u201300:00 NY",
-        "status": "complete",
-        "open": 1.321074,
-        "high": 1.322349,
-        "low": 1.321021,
-        "close": 1.321213,
-        "rangePips": 13.3,
-        "movePips": 1.4,
-        "text": "Price rose 1.4 pips from 1.3211 to 1.3212; the phase covered 13.3 pips. It did not clear an Asian edge. It ended inside the lower half of Asia."
-      },
-      {
-        "title": "Midnight handoff",
-        "time": "00:00\u201302:00 NY",
-        "status": "complete",
-        "open": 1.321196,
-        "high": 1.322017,
-        "low": 1.321126,
-        "close": 1.321772,
-        "rangePips": 8.9,
-        "movePips": 5.8,
-        "text": "Price rose 5.8 pips from 1.3212 to 1.3218; the phase covered 8.9 pips. It did not clear an Asian edge. It ended inside the upper half of Asia."
-      },
-      {
-        "title": "London window",
-        "time": "02:00\u201305:00 NY",
-        "status": "complete",
-        "open": 1.321877,
-        "high": 1.324065,
-        "low": 1.321772,
-        "close": 1.323627,
-        "rangePips": 22.9,
-        "movePips": 17.5,
-        "text": "Price rose 17.5 pips from 1.3219 to 1.3236; the phase covered 22.9 pips. It traded through Asian high. It ended above the Asian high."
-      },
-      {
-        "title": "Post-London handoff",
-        "time": "05:00\u201307:00 NY",
-        "status": "complete",
-        "open": 1.323346,
-        "high": 1.324995,
-        "low": 1.323154,
-        "close": 1.32496,
-        "rangePips": 18.4,
-        "movePips": 16.1,
-        "text": "Price rose 16.1 pips from 1.3233 to 1.3250; the phase covered 18.4 pips. It traded through Asian high. It ended above the Asian high."
-      },
-      {
-        "title": "New York AM",
-        "time": "07:00\u201310:00 NY",
-        "status": "complete",
-        "open": 1.324433,
-        "high": 1.326277,
-        "low": 1.324433,
-        "close": 1.324784,
-        "rangePips": 18.4,
-        "movePips": 3.5,
-        "text": "Price rose 3.5 pips from 1.3244 to 1.3248; the phase covered 18.4 pips. It traded through Asian high. It ended above the Asian high."
-      },
-      {
-        "title": "After New York AM",
-        "time": "10:00\u201316:00 NY",
-        "status": "complete",
-        "open": 1.325399,
-        "high": 1.32619,
-        "low": 1.322996,
-        "close": 1.3251,
-        "rangePips": 31.9,
-        "movePips": -3.0,
-        "text": "Price fell 3.0 pips from 1.3254 to 1.3251; the phase covered 31.9 pips. It traded through Asian high. It ended above the Asian high."
-      }
-    ],
-    "method": "Deterministic five-minute candle summary from 20:00 New York through the latest available candle; no AI generation is used during refreshes."
+    "status": "waiting",
+    "headline": "Waiting for the Asian range",
+    "summary": "The rolling account begins when the 20:00 New York candle opens.",
+    "timeline": []
   },
   "forecastAudit": null,
   "forecastStats": {
@@ -385,42 +263,6 @@
       "price": 1.321126,
       "side": "sell",
       "group": "both"
-    },
-    {
-      "key": "ARH",
-      "label": "Asian range high",
-      "price": 1.322349,
-      "side": "buy",
-      "group": "session"
-    },
-    {
-      "key": "AREQ",
-      "label": "Asian equilibrium",
-      "price": 1.321685,
-      "side": "mid",
-      "group": "session"
-    },
-    {
-      "key": "ARL",
-      "label": "Asian range low",
-      "price": 1.321021,
-      "side": "sell",
-      "group": "session"
-    },
-    {
-      "key": "MO",
-      "label": "Midnight open",
-      "price": 1.321196,
-      "side": "open",
-      "group": "session"
-    },
-    {
-      "key": "TGT",
-      "label": "Asian high",
-      "price": 1.322349,
-      "side": "buy",
-      "group": "session",
-      "focus": true
     },
     {
       "key": "EMA13",
