@@ -429,7 +429,135 @@
         }
       },
       "result": null
+    },
+    "2026-10-12": {
+      "tradeDate": "2026-10-12",
+      "capturedAt": "2026-10-12T00:43:56.612946-04:00",
+      "locked": true,
+      "forecast": {
+        "direction": "Bearish",
+        "score": -9,
+        "maxScore": 15,
+        "confidence": "mixed",
+        "expectedFirstRaid": "Asian high",
+        "targetLabel": "Prior-day low",
+        "targetPrice": 1.320795,
+        "invalidationLabel": "Top-down buy-side invalidation",
+        "invalidationPrice": 1.325205,
+        "confirmation": "Sweep buy-side liquidity, reject it, then print bearish 5m displacement",
+        "reason": "Frozen top-down score -9/15; weekly premium supports shorts."
+      },
+      "asianRange": {
+        "start": "2026-10-11T20:00:00-04:00",
+        "end": "2026-10-12T00:00:00-04:00",
+        "open": 1.324012,
+        "high": 1.32524,
+        "low": 1.324012,
+        "close": 1.324574,
+        "rangePips": 12.3,
+        "midpoint": 1.324626,
+        "midnightOpen": 1.324591,
+        "quality": "clean"
+      },
+      "topDown": [
+        {
+          "label": "Previous month",
+          "direction": "bearish",
+          "weight": 5,
+          "range": "1.3203\u20131.3570",
+          "close": 1.323276
+        },
+        {
+          "label": "Previous week",
+          "direction": "bearish",
+          "weight": 4,
+          "range": "1.3182\u20131.3307",
+          "close": 1.319958
+        },
+        {
+          "label": "Prior day",
+          "direction": "bearish",
+          "weight": 3,
+          "range": "1.3208\u20131.3252",
+          "close": 1.322909
+        },
+        {
+          "label": "Completed 4H",
+          "direction": "bullish",
+          "weight": 2,
+          "range": "1.3240\u20131.3252",
+          "close": 1.324574
+        },
+        {
+          "label": "Completed 1H",
+          "direction": "bullish",
+          "weight": 1,
+          "range": "1.3242\u20131.3248",
+          "close": 1.324574
+        }
+      ],
+      "btmmAtCapture": {
+        "expectedPattern": "M / Half Batman above ARH",
+        "pattern": {
+          "name": "W pattern",
+          "shape": "W",
+          "direction": "bullish",
+          "status": "forming",
+          "firstExtreme": 1.324644,
+          "secondExtreme": 1.324696,
+          "apex": 1.32524,
+          "gapPips": 0.5,
+          "at": 1791769500,
+          "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
+        },
+        "asiaStopHunt": "None recorded",
+        "hodLod": "Unconfirmed \u00b7 no completed rejection",
+        "levelCount": {
+          "label": "Level 0 \u00b7 accumulation",
+          "direction": "inside",
+          "distancePips": 0.0,
+          "bandPips": 25,
+          "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
+        },
+        "adr": {
+          "averagePips": 63.3,
+          "usedPips": 2.3,
+          "usedPercent": 3.6
+        },
+        "emas": {
+          "ema13": 1.32467,
+          "ema50": 1.324571,
+          "mayo200": 1.323944,
+          "alignment": "bullish",
+          "mayoDistancePips": 7.5,
+          "recentMayoTouch": false
+        },
+        "tdiProxy": {
+          "rsi13": 52.9,
+          "signal2": 52.5,
+          "state": "bullish",
+          "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
+        },
+        "railroadTracks": {
+          "active": false,
+          "direction": "neutral",
+          "note": "No qualified two-candle railroad-track reversal."
+        }
+      },
+      "news": {
+        "risk": "low",
+        "eventCount": 6,
+        "disruptiveCount": 0,
+        "events": []
+      },
+      "checkpoints": {
+        "midnight": {
+          "observedAt": "2026-10-12T00:43:56.612946-04:00",
+          "status": "forecast locked"
+        }
+      },
+      "result": null
     }
   },
-  "lastUpdatedAt": "2026-10-09T18:50:40.003742-05:00"
+  "lastUpdatedAt": "2026-10-11T23:43:56.612946-05:00"
 }
