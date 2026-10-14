@@ -1,7 +1,7 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-10-14T15:01:30.526086-05:00",
+    "updatedAt": "2026-10-14T18:14:53.929079-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
@@ -9,8 +9,8 @@
     "checkpoint": "refresh"
   },
   "quote": {
-    "price": 1.319366,
-    "asOf": 1792008086
+    "price": 1.320411,
+    "asOf": 1792019665
   },
   "previousMonth": {
     "start": "2026-09-01",
@@ -62,14 +62,14 @@
     "direction": "bullish"
   },
   "oneHour": {
-    "start": "2026-10-14T19:00:00+00:00",
-    "end": "2026-10-14T20:00:00+00:00",
-    "open": 1.318218,
-    "high": 1.319226,
-    "low": 1.317992,
-    "close": 1.319157,
-    "midpoint": 1.318609,
-    "rangePips": 12.3,
+    "start": "2026-10-14T22:00:00+00:00",
+    "end": "2026-10-14T23:00:00+00:00",
+    "open": 1.319209,
+    "high": 1.319331,
+    "low": 1.319209,
+    "close": 1.319279,
+    "midpoint": 1.31927,
+    "rangePips": 1.2,
     "direction": "bullish"
   },
   "bias": {
@@ -78,8 +78,8 @@
     "maxScore": 15,
     "confidence": "event-risk",
     "newsRisk": "high",
-    "draw": "Previous-week low",
-    "drawPrice": 1.318635,
+    "draw": "Previous-month low",
+    "drawPrice": 1.320341,
     "invalidation": 1.325416,
     "confirmation": "Sweep buy-side liquidity, reject it, then print bearish 5m displacement",
     "location": "Weekly discount: do not chase shorts",
@@ -116,8 +116,8 @@
         "label": "Completed 1H",
         "direction": "bullish",
         "weight": 1,
-        "range": "1.3180\u20131.3192",
-        "close": 1.319157
+        "range": "1.3192\u20131.3193",
+        "close": 1.319279
       }
     ],
     "todayEventCount": 14,
@@ -191,15 +191,15 @@
     "separateMethod": "Steve Mauro BTMM observation layer; it does not alter the ICT score.",
     "expectedPattern": "M / Half Batman above ARH",
     "pattern": {
-      "name": "Half Batman",
-      "shape": "W",
-      "direction": "bullish",
+      "name": "M pattern",
+      "shape": "M",
+      "direction": "bearish",
       "status": "confirmed",
-      "firstExtreme": 1.317766,
-      "secondExtreme": 1.318392,
-      "apex": 1.319052,
-      "gapPips": 6.3,
-      "at": 1792006800,
+      "firstExtreme": 1.319279,
+      "secondExtreme": 1.319679,
+      "apex": 1.318739,
+      "gapPips": 4.0,
+      "at": 1792011300,
       "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
     },
     "asiaStopHunt": "None recorded",
@@ -207,7 +207,7 @@
     "levelCount": {
       "label": "Level 3 drop",
       "direction": "below",
-      "distancePips": 60.7,
+      "distancePips": 50.2,
       "bandPips": 25,
       "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
     },
@@ -217,16 +217,16 @@
       "usedPercent": 238.5
     },
     "emas": {
-      "ema13": 1.318853,
-      "ema50": 1.317988,
-      "mayo200": 1.320877,
+      "ema13": 1.319689,
+      "ema50": 1.318898,
+      "mayo200": 1.320479,
       "alignment": "bullish",
-      "mayoDistancePips": -15.1,
-      "recentMayoTouch": false
+      "mayoDistancePips": -0.7,
+      "recentMayoTouch": true
     },
     "tdiProxy": {
-      "rsi13": 70.8,
-      "signal2": 70.8,
+      "rsi13": 71.0,
+      "signal2": 71.9,
       "state": "mixed",
       "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
     },
@@ -239,11 +239,11 @@
   "dayStory": {
     "status": "live",
     "headline": "Sell-side delivery is holding below Asia",
-    "summary": "From the Asian open, GBP/USD is -63.0 pips. From the midnight open, it is -77.2 pips and currently sits below the Asian low. The live ICT reading is bearish; the BTMM scanner shows half batman (confirmed).",
-    "asOf": "2026-10-14T16:01:26-04:00",
+    "summary": "From the Asian open, GBP/USD is -52.5 pips. From the midnight open, it is -66.8 pips and currently sits below the Asian low. The live ICT reading is bearish; the BTMM scanner shows m pattern (confirmed).",
+    "asOf": "2026-10-14T19:14:25-04:00",
     "metrics": {
-      "sinceAsiaPips": -63.0,
-      "sinceMidnightPips": -77.2,
+      "sinceAsiaPips": -52.5,
+      "sinceMidnightPips": -66.8,
       "high": 1.327528,
       "highAt": "2026-10-14T00:20:00-04:00",
       "low": 1.313888,
@@ -318,10 +318,10 @@
         "open": 1.316742,
         "high": 1.319366,
         "low": 1.313888,
-        "close": 1.319366,
+        "close": 1.319087,
         "rangePips": 54.8,
-        "movePips": 26.2,
-        "text": "Price rose 26.2 pips from 1.3167 to 1.3194; the phase covered 54.8 pips. It traded through Asian low. It ended below the Asian low."
+        "movePips": 23.4,
+        "text": "Price rose 23.4 pips from 1.3167 to 1.3191; the phase covered 54.8 pips. It traded through Asian low. It ended below the Asian low."
       }
     ],
     "method": "Deterministic five-minute candle summary from 20:00 New York through the latest available candle; no AI generation is used during refreshes."
@@ -425,222 +425,26 @@
     {
       "key": "EMA13",
       "label": "BTMM fast EMA",
-      "price": 1.318853,
+      "price": 1.319689,
       "side": "buy",
       "group": "btmm"
     },
     {
       "key": "EMA50",
       "label": "BTMM 50 EMA",
-      "price": 1.317988,
+      "price": 1.318898,
       "side": "mid",
       "group": "btmm"
     },
     {
       "key": "MAYO",
       "label": "BTMM 200 EMA",
-      "price": 1.320877,
+      "price": 1.320479,
       "side": "open",
       "group": "btmm"
     }
   ],
   "candles": [
-    {
-      "t": 1791835800,
-      "o": 1.320533,
-      "h": 1.320568,
-      "l": 1.320498,
-      "c": 1.320568
-    },
-    {
-      "t": 1791836100,
-      "o": 1.320533,
-      "h": 1.320568,
-      "l": 1.320516,
-      "c": 1.32055
-    },
-    {
-      "t": 1791836400,
-      "o": 1.320638,
-      "h": 1.32076,
-      "l": 1.320585,
-      "c": 1.32076
-    },
-    {
-      "t": 1791836700,
-      "o": 1.320725,
-      "h": 1.320725,
-      "l": 1.320655,
-      "c": 1.320725
-    },
-    {
-      "t": 1791837000,
-      "o": 1.32076,
-      "h": 1.32076,
-      "l": 1.32069,
-      "c": 1.320725
-    },
-    {
-      "t": 1791837300,
-      "o": 1.320742,
-      "h": 1.32076,
-      "l": 1.320742,
-      "c": 1.320742
-    },
-    {
-      "t": 1791837600,
-      "o": 1.320742,
-      "h": 1.320742,
-      "l": 1.320725,
-      "c": 1.320725
-    },
-    {
-      "t": 1791837900,
-      "o": 1.320812,
-      "h": 1.32083,
-      "l": 1.32076,
-      "c": 1.32076
-    },
-    {
-      "t": 1791838200,
-      "o": 1.320707,
-      "h": 1.32076,
-      "l": 1.320707,
-      "c": 1.32076
-    },
-    {
-      "t": 1791838500,
-      "o": 1.32083,
-      "h": 1.320899,
-      "l": 1.320777,
-      "c": 1.320777
-    },
-    {
-      "t": 1791838800,
-      "o": 1.321318,
-      "h": 1.321318,
-      "l": 1.320585,
-      "c": 1.32062
-    },
-    {
-      "t": 1791839100,
-      "o": 1.320847,
-      "h": 1.321021,
-      "l": 1.320742,
-      "c": 1.321021
-    },
-    {
-      "t": 1791839400,
-      "o": 1.320742,
-      "h": 1.321004,
-      "l": 1.320742,
-      "c": 1.320795
-    },
-    {
-      "t": 1791839700,
-      "o": 1.320742,
-      "h": 1.321004,
-      "l": 1.32069,
-      "c": 1.32069
-    },
-    {
-      "t": 1791840000,
-      "o": 1.32069,
-      "h": 1.320812,
-      "l": 1.32069,
-      "c": 1.320812
-    },
-    {
-      "t": 1791840300,
-      "o": 1.320742,
-      "h": 1.320795,
-      "l": 1.320533,
-      "c": 1.320533
-    },
-    {
-      "t": 1791840600,
-      "o": 1.320655,
-      "h": 1.32069,
-      "l": 1.320585,
-      "c": 1.320603
-    },
-    {
-      "t": 1791840900,
-      "o": 1.320917,
-      "h": 1.320934,
-      "l": 1.32069,
-      "c": 1.320934
-    },
-    {
-      "t": 1791841200,
-      "o": 1.320952,
-      "h": 1.321021,
-      "l": 1.320882,
-      "c": 1.320934
-    },
-    {
-      "t": 1791841500,
-      "o": 1.320899,
-      "h": 1.321074,
-      "l": 1.320882,
-      "c": 1.320882
-    },
-    {
-      "t": 1791841800,
-      "o": 1.320934,
-      "h": 1.321021,
-      "l": 1.320882,
-      "c": 1.321021
-    },
-    {
-      "t": 1791842100,
-      "o": 1.321196,
-      "h": 1.321283,
-      "l": 1.320899,
-      "c": 1.320934
-    },
-    {
-      "t": 1791842400,
-      "o": 1.321004,
-      "h": 1.321004,
-      "l": 1.32083,
-      "c": 1.320847
-    },
-    {
-      "t": 1791842700,
-      "o": 1.320847,
-      "h": 1.320882,
-      "l": 1.320847,
-      "c": 1.320882
-    },
-    {
-      "t": 1791843000,
-      "o": 1.320847,
-      "h": 1.321004,
-      "l": 1.320847,
-      "c": 1.321004
-    },
-    {
-      "t": 1791843300,
-      "o": 1.320987,
-      "h": 1.320987,
-      "l": 1.320917,
-      "c": 1.320987
-    },
-    {
-      "t": 1791843600,
-      "o": 1.321004,
-      "h": 1.321091,
-      "l": 1.321004,
-      "c": 1.321091
-    },
-    {
-      "t": 1791843900,
-      "o": 1.321074,
-      "h": 1.321074,
-      "l": 1.321021,
-      "c": 1.321021
-    },
     {
       "t": 1791844200,
       "o": 1.320917,
@@ -1255,7 +1059,7 @@
       "o": 1.322104,
       "h": 1.322209,
       "l": 1.322104,
-      "c": 1.322174
+      "c": 1.322192
     },
     {
       "t": 1791870600,
@@ -4467,15 +4271,211 @@
       "t": 1792008000,
       "o": 1.319366,
       "h": 1.319366,
-      "l": 1.319366,
-      "c": 1.319366
+      "l": 1.319087,
+      "c": 1.319087
     },
     {
-      "t": 1792008086,
-      "o": 1.319366,
-      "h": 1.319366,
-      "l": 1.319366,
-      "c": 1.319366
+      "t": 1792008300,
+      "o": 1.319105,
+      "h": 1.319105,
+      "l": 1.31907,
+      "c": 1.31907
+    },
+    {
+      "t": 1792008600,
+      "o": 1.318878,
+      "h": 1.31907,
+      "l": 1.318878,
+      "c": 1.318913
+    },
+    {
+      "t": 1792008900,
+      "o": 1.318948,
+      "h": 1.319174,
+      "l": 1.318948,
+      "c": 1.319157
+    },
+    {
+      "t": 1792009200,
+      "o": 1.319157,
+      "h": 1.319279,
+      "l": 1.319035,
+      "c": 1.319035
+    },
+    {
+      "t": 1792009500,
+      "o": 1.319052,
+      "h": 1.319087,
+      "l": 1.318948,
+      "c": 1.318948
+    },
+    {
+      "t": 1792009800,
+      "o": 1.319052,
+      "h": 1.319192,
+      "l": 1.318931,
+      "c": 1.318931
+    },
+    {
+      "t": 1792010100,
+      "o": 1.318965,
+      "h": 1.318965,
+      "l": 1.318896,
+      "c": 1.318896
+    },
+    {
+      "t": 1792010400,
+      "o": 1.318983,
+      "h": 1.318983,
+      "l": 1.318844,
+      "c": 1.318844
+    },
+    {
+      "t": 1792010700,
+      "o": 1.318844,
+      "h": 1.318913,
+      "l": 1.318739,
+      "c": 1.318913
+    },
+    {
+      "t": 1792011000,
+      "o": 1.318965,
+      "h": 1.319087,
+      "l": 1.318965,
+      "c": 1.319018
+    },
+    {
+      "t": 1792011300,
+      "o": 1.319035,
+      "h": 1.319679,
+      "l": 1.319035,
+      "c": 1.319435
+    },
+    {
+      "t": 1792011600,
+      "o": 1.319174,
+      "h": 1.31954,
+      "l": 1.318635,
+      "c": 1.31954
+    },
+    {
+      "t": 1792011900,
+      "o": 1.318722,
+      "h": 1.319261,
+      "l": 1.318722,
+      "c": 1.318965
+    },
+    {
+      "t": 1792012200,
+      "o": 1.31947,
+      "h": 1.31947,
+      "l": 1.319052,
+      "c": 1.3194
+    },
+    {
+      "t": 1792012500,
+      "o": 1.318983,
+      "h": 1.319174,
+      "l": 1.318826,
+      "c": 1.319174
+    },
+    {
+      "t": 1792012800,
+      "o": 1.318948,
+      "h": 1.319087,
+      "l": 1.318878,
+      "c": 1.318983
+    },
+    {
+      "t": 1792013100,
+      "o": 1.319,
+      "h": 1.319,
+      "l": 1.318687,
+      "c": 1.318687
+    },
+    {
+      "t": 1792013400,
+      "o": 1.318722,
+      "h": 1.319035,
+      "l": 1.318722,
+      "c": 1.318844
+    },
+    {
+      "t": 1792013700,
+      "o": 1.318791,
+      "h": 1.319035,
+      "l": 1.318791,
+      "c": 1.319035
+    },
+    {
+      "t": 1792014000,
+      "o": 1.318896,
+      "h": 1.319,
+      "l": 1.318722,
+      "c": 1.318809
+    },
+    {
+      "t": 1792014300,
+      "o": 1.318826,
+      "h": 1.319035,
+      "l": 1.318757,
+      "c": 1.318931
+    },
+    {
+      "t": 1792014600,
+      "o": 1.318548,
+      "h": 1.319035,
+      "l": 1.318548,
+      "c": 1.319018
+    },
+    {
+      "t": 1792014900,
+      "o": 1.319018,
+      "h": 1.31907,
+      "l": 1.318826,
+      "c": 1.318965
+    },
+    {
+      "t": 1792015200,
+      "o": 1.319209,
+      "h": 1.319314,
+      "l": 1.319209,
+      "c": 1.319296
+    },
+    {
+      "t": 1792015500,
+      "o": 1.319279,
+      "h": 1.319331,
+      "l": 1.319244,
+      "c": 1.319279
+    },
+    {
+      "t": 1792018800,
+      "o": 1.320585,
+      "h": 1.320585,
+      "l": 1.320376,
+      "c": 1.320376
+    },
+    {
+      "t": 1792019100,
+      "o": 1.320289,
+      "h": 1.320516,
+      "l": 1.320289,
+      "c": 1.320428
+    },
+    {
+      "t": 1792019400,
+      "o": 1.320603,
+      "h": 1.320603,
+      "l": 1.320481,
+      "c": 1.320481
+    },
+    {
+      "t": 1792019665,
+      "o": 1.320411,
+      "h": 1.320411,
+      "l": 1.320411,
+      "c": 1.320411
     }
   ],
   "calendar": [
@@ -4933,7 +4933,7 @@
       "title": "Crude Oil Inventories",
       "currency": "USD",
       "impact": "Low",
-      "forecast": "-0.2M",
+      "forecast": "0.2M",
       "previous": "-3.2M",
       "url": "https://www.forexfactory.com/calendar/10-us-crude-oil-inventories",
       "timeUtc": "2026-10-15T16:00:00+00:00",
