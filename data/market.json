@@ -1,16 +1,16 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-10-22T15:49:41.653236-05:00",
+    "updatedAt": "2026-10-22T18:53:55.975555-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
     "modelVersion": "3.2 rolling day tape",
-    "checkpoint": "final"
+    "checkpoint": "refresh"
   },
   "quote": {
-    "price": 1.339872,
-    "asOf": 1792702166
+    "price": 1.340321,
+    "asOf": 1792713209
   },
   "previousMonth": {
     "start": "2026-09-01",
@@ -62,27 +62,27 @@
     "direction": "bullish"
   },
   "oneHour": {
-    "start": "2026-10-22T19:00:00+00:00",
-    "end": "2026-10-22T20:00:00+00:00",
-    "open": 1.339962,
-    "high": 1.340177,
-    "low": 1.339674,
-    "close": 1.33998,
-    "midpoint": 1.339926,
-    "rangePips": 5.0,
-    "direction": "bullish"
+    "start": "2026-10-22T20:00:00+00:00",
+    "end": "2026-10-22T21:00:00+00:00",
+    "open": 1.339998,
+    "high": 1.339998,
+    "low": 1.339334,
+    "close": 1.339782,
+    "midpoint": 1.339666,
+    "rangePips": 6.6,
+    "direction": "bearish"
   },
   "bias": {
-    "direction": "Bullish",
-    "score": 5,
+    "direction": "Neutral",
+    "score": 3,
     "maxScore": 15,
     "confidence": "event-risk",
     "newsRisk": "medium",
     "draw": "Prior-day high",
     "drawPrice": 1.340483,
-    "invalidation": 1.336559,
-    "confirmation": "Sweep sell-side liquidity, reclaim it, then print bullish 5m displacement",
-    "location": "Weekly premium: do not chase longs",
+    "invalidation": 1.325465,
+    "confirmation": "Wait for one side to be swept; the reclaim and displacement define direction",
+    "location": "Higher timeframes disagree",
     "stack": [
       {
         "label": "Previous month",
@@ -114,10 +114,10 @@
       },
       {
         "label": "Completed 1H",
-        "direction": "bullish",
+        "direction": "bearish",
         "weight": 1,
-        "range": "1.3397\u20131.3402",
-        "close": 1.33998
+        "range": "1.3393\u20131.3400",
+        "close": 1.339782
       }
     ],
     "todayEventCount": 5,
@@ -172,24 +172,24 @@
       "count": 36
     },
     "playbook": {
-      "state": "Bullish AMD watch",
-      "verdict": "Prefer an Asian-low raid and reclaim before expansion higher.",
-      "expectedRaid": "Asian low",
-      "firstTarget": "Asian high",
-      "firstTargetPrice": 1.340842,
-      "direction": "bullish",
+      "state": "Asian-high raid rejected",
+      "verdict": "Bearish reversal candidate: ARH has been rejected after the buy-side raid.",
+      "expectedRaid": "ARH resistance retest",
+      "firstTarget": "Asian low",
+      "firstTargetPrice": 1.338348,
+      "direction": "bearish",
       "steps": [
-        "Liquidity condition: watch Asian low.",
-        "Confirmation: require a bullish 5m displacement and market-structure shift back through the range.",
-        "Distribution: use Asian high as the first objective, then the higher-timeframe draw.",
-        "Flip condition: the expected raid fails to reclaim and price accepts beyond the opposite side."
+        "Liquidity condition: watch ARH resistance retest.",
+        "Confirmation: require a bearish 5m displacement and market-structure shift back through the range.",
+        "Distribution: use Asian low as the first objective, then the higher-timeframe draw.",
+        "Flip condition: reclaim ARH with bullish acceptance; then target higher external buy-side."
       ],
       "noTradeIf": "Both Asian edges are swept, price never reclaims the raided edge, or high-impact news is imminent."
     }
   },
   "btmm": {
     "separateMethod": "Steve Mauro BTMM observation layer; it does not alter the ICT score.",
-    "expectedPattern": "W / Half Batman below ARL",
+    "expectedPattern": "M or W after the first stop hunt",
     "pattern": {
       "name": "W pattern",
       "shape": "W",
@@ -217,17 +217,17 @@
       "usedPercent": 94.5
     },
     "emas": {
-      "ema13": 1.339797,
-      "ema50": 1.339677,
-      "mayo200": 1.33914,
+      "ema13": 1.340217,
+      "ema50": 1.339905,
+      "mayo200": 1.339249,
       "alignment": "bullish",
-      "mayoDistancePips": 7.3,
+      "mayoDistancePips": 10.7,
       "recentMayoTouch": false
     },
     "tdiProxy": {
-      "rsi13": 51.4,
-      "signal2": 51.4,
-      "state": "mixed",
+      "rsi13": 57.1,
+      "signal2": 55.4,
+      "state": "bullish",
       "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
     },
     "railroadTracks": {
@@ -239,11 +239,11 @@
   "dayStory": {
     "status": "live",
     "headline": "Price is rotating back inside Asia",
-    "summary": "From the Asian open, GBP/USD is +3.8 pips. From the midnight open, it is +1.4 pips and currently sits inside the upper half of Asia. The live ICT reading is bullish; the BTMM scanner shows w pattern (forming).",
-    "asOf": "2026-10-22T16:49:26-04:00",
+    "summary": "From the Asian open, GBP/USD is +8.3 pips. From the midnight open, it is +5.9 pips and currently sits inside the upper half of Asia. The live ICT reading is neutral; the BTMM scanner shows w pattern (forming).",
+    "asOf": "2026-10-22T19:53:29-04:00",
     "metrics": {
-      "sinceAsiaPips": 3.8,
-      "sinceMidnightPips": 1.4,
+      "sinceAsiaPips": 8.3,
+      "sinceMidnightPips": 5.9,
       "high": 1.341796,
       "highAt": "2026-10-22T04:25:00-04:00",
       "low": 1.335577,
@@ -416,91 +416,35 @@
     },
     {
       "key": "TGT",
-      "label": "Asian high",
-      "price": 1.340842,
-      "side": "buy",
+      "label": "Asian low",
+      "price": 1.338348,
+      "side": "sell",
       "group": "session",
       "focus": true
     },
     {
       "key": "EMA13",
       "label": "BTMM fast EMA",
-      "price": 1.339797,
+      "price": 1.340217,
       "side": "buy",
       "group": "btmm"
     },
     {
       "key": "EMA50",
       "label": "BTMM 50 EMA",
-      "price": 1.339677,
+      "price": 1.339905,
       "side": "mid",
       "group": "btmm"
     },
     {
       "key": "MAYO",
       "label": "BTMM 200 EMA",
-      "price": 1.33914,
+      "price": 1.339249,
       "side": "open",
       "group": "btmm"
     }
   ],
   "candles": [
-    {
-      "t": 1792529700,
-      "o": 1.33799,
-      "h": 1.338079,
-      "l": 1.337954,
-      "c": 1.338079
-    },
-    {
-      "t": 1792530000,
-      "o": 1.337649,
-      "h": 1.338115,
-      "l": 1.337632,
-      "c": 1.337632
-    },
-    {
-      "t": 1792530300,
-      "o": 1.337846,
-      "h": 1.33799,
-      "l": 1.337739,
-      "c": 1.337739
-    },
-    {
-      "t": 1792530600,
-      "o": 1.337793,
-      "h": 1.337829,
-      "l": 1.337578,
-      "c": 1.337632
-    },
-    {
-      "t": 1792530900,
-      "o": 1.3379,
-      "h": 1.338061,
-      "l": 1.33756,
-      "c": 1.338007
-    },
-    {
-      "t": 1792531200,
-      "o": 1.338348,
-      "h": 1.338348,
-      "l": 1.337363,
-      "c": 1.338204
-    },
-    {
-      "t": 1792531500,
-      "o": 1.337864,
-      "h": 1.338455,
-      "l": 1.337864,
-      "c": 1.338204
-    },
-    {
-      "t": 1792531800,
-      "o": 1.33799,
-      "h": 1.338133,
-      "l": 1.33799,
-      "c": 1.338043
-    },
     {
       "t": 1792532100,
       "o": 1.338043,
@@ -4446,36 +4390,92 @@
       "t": 1792701000,
       "o": 1.339764,
       "h": 1.339782,
-      "l": 1.33971,
-      "c": 1.33971
-    },
-    {
-      "t": 1792701300,
-      "o": 1.339764,
-      "h": 1.339854,
-      "l": 1.339764,
+      "l": 1.339728,
       "c": 1.339782
     },
     {
-      "t": 1792701600,
-      "o": 1.3398,
-      "h": 1.339854,
-      "l": 1.339782,
-      "c": 1.339854
+      "t": 1792710000,
+      "o": 1.340177,
+      "h": 1.340465,
+      "l": 1.340177,
+      "c": 1.340465
     },
     {
-      "t": 1792701900,
-      "o": 1.339764,
-      "h": 1.339872,
-      "l": 1.339764,
-      "c": 1.339872
+      "t": 1792710300,
+      "o": 1.340429,
+      "h": 1.340447,
+      "l": 1.340393,
+      "c": 1.340447
     },
     {
-      "t": 1792702166,
-      "o": 1.339872,
-      "h": 1.339872,
-      "l": 1.339872,
-      "c": 1.339872
+      "t": 1792710600,
+      "o": 1.340429,
+      "h": 1.340447,
+      "l": 1.340339,
+      "c": 1.340411
+    },
+    {
+      "t": 1792710900,
+      "o": 1.340357,
+      "h": 1.340357,
+      "l": 1.340213,
+      "c": 1.340303
+    },
+    {
+      "t": 1792711200,
+      "o": 1.340321,
+      "h": 1.340339,
+      "l": 1.340195,
+      "c": 1.340195
+    },
+    {
+      "t": 1792711500,
+      "o": 1.340195,
+      "h": 1.340303,
+      "l": 1.340195,
+      "c": 1.340267
+    },
+    {
+      "t": 1792711800,
+      "o": 1.340357,
+      "h": 1.340393,
+      "l": 1.340321,
+      "c": 1.340321
+    },
+    {
+      "t": 1792712100,
+      "o": 1.340465,
+      "h": 1.340501,
+      "l": 1.340393,
+      "c": 1.340393
+    },
+    {
+      "t": 1792712400,
+      "o": 1.340357,
+      "h": 1.340393,
+      "l": 1.340285,
+      "c": 1.340339
+    },
+    {
+      "t": 1792712700,
+      "o": 1.340321,
+      "h": 1.340393,
+      "l": 1.340213,
+      "c": 1.340213
+    },
+    {
+      "t": 1792713000,
+      "o": 1.340231,
+      "h": 1.340231,
+      "l": 1.340177,
+      "c": 1.340213
+    },
+    {
+      "t": 1792713209,
+      "o": 1.340321,
+      "h": 1.340321,
+      "l": 1.340321,
+      "c": 1.340321
     }
   ],
   "calendar": [
