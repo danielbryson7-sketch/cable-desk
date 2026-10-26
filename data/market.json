@@ -1,7 +1,7 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-10-23T19:02:45.434162-05:00",
+    "updatedAt": "2026-10-25T22:36:19.038184-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
@@ -9,8 +9,8 @@
     "checkpoint": "refresh"
   },
   "quote": {
-    "price": 1.337489,
-    "asOf": 1792790700
+    "price": 1.338276,
+    "asOf": 1792985743
   },
   "previousMonth": {
     "start": "2026-09-01",
@@ -35,19 +35,19 @@
     "direction": "bullish"
   },
   "priorDay": {
-    "date": "2026-10-22",
-    "start": "2026-10-22",
-    "end": "2026-10-22",
-    "o": 1.339459,
-    "h": 1.341742,
-    "l": 1.335613,
-    "c": 1.339567,
-    "open": 1.339459,
-    "high": 1.341742,
-    "low": 1.335613,
-    "close": 1.339567,
-    "midpoint": 1.338677,
-    "rangePips": 61.3,
+    "date": "2026-10-23",
+    "start": "2026-10-23",
+    "end": "2026-10-23",
+    "o": 1.340357,
+    "h": 1.340842,
+    "l": 1.336648,
+    "c": 1.340393,
+    "open": 1.340357,
+    "high": 1.340842,
+    "low": 1.336648,
+    "close": 1.340393,
+    "midpoint": 1.338745,
+    "rangePips": 41.9,
     "direction": "bullish"
   },
   "fourHour": {
@@ -62,24 +62,24 @@
     "direction": "bullish"
   },
   "oneHour": {
-    "start": "2026-10-23T21:00:00+00:00",
-    "end": "2026-10-23T22:00:00+00:00",
-    "open": 1.337489,
-    "high": 1.337489,
-    "low": 1.337489,
-    "close": 1.337489,
-    "midpoint": 1.337489,
-    "rangePips": 0.0,
+    "start": "2026-10-26T02:00:00+00:00",
+    "end": "2026-10-26T03:00:00+00:00",
+    "open": 1.338401,
+    "high": 1.338724,
+    "low": 1.338258,
+    "close": 1.338258,
+    "midpoint": 1.338491,
+    "rangePips": 4.7,
     "direction": "bearish"
   },
   "bias": {
     "direction": "Neutral",
     "score": 3,
     "maxScore": 15,
-    "confidence": "event-risk",
-    "newsRisk": "medium",
+    "confidence": "mixed",
+    "newsRisk": "low",
     "draw": "Prior-day low",
-    "drawPrice": 1.335613,
+    "drawPrice": 1.336648,
     "invalidation": 1.325465,
     "confirmation": "Wait for one side to be swept; the reclaim and displacement define direction",
     "location": "Higher timeframes disagree",
@@ -102,8 +102,8 @@
         "label": "Prior day",
         "direction": "bullish",
         "weight": 3,
-        "range": "1.3356\u20131.3417",
-        "close": 1.339567
+        "range": "1.3366\u20131.3408",
+        "close": 1.340393
       },
       {
         "label": "Completed 4H",
@@ -116,37 +116,61 @@
         "label": "Completed 1H",
         "direction": "bearish",
         "weight": 1,
-        "range": "1.3375\u20131.3375",
-        "close": 1.337489
+        "range": "1.3383\u20131.3387",
+        "close": 1.338258
       }
     ],
-    "todayEventCount": 7,
-    "disruptiveEventCount": 7,
+    "todayEventCount": 0,
+    "disruptiveEventCount": 0,
     "method": "Monthly \u2192 weekly \u2192 daily \u2192 4H \u2192 1H narrative; Asia supplies the intraday manipulation map and 5m confirms execution."
   },
   "sessions": {
-    "tradeDate": "2026-10-24",
+    "tradeDate": "2026-10-26",
     "asia": {
       "name": "Asian range",
-      "start": "2026-10-23T20:00:00-04:00",
-      "end": "2026-10-24T00:00:00-04:00",
-      "complete": false
+      "start": "2026-10-25T20:00:00-04:00",
+      "end": "2026-10-26T00:00:00-04:00",
+      "open": 1.337846,
+      "high": 1.338796,
+      "low": 1.337399,
+      "midpoint": 1.338097,
+      "close": 1.338276,
+      "rangePips": 14.0,
+      "complete": false,
+      "count": 44,
+      "quality": "clean",
+      "qualityNote": "Compact accumulation range; suitable for watching a one-sided raid.",
+      "midnightOpen": null
     },
     "london": {
       "name": "London kill zone",
-      "start": "2026-10-24T02:00:00-04:00",
-      "end": "2026-10-24T05:00:00-04:00",
-      "complete": false
+      "start": "2026-10-26T02:00:00-04:00",
+      "end": "2026-10-26T05:00:00-04:00",
+      "complete": false,
+      "sweptAsiaHigh": false,
+      "sweptAsiaLow": false,
+      "firstSweep": null
     },
     "newYork": {
       "name": "New York AM",
-      "start": "2026-10-24T07:00:00-04:00",
-      "end": "2026-10-24T10:00:00-04:00",
+      "start": "2026-10-26T07:00:00-04:00",
+      "end": "2026-10-26T10:00:00-04:00",
       "complete": false
     },
     "playbook": {
-      "state": "Awaiting Asian range",
-      "steps": []
+      "state": "Two-sided observation",
+      "verdict": "Let London reveal the first raid; trade only a reclaim plus structure shift.",
+      "expectedRaid": "Either edge",
+      "firstTarget": "Opposite Asian edge",
+      "firstTargetPrice": 1.338097,
+      "direction": "directional",
+      "steps": [
+        "Liquidity condition: watch Either edge.",
+        "Confirmation: require a directional 5m displacement and market-structure shift back through the range.",
+        "Distribution: use Opposite Asian edge as the first objective, then the higher-timeframe draw.",
+        "Flip condition: the expected raid fails to reclaim and price accepts beyond the opposite side."
+      ],
+      "noTradeIf": "Both Asian edges are swept, price never reclaims the raided edge, or high-impact news is imminent."
     }
   },
   "btmm": {
@@ -157,11 +181,11 @@
       "shape": "M",
       "direction": "bearish",
       "status": "confirmed",
-      "firstExtreme": 1.337721,
-      "secondExtreme": 1.337489,
-      "apex": 1.33663,
-      "gapPips": 2.3,
-      "at": 1792773900,
+      "firstExtreme": 1.338796,
+      "secondExtreme": 1.338706,
+      "apex": 1.338115,
+      "gapPips": 0.9,
+      "at": 1792981200,
       "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
     },
     "asiaStopHunt": "None recorded",
@@ -174,21 +198,21 @@
       "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
     },
     "adr": {
-      "averagePips": 67.7,
+      "averagePips": 55.6,
       "usedPips": 0,
       "usedPercent": 0.0
     },
     "emas": {
-      "ema13": 1.337313,
-      "ema50": 1.337205,
-      "mayo200": 1.337716,
+      "ema13": 1.33835,
+      "ema50": 1.338149,
+      "mayo200": 1.337922,
       "alignment": "bullish",
-      "mayoDistancePips": -2.3,
-      "recentMayoTouch": true
+      "mayoDistancePips": 3.5,
+      "recentMayoTouch": false
     },
     "tdiProxy": {
-      "rsi13": 59.5,
-      "signal2": 59.5,
+      "rsi13": 47.9,
+      "signal2": 46.6,
       "state": "mixed",
       "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
     },
@@ -199,10 +223,34 @@
     }
   },
   "dayStory": {
-    "status": "waiting",
-    "headline": "Waiting for the Asian range",
-    "summary": "The rolling account begins when the 20:00 New York candle opens.",
-    "timeline": []
+    "status": "live",
+    "headline": "Price is rotating back inside Asia",
+    "summary": "From the Asian open, GBP/USD is +4.3 pips. From the midnight open, it is +0.0 pips and currently sits inside the upper half of Asia. The live ICT reading is neutral; the BTMM scanner shows m pattern (confirmed).",
+    "asOf": "2026-10-25T23:35:43-04:00",
+    "metrics": {
+      "sinceAsiaPips": 4.3,
+      "sinceMidnightPips": 0.0,
+      "high": 1.338796,
+      "highAt": "2026-10-25T21:15:00-04:00",
+      "low": 1.337399,
+      "lowAt": "2026-10-25T20:10:00-04:00",
+      "currentRelation": "inside the upper half of Asia"
+    },
+    "timeline": [
+      {
+        "title": "Asian range",
+        "time": "20:00\u201300:00 NY",
+        "status": "live",
+        "open": 1.337846,
+        "high": 1.338796,
+        "low": 1.337399,
+        "close": 1.338276,
+        "rangePips": 14.0,
+        "movePips": 4.3,
+        "text": "Price rose 4.3 pips from 1.3378 to 1.3383; the phase covered 14.0 pips. It did not clear an Asian edge. It ended inside the upper half of Asia."
+      }
+    ],
+    "method": "Deterministic five-minute candle summary from 20:00 New York through the latest available candle; no AI generation is used during refreshes."
   },
   "forecastAudit": null,
   "forecastStats": {
@@ -253,348 +301,69 @@
     {
       "key": "PDH",
       "label": "Prior-day high",
-      "price": 1.341742,
+      "price": 1.340842,
       "side": "buy",
       "group": "both"
     },
     {
       "key": "PDL",
       "label": "Prior-day low",
-      "price": 1.335613,
+      "price": 1.336648,
       "side": "sell",
       "group": "both"
     },
     {
+      "key": "ARH",
+      "label": "Asian range high",
+      "price": 1.338796,
+      "side": "buy",
+      "group": "session"
+    },
+    {
+      "key": "AREQ",
+      "label": "Asian equilibrium",
+      "price": 1.338097,
+      "side": "mid",
+      "group": "session"
+    },
+    {
+      "key": "ARL",
+      "label": "Asian range low",
+      "price": 1.337399,
+      "side": "sell",
+      "group": "session"
+    },
+    {
+      "key": "TGT",
+      "label": "Opposite Asian edge",
+      "price": 1.338097,
+      "side": "mid",
+      "group": "session",
+      "focus": true
+    },
+    {
       "key": "EMA13",
       "label": "BTMM fast EMA",
-      "price": 1.337313,
+      "price": 1.33835,
       "side": "buy",
       "group": "btmm"
     },
     {
       "key": "EMA50",
       "label": "BTMM 50 EMA",
-      "price": 1.337205,
+      "price": 1.338149,
       "side": "mid",
       "group": "btmm"
     },
     {
       "key": "MAYO",
       "label": "BTMM 200 EMA",
-      "price": 1.337716,
+      "price": 1.337922,
       "side": "open",
       "group": "btmm"
     }
   ],
   "candles": [
-    {
-      "t": 1792618200,
-      "o": 1.339316,
-      "h": 1.339316,
-      "l": 1.339136,
-      "c": 1.339316
-    },
-    {
-      "t": 1792618500,
-      "o": 1.339334,
-      "h": 1.339459,
-      "l": 1.339298,
-      "c": 1.339334
-    },
-    {
-      "t": 1792618800,
-      "o": 1.339405,
-      "h": 1.339405,
-      "l": 1.339244,
-      "c": 1.339244
-    },
-    {
-      "t": 1792619100,
-      "o": 1.339423,
-      "h": 1.339459,
-      "l": 1.33928,
-      "c": 1.33928
-    },
-    {
-      "t": 1792619400,
-      "o": 1.339423,
-      "h": 1.339585,
-      "l": 1.339118,
-      "c": 1.339369
-    },
-    {
-      "t": 1792619700,
-      "o": 1.339441,
-      "h": 1.339441,
-      "l": 1.339029,
-      "c": 1.339029
-    },
-    {
-      "t": 1792620000,
-      "o": 1.339621,
-      "h": 1.339621,
-      "l": 1.339226,
-      "c": 1.339351
-    },
-    {
-      "t": 1792620300,
-      "o": 1.339369,
-      "h": 1.339369,
-      "l": 1.33928,
-      "c": 1.33928
-    },
-    {
-      "t": 1792620600,
-      "o": 1.339244,
-      "h": 1.339334,
-      "l": 1.339244,
-      "c": 1.339262
-    },
-    {
-      "t": 1792620900,
-      "o": 1.339262,
-      "h": 1.339369,
-      "l": 1.339262,
-      "c": 1.33928
-    },
-    {
-      "t": 1792621200,
-      "o": 1.339226,
-      "h": 1.33928,
-      "l": 1.339208,
-      "c": 1.339244
-    },
-    {
-      "t": 1792621500,
-      "o": 1.339262,
-      "h": 1.33928,
-      "l": 1.339208,
-      "c": 1.339208
-    },
-    {
-      "t": 1792621800,
-      "o": 1.339226,
-      "h": 1.339226,
-      "l": 1.3391,
-      "c": 1.3391
-    },
-    {
-      "t": 1792622100,
-      "o": 1.339082,
-      "h": 1.339118,
-      "l": 1.339065,
-      "c": 1.339118
-    },
-    {
-      "t": 1792622400,
-      "o": 1.3391,
-      "h": 1.339118,
-      "l": 1.339047,
-      "c": 1.3391
-    },
-    {
-      "t": 1792622700,
-      "o": 1.339118,
-      "h": 1.339154,
-      "l": 1.339118,
-      "c": 1.339154
-    },
-    {
-      "t": 1792623000,
-      "o": 1.339226,
-      "h": 1.339226,
-      "l": 1.339136,
-      "c": 1.339172
-    },
-    {
-      "t": 1792623300,
-      "o": 1.339118,
-      "h": 1.339154,
-      "l": 1.339047,
-      "c": 1.339047
-    },
-    {
-      "t": 1792623600,
-      "o": 1.3391,
-      "h": 1.339118,
-      "l": 1.339082,
-      "c": 1.339118
-    },
-    {
-      "t": 1792623900,
-      "o": 1.339082,
-      "h": 1.339172,
-      "l": 1.339047,
-      "c": 1.339172
-    },
-    {
-      "t": 1792624200,
-      "o": 1.339154,
-      "h": 1.339262,
-      "l": 1.339154,
-      "c": 1.339262
-    },
-    {
-      "t": 1792624500,
-      "o": 1.33928,
-      "h": 1.339298,
-      "l": 1.33928,
-      "c": 1.33928
-    },
-    {
-      "t": 1792624800,
-      "o": 1.339334,
-      "h": 1.339334,
-      "l": 1.339262,
-      "c": 1.339334
-    },
-    {
-      "t": 1792625100,
-      "o": 1.33928,
-      "h": 1.339477,
-      "l": 1.339262,
-      "c": 1.339477
-    },
-    {
-      "t": 1792625400,
-      "o": 1.339513,
-      "h": 1.339531,
-      "l": 1.339387,
-      "c": 1.339387
-    },
-    {
-      "t": 1792625700,
-      "o": 1.339441,
-      "h": 1.339603,
-      "l": 1.339441,
-      "c": 1.339585
-    },
-    {
-      "t": 1792626000,
-      "o": 1.339603,
-      "h": 1.339674,
-      "l": 1.339585,
-      "c": 1.339674
-    },
-    {
-      "t": 1792626300,
-      "o": 1.339585,
-      "h": 1.339656,
-      "l": 1.339549,
-      "c": 1.339656
-    },
-    {
-      "t": 1792626600,
-      "o": 1.339656,
-      "h": 1.339692,
-      "l": 1.339639,
-      "c": 1.339692
-    },
-    {
-      "t": 1792626900,
-      "o": 1.339585,
-      "h": 1.339585,
-      "l": 1.339495,
-      "c": 1.339495
-    },
-    {
-      "t": 1792627200,
-      "o": 1.339495,
-      "h": 1.339782,
-      "l": 1.339495,
-      "c": 1.339782
-    },
-    {
-      "t": 1792627500,
-      "o": 1.33971,
-      "h": 1.339728,
-      "l": 1.339621,
-      "c": 1.339621
-    },
-    {
-      "t": 1792627800,
-      "o": 1.339513,
-      "h": 1.339585,
-      "l": 1.339495,
-      "c": 1.339585
-    },
-    {
-      "t": 1792628100,
-      "o": 1.339746,
-      "h": 1.339764,
-      "l": 1.339639,
-      "c": 1.339764
-    },
-    {
-      "t": 1792628400,
-      "o": 1.339872,
-      "h": 1.33989,
-      "l": 1.339746,
-      "c": 1.339746
-    },
-    {
-      "t": 1792628700,
-      "o": 1.339639,
-      "h": 1.339836,
-      "l": 1.339639,
-      "c": 1.339836
-    },
-    {
-      "t": 1792629000,
-      "o": 1.339854,
-      "h": 1.339854,
-      "l": 1.339549,
-      "c": 1.339549
-    },
-    {
-      "t": 1792629300,
-      "o": 1.339549,
-      "h": 1.339603,
-      "l": 1.339549,
-      "c": 1.339567
-    },
-    {
-      "t": 1792629600,
-      "o": 1.339567,
-      "h": 1.339621,
-      "l": 1.339531,
-      "c": 1.339621
-    },
-    {
-      "t": 1792629900,
-      "o": 1.339656,
-      "h": 1.339656,
-      "l": 1.339459,
-      "c": 1.339459
-    },
-    {
-      "t": 1792630200,
-      "o": 1.339369,
-      "h": 1.339495,
-      "l": 1.339316,
-      "c": 1.339495
-    },
-    {
-      "t": 1792630500,
-      "o": 1.339567,
-      "h": 1.339603,
-      "l": 1.339459,
-      "c": 1.339603
-    },
-    {
-      "t": 1792630800,
-      "o": 1.339549,
-      "h": 1.339621,
-      "l": 1.339459,
-      "c": 1.339621
-    },
-    {
-      "t": 1792631100,
-      "o": 1.339585,
-      "h": 1.339585,
-      "l": 1.339441,
-      "c": 1.339441
-    },
     {
       "t": 1792631400,
       "o": 1.339531,
@@ -4318,118 +4087,416 @@
       "h": 1.337489,
       "l": 1.337489,
       "c": 1.337489
+    },
+    {
+      "t": 1792972800,
+      "o": 1.337846,
+      "h": 1.337972,
+      "l": 1.337829,
+      "c": 1.337972
+    },
+    {
+      "t": 1792973100,
+      "o": 1.337685,
+      "h": 1.337685,
+      "l": 1.337417,
+      "c": 1.337417
+    },
+    {
+      "t": 1792973400,
+      "o": 1.337435,
+      "h": 1.337703,
+      "l": 1.337399,
+      "c": 1.337703
+    },
+    {
+      "t": 1792973700,
+      "o": 1.337685,
+      "h": 1.3379,
+      "l": 1.337596,
+      "c": 1.337757
+    },
+    {
+      "t": 1792974000,
+      "o": 1.337811,
+      "h": 1.337811,
+      "l": 1.337596,
+      "c": 1.337596
+    },
+    {
+      "t": 1792974300,
+      "o": 1.337578,
+      "h": 1.337685,
+      "l": 1.337578,
+      "c": 1.337685
+    },
+    {
+      "t": 1792974600,
+      "o": 1.337918,
+      "h": 1.337918,
+      "l": 1.337846,
+      "c": 1.337918
+    },
+    {
+      "t": 1792974900,
+      "o": 1.337757,
+      "h": 1.337793,
+      "l": 1.337649,
+      "c": 1.337775
+    },
+    {
+      "t": 1792975200,
+      "o": 1.337811,
+      "h": 1.338007,
+      "l": 1.337811,
+      "c": 1.337882
+    },
+    {
+      "t": 1792975500,
+      "o": 1.337882,
+      "h": 1.33799,
+      "l": 1.337882,
+      "c": 1.33799
+    },
+    {
+      "t": 1792975800,
+      "o": 1.337972,
+      "h": 1.338222,
+      "l": 1.337972,
+      "c": 1.338204
+    },
+    {
+      "t": 1792976100,
+      "o": 1.338133,
+      "h": 1.338312,
+      "l": 1.338133,
+      "c": 1.338204
+    },
+    {
+      "t": 1792976400,
+      "o": 1.338294,
+      "h": 1.338384,
+      "l": 1.338222,
+      "c": 1.338384
+    },
+    {
+      "t": 1792976700,
+      "o": 1.338294,
+      "h": 1.338509,
+      "l": 1.338294,
+      "c": 1.338509
+    },
+    {
+      "t": 1792977000,
+      "o": 1.338545,
+      "h": 1.338616,
+      "l": 1.338545,
+      "c": 1.338616
+    },
+    {
+      "t": 1792977300,
+      "o": 1.33867,
+      "h": 1.338796,
+      "l": 1.33867,
+      "c": 1.338796
+    },
+    {
+      "t": 1792977600,
+      "o": 1.33867,
+      "h": 1.33867,
+      "l": 1.338437,
+      "c": 1.338437
+    },
+    {
+      "t": 1792977900,
+      "o": 1.338455,
+      "h": 1.338473,
+      "l": 1.338401,
+      "c": 1.338401
+    },
+    {
+      "t": 1792978200,
+      "o": 1.338419,
+      "h": 1.338419,
+      "l": 1.338204,
+      "c": 1.338204
+    },
+    {
+      "t": 1792978500,
+      "o": 1.338187,
+      "h": 1.338204,
+      "l": 1.338115,
+      "c": 1.338115
+    },
+    {
+      "t": 1792978800,
+      "o": 1.338169,
+      "h": 1.33833,
+      "l": 1.338169,
+      "c": 1.33833
+    },
+    {
+      "t": 1792979100,
+      "o": 1.338401,
+      "h": 1.338419,
+      "l": 1.338294,
+      "c": 1.338419
+    },
+    {
+      "t": 1792979400,
+      "o": 1.338401,
+      "h": 1.338509,
+      "l": 1.338401,
+      "c": 1.338401
+    },
+    {
+      "t": 1792979700,
+      "o": 1.338312,
+      "h": 1.338384,
+      "l": 1.338312,
+      "c": 1.338384
+    },
+    {
+      "t": 1792980000,
+      "o": 1.338401,
+      "h": 1.338527,
+      "l": 1.338384,
+      "c": 1.338527
+    },
+    {
+      "t": 1792980300,
+      "o": 1.338598,
+      "h": 1.338598,
+      "l": 1.338509,
+      "c": 1.338509
+    },
+    {
+      "t": 1792980600,
+      "o": 1.338563,
+      "h": 1.338581,
+      "l": 1.338509,
+      "c": 1.338581
+    },
+    {
+      "t": 1792980900,
+      "o": 1.338598,
+      "h": 1.338616,
+      "l": 1.338598,
+      "c": 1.338616
+    },
+    {
+      "t": 1792981200,
+      "o": 1.338634,
+      "h": 1.338706,
+      "l": 1.338581,
+      "c": 1.338634
+    },
+    {
+      "t": 1792981500,
+      "o": 1.338509,
+      "h": 1.338509,
+      "l": 1.338419,
+      "c": 1.338473
+    },
+    {
+      "t": 1792981800,
+      "o": 1.338563,
+      "h": 1.338563,
+      "l": 1.33833,
+      "c": 1.338473
+    },
+    {
+      "t": 1792982100,
+      "o": 1.338419,
+      "h": 1.338688,
+      "l": 1.338419,
+      "c": 1.338688
+    },
+    {
+      "t": 1792982400,
+      "o": 1.338652,
+      "h": 1.338724,
+      "l": 1.338652,
+      "c": 1.338706
+    },
+    {
+      "t": 1792982700,
+      "o": 1.338652,
+      "h": 1.338652,
+      "l": 1.338598,
+      "c": 1.338598
+    },
+    {
+      "t": 1792983000,
+      "o": 1.338491,
+      "h": 1.338509,
+      "l": 1.338455,
+      "c": 1.338473
+    },
+    {
+      "t": 1792983300,
+      "o": 1.338384,
+      "h": 1.338384,
+      "l": 1.338258,
+      "c": 1.338258
+    },
+    {
+      "t": 1792983600,
+      "o": 1.338204,
+      "h": 1.338401,
+      "l": 1.338204,
+      "c": 1.338294
+    },
+    {
+      "t": 1792983900,
+      "o": 1.338222,
+      "h": 1.338258,
+      "l": 1.338097,
+      "c": 1.338097
+    },
+    {
+      "t": 1792984200,
+      "o": 1.338187,
+      "h": 1.338294,
+      "l": 1.338187,
+      "c": 1.338294
+    },
+    {
+      "t": 1792984500,
+      "o": 1.338312,
+      "h": 1.338509,
+      "l": 1.338312,
+      "c": 1.338509
+    },
+    {
+      "t": 1792984800,
+      "o": 1.338509,
+      "h": 1.338509,
+      "l": 1.338437,
+      "c": 1.338455
+    },
+    {
+      "t": 1792985100,
+      "o": 1.338401,
+      "h": 1.338401,
+      "l": 1.338222,
+      "c": 1.33824
+    },
+    {
+      "t": 1792985400,
+      "o": 1.338204,
+      "h": 1.338294,
+      "l": 1.338204,
+      "c": 1.338204
+    },
+    {
+      "t": 1792985743,
+      "o": 1.338276,
+      "h": 1.338276,
+      "l": 1.338276,
+      "c": 1.338276
     }
   ],
   "calendar": [
     {
-      "title": "Rightmove HPI m/m",
+      "title": "CBI Realized Sales",
       "currency": "GBP",
       "impact": "Low",
-      "forecast": "",
-      "previous": "0.7%",
-      "url": "https://www.forexfactory.com/calendar/243-uk-rightmove-hpi-mm",
-      "timeUtc": "2026-10-18T23:01:00+00:00",
-      "timeChicago": "2026-10-18T18:01:00-05:00"
+      "forecast": "-47",
+      "previous": "-55",
+      "url": "https://www.forexfactory.com/calendar/329-uk-cbi-realized-sales",
+      "timeUtc": "2026-10-26T11:00:00+00:00",
+      "timeChicago": "2026-10-26T06:00:00-05:00"
     },
     {
-      "title": "NAHB Housing Market Index",
-      "currency": "USD",
-      "impact": "Low",
-      "forecast": "31",
-      "previous": "32",
-      "url": "https://www.forexfactory.com/calendar/162-us-nahb-housing-market-index",
-      "timeUtc": "2026-10-19T14:00:00+00:00",
-      "timeChicago": "2026-10-19T09:00:00-05:00"
-    },
-    {
-      "title": "Average Earnings Index 3m/y",
-      "currency": "GBP",
-      "impact": "Medium",
-      "forecast": "3.8%",
-      "previous": "3.9%",
-      "url": "https://www.forexfactory.com/calendar/180-uk-average-earnings-index-3my",
-      "timeUtc": "2026-10-20T06:00:00+00:00",
-      "timeChicago": "2026-10-20T01:00:00-05:00"
-    },
-    {
-      "title": "Claimant Count Change",
+      "title": "BRC Shop Price Index y/y",
       "currency": "GBP",
       "impact": "Low",
-      "forecast": "19.4K",
-      "previous": "27.8K",
-      "url": "https://www.forexfactory.com/calendar/68-uk-claimant-count-change",
-      "timeUtc": "2026-10-20T06:00:00+00:00",
-      "timeChicago": "2026-10-20T01:00:00-05:00"
-    },
-    {
-      "title": "Unemployment Rate",
-      "currency": "GBP",
-      "impact": "Low",
-      "forecast": "4.9%",
-      "previous": "4.9%",
-      "url": "https://www.forexfactory.com/calendar/58-uk-unemployment-rate",
-      "timeUtc": "2026-10-20T06:00:00+00:00",
-      "timeChicago": "2026-10-20T01:00:00-05:00"
-    },
-    {
-      "title": "10-y Bond Auction",
-      "currency": "GBP",
-      "impact": "Low",
-      "forecast": "",
-      "previous": "5.38|3.3",
-      "url": "https://www.forexfactory.com/calendar/526-uk-10-y-bond-auction",
-      "timeUtc": "2026-10-20T09:03:00+00:00",
-      "timeChicago": "2026-10-20T04:03:00-05:00"
+      "forecast": "1.6%",
+      "previous": "1.4%",
+      "url": "https://www.forexfactory.com/calendar/116-uk-brc-shop-price-index-yy",
+      "timeUtc": "2026-10-27T00:01:00+00:00",
+      "timeChicago": "2026-10-26T19:01:00-05:00"
     },
     {
       "title": "ADP Weekly Employment Change",
       "currency": "USD",
       "impact": "Low",
       "forecast": "",
-      "previous": "24.8K",
+      "previous": "18.5K",
       "url": "https://www.forexfactory.com/calendar/929-us-adp-weekly-employment-change",
-      "timeUtc": "2026-10-20T12:15:00+00:00",
-      "timeChicago": "2026-10-20T07:15:00-05:00"
+      "timeUtc": "2026-10-27T12:15:00+00:00",
+      "timeChicago": "2026-10-27T07:15:00-05:00"
     },
     {
-      "title": "Building Permits",
+      "title": "Core Durable Goods Orders m/m",
       "currency": "USD",
       "impact": "Low",
-      "forecast": "1.39M",
-      "previous": "1.39M",
-      "url": "https://www.forexfactory.com/calendar/198-us-building-permits",
-      "timeUtc": "2026-10-20T12:30:00+00:00",
-      "timeChicago": "2026-10-20T07:30:00-05:00"
-    },
-    {
-      "title": "Housing Starts",
-      "currency": "USD",
-      "impact": "Low",
-      "forecast": "1.30M",
-      "previous": "1.28M",
-      "url": "https://www.forexfactory.com/calendar/199-us-housing-starts",
-      "timeUtc": "2026-10-20T12:30:00+00:00",
-      "timeChicago": "2026-10-20T07:30:00-05:00"
-    },
-    {
-      "title": "Pending Home Sales m/m",
-      "currency": "USD",
-      "impact": "Low",
-      "forecast": "-0.6%",
+      "forecast": "0.6%",
       "previous": "0.3%",
-      "url": "https://www.forexfactory.com/calendar/233-us-pending-home-sales-mm",
-      "timeUtc": "2026-10-20T14:00:00+00:00",
-      "timeChicago": "2026-10-20T09:00:00-05:00"
+      "url": "https://www.forexfactory.com/calendar/350-us-core-durable-goods-orders-mm",
+      "timeUtc": "2026-10-27T12:30:00+00:00",
+      "timeChicago": "2026-10-27T07:30:00-05:00"
     },
     {
-      "title": "MPC Member Greene Speaks",
-      "currency": "GBP",
+      "title": "Durable Goods Orders m/m",
+      "currency": "USD",
       "impact": "Low",
-      "forecast": "",
-      "previous": "",
-      "url": "https://www.forexfactory.com/calendar/894-uk-mpc-member-greene-speaks",
-      "timeUtc": "2026-10-20T17:00:00+00:00",
-      "timeChicago": "2026-10-20T12:00:00-05:00"
+      "forecast": "1.8%",
+      "previous": "0.0%",
+      "url": "https://www.forexfactory.com/calendar/349-us-durable-goods-orders-mm",
+      "timeUtc": "2026-10-27T12:30:00+00:00",
+      "timeChicago": "2026-10-27T07:30:00-05:00"
+    },
+    {
+      "title": "HPI m/m",
+      "currency": "USD",
+      "impact": "Low",
+      "forecast": "0.1%",
+      "previous": "0.3%",
+      "url": "https://www.forexfactory.com/calendar/239-us-hpi-mm",
+      "timeUtc": "2026-10-27T13:00:00+00:00",
+      "timeChicago": "2026-10-27T08:00:00-05:00"
+    },
+    {
+      "title": "S&P/CS Composite-20 HPI y/y",
+      "currency": "USD",
+      "impact": "Low",
+      "forecast": "2.7%",
+      "previous": "2.5%",
+      "url": "https://www.forexfactory.com/calendar/240-us-spcs-composite-20-hpi-yy",
+      "timeUtc": "2026-10-27T13:00:00+00:00",
+      "timeChicago": "2026-10-27T08:00:00-05:00"
+    },
+    {
+      "title": "CB Consumer Confidence",
+      "currency": "USD",
+      "impact": "Medium",
+      "forecast": "80.5",
+      "previous": "81.9",
+      "url": "https://www.forexfactory.com/calendar/208-us-cb-consumer-confidence",
+      "timeUtc": "2026-10-27T14:00:00+00:00",
+      "timeChicago": "2026-10-27T09:00:00-05:00"
+    },
+    {
+      "title": "New Home Sales",
+      "currency": "USD",
+      "impact": "Low",
+      "forecast": "649K",
+      "previous": "684K",
+      "url": "https://www.forexfactory.com/calendar/231-us-new-home-sales",
+      "timeUtc": "2026-10-27T14:00:00+00:00",
+      "timeChicago": "2026-10-27T09:00:00-05:00"
+    },
+    {
+      "title": "Richmond Manufacturing Index",
+      "currency": "USD",
+      "impact": "Low",
+      "forecast": "1",
+      "previous": "-2",
+      "url": "https://www.forexfactory.com/calendar/186-us-richmond-manufacturing-index",
+      "timeUtc": "2026-10-27T14:00:00+00:00",
+      "timeChicago": "2026-10-27T09:00:00-05:00"
     },
     {
       "title": "API Weekly Statistical Bulletin",
@@ -4438,228 +4505,238 @@
       "forecast": "",
       "previous": "",
       "url": "https://www.forexfactory.com/calendar/754-us-api-weekly-statistical-bulletin",
-      "timeUtc": "2026-10-20T20:30:00+00:00",
-      "timeChicago": "2026-10-20T15:30:00-05:00"
+      "timeUtc": "2026-10-27T20:30:00+00:00",
+      "timeChicago": "2026-10-27T15:30:00-05:00"
     },
     {
-      "title": "CPI y/y",
+      "title": "Annual Budget Release",
       "currency": "GBP",
       "impact": "High",
-      "forecast": "3.4%",
-      "previous": "3.1%",
-      "url": "https://www.forexfactory.com/calendar/82-uk-cpi-yy",
-      "timeUtc": "2026-10-21T06:00:00+00:00",
-      "timeChicago": "2026-10-21T01:00:00-05:00"
+      "forecast": "",
+      "previous": "",
+      "url": "https://www.forexfactory.com/calendar/428-uk-annual-budget-release",
+      "timeUtc": "2026-10-28T12:30:00+00:00",
+      "timeChicago": "2026-10-28T07:30:00-05:00"
     },
     {
-      "title": "Core CPI y/y",
-      "currency": "GBP",
-      "impact": "Low",
-      "forecast": "2.8%",
-      "previous": "2.6%",
-      "url": "https://www.forexfactory.com/calendar/83-uk-core-cpi-yy",
-      "timeUtc": "2026-10-21T06:00:00+00:00",
-      "timeChicago": "2026-10-21T01:00:00-05:00"
-    },
-    {
-      "title": "PPI Input m/m",
-      "currency": "GBP",
-      "impact": "Low",
-      "forecast": "1.3%",
-      "previous": "0.3%",
-      "url": "https://www.forexfactory.com/calendar/92-uk-ppi-input-mm",
-      "timeUtc": "2026-10-21T06:00:00+00:00",
-      "timeChicago": "2026-10-21T01:00:00-05:00"
-    },
-    {
-      "title": "PPI Output m/m",
-      "currency": "GBP",
-      "impact": "Low",
-      "forecast": "0.7%",
-      "previous": "0.7%",
-      "url": "https://www.forexfactory.com/calendar/93-uk-ppi-output-mm",
-      "timeUtc": "2026-10-21T06:00:00+00:00",
-      "timeChicago": "2026-10-21T01:00:00-05:00"
-    },
-    {
-      "title": "Public Sector Net Borrowing",
-      "currency": "GBP",
-      "impact": "Low",
-      "forecast": "23.8B",
-      "previous": "18.3B",
-      "url": "https://www.forexfactory.com/calendar/342-uk-public-sector-net-borrowing",
-      "timeUtc": "2026-10-21T06:00:00+00:00",
-      "timeChicago": "2026-10-21T01:00:00-05:00"
-    },
-    {
-      "title": "RPI y/y",
-      "currency": "GBP",
-      "impact": "Low",
-      "forecast": "3.9%",
-      "previous": "3.4%",
-      "url": "https://www.forexfactory.com/calendar/84-uk-rpi-yy",
-      "timeUtc": "2026-10-21T06:00:00+00:00",
-      "timeChicago": "2026-10-21T01:00:00-05:00"
-    },
-    {
-      "title": "HPI y/y",
-      "currency": "GBP",
-      "impact": "Low",
-      "forecast": "1.2%",
-      "previous": "1.4%",
-      "url": "https://www.forexfactory.com/calendar/639-uk-hpi-yy",
-      "timeUtc": "2026-10-21T08:30:00+00:00",
-      "timeChicago": "2026-10-21T03:30:00-05:00"
-    },
-    {
-      "title": "BOE Gov Bailey Speaks",
+      "title": "Autumn Forecast Statement",
       "currency": "GBP",
       "impact": "Medium",
       "forecast": "",
       "previous": "",
-      "url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks",
-      "timeUtc": "2026-10-21T13:00:00+00:00",
-      "timeChicago": "2026-10-21T08:00:00-05:00"
+      "url": "https://www.forexfactory.com/calendar/505-uk-autumn-forecast-statement",
+      "timeUtc": "2026-10-28T12:30:00+00:00",
+      "timeChicago": "2026-10-28T07:30:00-05:00"
+    },
+    {
+      "title": "Goods Trade Balance",
+      "currency": "USD",
+      "impact": "Low",
+      "forecast": "-130.8B",
+      "previous": "-132.6B",
+      "url": "https://www.forexfactory.com/calendar/625-us-goods-trade-balance",
+      "timeUtc": "2026-10-28T12:30:00+00:00",
+      "timeChicago": "2026-10-28T07:30:00-05:00"
+    },
+    {
+      "title": "Prelim Wholesale Inventories m/m",
+      "currency": "USD",
+      "impact": "Low",
+      "forecast": "0.4%",
+      "previous": "0.7%",
+      "url": "https://www.forexfactory.com/calendar/642-us-prelim-wholesale-inventories-mm",
+      "timeUtc": "2026-10-28T12:30:00+00:00",
+      "timeChicago": "2026-10-28T07:30:00-05:00"
     },
     {
       "title": "Crude Oil Inventories",
       "currency": "USD",
       "impact": "Low",
-      "forecast": "-0.1M",
-      "previous": "-8.6M",
+      "forecast": "-0.3M",
+      "previous": "-3.1M",
       "url": "https://www.forexfactory.com/calendar/10-us-crude-oil-inventories",
-      "timeUtc": "2026-10-21T14:30:00+00:00",
-      "timeChicago": "2026-10-21T09:30:00-05:00"
+      "timeUtc": "2026-10-28T14:30:00+00:00",
+      "timeChicago": "2026-10-28T09:30:00-05:00"
     },
     {
-      "title": "CBI Industrial Order Expectations",
+      "title": "Federal Funds Rate",
+      "currency": "USD",
+      "impact": "High",
+      "forecast": "4.00%",
+      "previous": "4.00%",
+      "url": "https://www.forexfactory.com/calendar/1-us-federal-funds-rate",
+      "timeUtc": "2026-10-28T18:00:00+00:00",
+      "timeChicago": "2026-10-28T13:00:00-05:00"
+    },
+    {
+      "title": "FOMC Statement",
+      "currency": "USD",
+      "impact": "High",
+      "forecast": "",
+      "previous": "",
+      "url": "https://www.forexfactory.com/calendar/4-us-fomc-statement",
+      "timeUtc": "2026-10-28T18:00:00+00:00",
+      "timeChicago": "2026-10-28T13:00:00-05:00"
+    },
+    {
+      "title": "FOMC Press Conference",
+      "currency": "USD",
+      "impact": "High",
+      "forecast": "",
+      "previous": "",
+      "url": "https://www.forexfactory.com/calendar/512-us-fomc-press-conference",
+      "timeUtc": "2026-10-28T18:30:00+00:00",
+      "timeChicago": "2026-10-28T13:30:00-05:00"
+    },
+    {
+      "title": "M4 Money Supply m/m",
       "currency": "GBP",
       "impact": "Low",
-      "forecast": "-20",
-      "previous": "-9",
-      "url": "https://www.forexfactory.com/calendar/331-uk-cbi-industrial-order-expectations",
-      "timeUtc": "2026-10-22T10:00:00+00:00",
-      "timeChicago": "2026-10-22T05:00:00-05:00"
+      "forecast": "0.3%",
+      "previous": "0.4%",
+      "url": "https://www.forexfactory.com/calendar/348-uk-m4-money-supply-mm",
+      "timeUtc": "2026-10-29T09:30:00+00:00",
+      "timeChicago": "2026-10-29T04:30:00-05:00"
+    },
+    {
+      "title": "Mortgage Approvals",
+      "currency": "GBP",
+      "impact": "Low",
+      "forecast": "54K",
+      "previous": "55K",
+      "url": "https://www.forexfactory.com/calendar/287-uk-mortgage-approvals",
+      "timeUtc": "2026-10-29T09:30:00+00:00",
+      "timeChicago": "2026-10-29T04:30:00-05:00"
+    },
+    {
+      "title": "Net Lending to Individuals m/m",
+      "currency": "GBP",
+      "impact": "Low",
+      "forecast": "6.2B",
+      "previous": "6.9B",
+      "url": "https://www.forexfactory.com/calendar/343-uk-net-lending-to-individuals-mm",
+      "timeUtc": "2026-10-29T09:30:00+00:00",
+      "timeChicago": "2026-10-29T04:30:00-05:00"
+    },
+    {
+      "title": "Advance GDP q/q",
+      "currency": "USD",
+      "impact": "High",
+      "forecast": "3.2%",
+      "previous": "1.5%",
+      "url": "https://www.forexfactory.com/calendar/2-us-advance-gdp-qq",
+      "timeUtc": "2026-10-29T12:30:00+00:00",
+      "timeChicago": "2026-10-29T07:30:00-05:00"
+    },
+    {
+      "title": "Core PCE Price Index m/m",
+      "currency": "USD",
+      "impact": "High",
+      "forecast": "0.3%",
+      "previous": "0.2%",
+      "url": "https://www.forexfactory.com/calendar/85-us-core-pce-price-index-mm",
+      "timeUtc": "2026-10-29T12:30:00+00:00",
+      "timeChicago": "2026-10-29T07:30:00-05:00"
+    },
+    {
+      "title": "Advance GDP Price Index q/q",
+      "currency": "USD",
+      "impact": "Medium",
+      "forecast": "3.5%",
+      "previous": "6.2%",
+      "url": "https://www.forexfactory.com/calendar/3-us-advance-gdp-price-index-qq",
+      "timeUtc": "2026-10-29T12:30:00+00:00",
+      "timeChicago": "2026-10-29T07:30:00-05:00"
     },
     {
       "title": "Unemployment Claims",
       "currency": "USD",
       "impact": "Medium",
-      "forecast": "200K",
-      "previous": "199K",
+      "forecast": "198K",
+      "previous": "194K",
       "url": "https://www.forexfactory.com/calendar/11-us-unemployment-claims",
-      "timeUtc": "2026-10-22T12:30:00+00:00",
-      "timeChicago": "2026-10-22T07:30:00-05:00"
+      "timeUtc": "2026-10-29T12:30:00+00:00",
+      "timeChicago": "2026-10-29T07:30:00-05:00"
     },
     {
-      "title": "CB Leading Index m/m",
+      "title": "Personal Income m/m",
       "currency": "USD",
       "impact": "Low",
-      "forecast": "-0.1%",
-      "previous": "-0.1%",
-      "url": "https://www.forexfactory.com/calendar/297-us-cb-leading-index-mm",
-      "timeUtc": "2026-10-22T14:00:00+00:00",
-      "timeChicago": "2026-10-22T09:00:00-05:00"
+      "forecast": "0.3%",
+      "previous": "0.2%",
+      "url": "https://www.forexfactory.com/calendar/360-us-personal-income-mm",
+      "timeUtc": "2026-10-29T12:30:00+00:00",
+      "timeChicago": "2026-10-29T07:30:00-05:00"
+    },
+    {
+      "title": "Personal Spending m/m",
+      "currency": "USD",
+      "impact": "Low",
+      "forecast": "0.6%",
+      "previous": "0.9%",
+      "url": "https://www.forexfactory.com/calendar/356-us-personal-spending-mm",
+      "timeUtc": "2026-10-29T12:30:00+00:00",
+      "timeChicago": "2026-10-29T07:30:00-05:00"
     },
     {
       "title": "Natural Gas Storage",
       "currency": "USD",
       "impact": "Low",
-      "forecast": "80B",
-      "previous": "67B",
+      "forecast": "",
+      "previous": "77B",
       "url": "https://www.forexfactory.com/calendar/26-us-natural-gas-storage",
-      "timeUtc": "2026-10-22T14:30:00+00:00",
-      "timeChicago": "2026-10-22T09:30:00-05:00"
+      "timeUtc": "2026-10-29T14:30:00+00:00",
+      "timeChicago": "2026-10-29T09:30:00-05:00"
     },
     {
-      "title": "GfK Consumer Confidence",
+      "title": "Nationwide HPI m/m",
       "currency": "GBP",
       "impact": "Low",
-      "forecast": "-14",
-      "previous": "-13",
-      "url": "https://www.forexfactory.com/calendar/188-uk-gfk-consumer-confidence",
-      "timeUtc": "2026-10-22T23:01:00+00:00",
-      "timeChicago": "2026-10-22T18:01:00-05:00"
+      "forecast": "-0.2%",
+      "previous": "-0.2%",
+      "url": "https://www.forexfactory.com/calendar/242-uk-nationwide-hpi-mm",
+      "timeUtc": "2026-10-30T07:00:00+00:00",
+      "timeChicago": "2026-10-30T02:00:00-05:00"
     },
     {
-      "title": "Retail Sales m/m",
-      "currency": "GBP",
-      "impact": "Medium",
-      "forecast": "-0.1%",
-      "previous": "0.5%",
-      "url": "https://www.forexfactory.com/calendar/105-uk-retail-sales-mm",
-      "timeUtc": "2026-10-23T06:00:00+00:00",
-      "timeChicago": "2026-10-23T01:00:00-05:00"
-    },
-    {
-      "title": "Flash Manufacturing PMI",
-      "currency": "GBP",
-      "impact": "Medium",
-      "forecast": "51.8",
-      "previous": "52.0",
-      "url": "https://www.forexfactory.com/calendar/837-uk-flash-manufacturing-pmi",
-      "timeUtc": "2026-10-23T08:30:00+00:00",
-      "timeChicago": "2026-10-23T03:30:00-05:00"
-    },
-    {
-      "title": "Flash Services PMI",
-      "currency": "GBP",
-      "impact": "Medium",
-      "forecast": "51.8",
-      "previous": "51.7",
-      "url": "https://www.forexfactory.com/calendar/836-uk-flash-services-pmi",
-      "timeUtc": "2026-10-23T08:30:00+00:00",
-      "timeChicago": "2026-10-23T03:30:00-05:00"
-    },
-    {
-      "title": "Flash Manufacturing PMI",
+      "title": "Employment Cost Index q/q",
       "currency": "USD",
       "impact": "Medium",
-      "forecast": "55.4",
-      "previous": "57.0",
-      "url": "https://www.forexfactory.com/calendar/552-us-flash-manufacturing-pmi",
-      "timeUtc": "2026-10-23T13:45:00+00:00",
-      "timeChicago": "2026-10-23T08:45:00-05:00"
+      "forecast": "0.8%",
+      "previous": "0.9%",
+      "url": "https://www.forexfactory.com/calendar/179-us-employment-cost-index-qq",
+      "timeUtc": "2026-10-30T12:30:00+00:00",
+      "timeChicago": "2026-10-30T07:30:00-05:00"
     },
     {
-      "title": "Flash Services PMI",
+      "title": "Chicago PMI",
       "currency": "USD",
-      "impact": "Medium",
-      "forecast": "57.9",
-      "previous": "58.7",
-      "url": "https://www.forexfactory.com/calendar/583-us-flash-services-pmi",
-      "timeUtc": "2026-10-23T13:45:00+00:00",
-      "timeChicago": "2026-10-23T08:45:00-05:00"
+      "impact": "Low",
+      "forecast": "54.8",
+      "previous": "58.8",
+      "url": "https://www.forexfactory.com/calendar/189-us-chicago-pmi",
+      "timeUtc": "2026-10-30T13:45:00+00:00",
+      "timeChicago": "2026-10-30T08:45:00-05:00"
     },
     {
-      "title": "Revised UoM Consumer Sentiment",
+      "title": "FOMC Member Daly Speaks",
       "currency": "USD",
-      "impact": "Medium",
-      "forecast": "46.3",
-      "previous": "46.3",
-      "url": "https://www.forexfactory.com/calendar/54-us-revised-uom-consumer-sentiment",
-      "timeUtc": "2026-10-23T14:00:00+00:00",
-      "timeChicago": "2026-10-23T09:00:00-05:00"
-    },
-    {
-      "title": "Revised UoM Inflation Expectations",
-      "currency": "USD",
-      "impact": "Medium",
-      "forecast": "",
-      "previous": "4.7%",
-      "url": "https://www.forexfactory.com/calendar/238-us-revised-uom-inflation-expectations",
-      "timeUtc": "2026-10-23T14:00:00+00:00",
-      "timeChicago": "2026-10-23T09:00:00-05:00"
-    },
-    {
-      "title": "Daylight Saving Time Shift",
-      "currency": "GBP",
-      "impact": "Holiday",
+      "impact": "Low",
       "forecast": "",
       "previous": "",
-      "url": "https://www.forexfactory.com/calendar/400-uk-daylight-saving-time-shift",
-      "timeUtc": "2026-10-25T01:00:00+00:00",
-      "timeChicago": "2026-10-24T20:00:00-05:00"
+      "url": "https://www.forexfactory.com/calendar/807-us-fomc-member-daly-speaks",
+      "timeUtc": "2026-10-30T16:00:00+00:00",
+      "timeChicago": "2026-10-30T11:00:00-05:00"
+    },
+    {
+      "title": "FOMC Member Musalem Speaks",
+      "currency": "USD",
+      "impact": "Low",
+      "forecast": "",
+      "previous": "",
+      "url": "https://www.forexfactory.com/calendar/911-us-fomc-member-musalem-speaks",
+      "timeUtc": "2026-10-30T16:30:00+00:00",
+      "timeChicago": "2026-10-30T11:30:00-05:00"
     }
   ]
 }
