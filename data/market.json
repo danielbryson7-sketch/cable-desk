@@ -1,7 +1,7 @@
 {
   "meta": {
     "symbol": "GBP/USD",
-    "updatedAt": "2026-10-30T16:30:18.222935-05:00",
+    "updatedAt": "2026-10-30T20:04:15.939469-05:00",
     "timezone": "America/Chicago",
     "priceSource": "Yahoo Finance indicative GBPUSD=X",
     "calendarSource": "Forex Factory public weekly calendar",
@@ -10,7 +10,7 @@
   },
   "quote": {
     "price": 1.338939,
-    "asOf": 1793395783
+    "asOf": 1793395500
   },
   "previousMonth": {
     "start": "2026-09-01",
@@ -51,25 +51,25 @@
     "direction": "bullish"
   },
   "fourHour": {
-    "start": "2026-10-30T12:00:00-04:00",
-    "end": "2026-10-30T16:00:00-04:00",
+    "start": "2026-10-30T16:00:00-04:00",
+    "end": "2026-10-30T20:00:00-04:00",
     "open": 1.339621,
-    "high": 1.340572,
-    "low": 1.338509,
-    "close": 1.339621,
-    "midpoint": 1.339541,
-    "rangePips": 20.6,
+    "high": 1.3398,
+    "low": 1.338939,
+    "close": 1.338939,
+    "midpoint": 1.33937,
+    "rangePips": 8.6,
     "direction": "bearish"
   },
   "oneHour": {
-    "start": "2026-10-30T20:00:00+00:00",
-    "end": "2026-10-30T21:00:00+00:00",
-    "open": 1.339621,
-    "high": 1.3398,
-    "low": 1.339011,
-    "close": 1.3391,
-    "midpoint": 1.339406,
-    "rangePips": 7.9,
+    "start": "2026-10-30T21:00:00+00:00",
+    "end": "2026-10-30T22:00:00+00:00",
+    "open": 1.338939,
+    "high": 1.338939,
+    "low": 1.338939,
+    "close": 1.338939,
+    "midpoint": 1.338939,
+    "rangePips": 0.0,
     "direction": "bearish"
   },
   "bias": {
@@ -109,15 +109,15 @@
         "label": "Completed 4H",
         "direction": "bearish",
         "weight": 2,
-        "range": "1.3385\u20131.3406",
-        "close": 1.339621
+        "range": "1.3389\u20131.3398",
+        "close": 1.338939
       },
       {
         "label": "Completed 1H",
         "direction": "bearish",
         "weight": 1,
-        "range": "1.3390\u20131.3398",
-        "close": 1.3391
+        "range": "1.3389\u20131.3389",
+        "close": 1.338939
       }
     ],
     "todayEventCount": 6,
@@ -125,66 +125,28 @@
     "method": "Monthly \u2192 weekly \u2192 daily \u2192 4H \u2192 1H narrative; Asia supplies the intraday manipulation map and 5m confirms execution."
   },
   "sessions": {
-    "tradeDate": "2026-10-30",
+    "tradeDate": "2026-10-31",
     "asia": {
       "name": "Asian range",
-      "start": "2026-10-29T20:00:00-04:00",
-      "end": "2026-10-30T00:00:00-04:00",
-      "open": 1.33799,
-      "high": 1.34077,
-      "low": 1.337649,
-      "midpoint": 1.339209,
-      "close": 1.339262,
-      "rangePips": 31.2,
-      "complete": true,
-      "count": 48,
-      "quality": "expanded",
-      "qualityNote": "Wide Asian range; require unusually clean confirmation.",
-      "midnightOpen": 1.339316
+      "start": "2026-10-30T20:00:00-04:00",
+      "end": "2026-10-31T00:00:00-04:00",
+      "complete": false
     },
     "london": {
       "name": "London kill zone",
-      "start": "2026-10-30T02:00:00-04:00",
-      "end": "2026-10-30T05:00:00-04:00",
-      "open": 1.339172,
-      "high": 1.341868,
-      "low": 1.339011,
-      "midpoint": 1.34044,
-      "close": 1.341562,
-      "rangePips": 28.6,
-      "complete": true,
-      "count": 36,
-      "sweptAsiaHigh": true,
-      "sweptAsiaLow": false,
-      "firstSweep": "Asian high"
+      "start": "2026-10-31T02:00:00-04:00",
+      "end": "2026-10-31T05:00:00-04:00",
+      "complete": false
     },
     "newYork": {
       "name": "New York AM",
-      "start": "2026-10-30T07:00:00-04:00",
-      "end": "2026-10-30T10:00:00-04:00",
-      "open": 1.343057,
-      "high": 1.343346,
-      "low": 1.338097,
-      "midpoint": 1.340721,
-      "close": 1.338276,
-      "rangePips": 52.5,
-      "complete": true,
-      "count": 36
+      "start": "2026-10-31T07:00:00-04:00",
+      "end": "2026-10-31T10:00:00-04:00",
+      "complete": false
     },
     "playbook": {
-      "state": "Asian-high raid rejected",
-      "verdict": "Bearish reversal candidate: ARH has been rejected after the buy-side raid.",
-      "expectedRaid": "ARH resistance retest",
-      "firstTarget": "Asian low",
-      "firstTargetPrice": 1.337649,
-      "direction": "bearish",
-      "steps": [
-        "Liquidity condition: watch ARH resistance retest.",
-        "Confirmation: require a bearish 5m displacement and market-structure shift back through the range.",
-        "Distribution: use Asian low as the first objective, then the higher-timeframe draw.",
-        "Flip condition: reclaim ARH with bullish acceptance; then target higher external buy-side."
-      ],
-      "noTradeIf": "Both Asian edges are swept, price never reclaims the raided edge, or high-impact news is imminent."
+      "state": "Awaiting Asian range",
+      "steps": []
     }
   },
   "btmm": {
@@ -202,8 +164,8 @@
       "at": 1793389200,
       "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
     },
-    "asiaStopHunt": "Asian high",
-    "hodLod": "HOD candidate \u00b7 high swept and rejected",
+    "asiaStopHunt": "None recorded",
+    "hodLod": "Unconfirmed \u00b7 no completed rejection",
     "levelCount": {
       "label": "Level 0 \u00b7 accumulation",
       "direction": "inside",
@@ -213,16 +175,16 @@
     },
     "adr": {
       "averagePips": 52.7,
-      "usedPips": 58.4,
-      "usedPercent": 110.8
+      "usedPips": 0,
+      "usedPercent": 0.0
     },
     "emas": {
-      "ema13": 1.339088,
-      "ema50": 1.339325,
-      "mayo200": 1.339525,
+      "ema13": 1.339113,
+      "ema50": 1.339341,
+      "mayo200": 1.339531,
       "alignment": "bearish",
       "mayoDistancePips": -5.9,
-      "recentMayoTouch": false
+      "recentMayoTouch": true
     },
     "tdiProxy": {
       "rsi13": 39.2,
@@ -237,230 +199,12 @@
     }
   },
   "dayStory": {
-    "status": "live",
-    "headline": "Price is rotating back inside Asia",
-    "summary": "From the Asian open, GBP/USD is +9.5 pips. From the midnight open, it is -3.8 pips and currently sits inside the lower half of Asia. The live ICT reading is neutral; the BTMM scanner shows w pattern (forming).",
-    "asOf": "2026-10-30T17:29:43-04:00",
-    "metrics": {
-      "sinceAsiaPips": 9.5,
-      "sinceMidnightPips": -3.8,
-      "high": 1.343346,
-      "highAt": "2026-10-30T07:10:00-04:00",
-      "low": 1.337506,
-      "lowAt": "2026-10-30T10:05:00-04:00",
-      "currentRelation": "inside the lower half of Asia"
-    },
-    "timeline": [
-      {
-        "title": "Asian range",
-        "time": "20:00\u201300:00 NY",
-        "status": "complete",
-        "open": 1.33799,
-        "high": 1.34077,
-        "low": 1.337649,
-        "close": 1.33928,
-        "rangePips": 31.2,
-        "movePips": 12.9,
-        "text": "Price rose 12.9 pips from 1.3380 to 1.3393; the phase covered 31.2 pips. It did not clear an Asian edge. It ended inside the upper half of Asia."
-      },
-      {
-        "title": "Midnight handoff",
-        "time": "00:00\u201302:00 NY",
-        "status": "complete",
-        "open": 1.339316,
-        "high": 1.339423,
-        "low": 1.338079,
-        "close": 1.339423,
-        "rangePips": 13.4,
-        "movePips": 1.1,
-        "text": "Price rose 1.1 pips from 1.3393 to 1.3394; the phase covered 13.4 pips. It did not clear an Asian edge. It ended inside the upper half of Asia."
-      },
-      {
-        "title": "London window",
-        "time": "02:00\u201305:00 NY",
-        "status": "complete",
-        "open": 1.339172,
-        "high": 1.341868,
-        "low": 1.339011,
-        "close": 1.341202,
-        "rangePips": 28.6,
-        "movePips": 20.3,
-        "text": "Price rose 20.3 pips from 1.3392 to 1.3412; the phase covered 28.6 pips. It traded through Asian high. It ended above the Asian high."
-      },
-      {
-        "title": "Post-London handoff",
-        "time": "05:00\u201307:00 NY",
-        "status": "complete",
-        "open": 1.341436,
-        "high": 1.343274,
-        "low": 1.341148,
-        "close": 1.34275,
-        "rangePips": 21.3,
-        "movePips": 13.1,
-        "text": "Price rose 13.1 pips from 1.3414 to 1.3428; the phase covered 21.3 pips. It traded through Asian high. It ended above the Asian high."
-      },
-      {
-        "title": "New York AM",
-        "time": "07:00\u201310:00 NY",
-        "status": "complete",
-        "open": 1.343057,
-        "high": 1.343346,
-        "low": 1.337685,
-        "close": 1.337721,
-        "rangePips": 56.6,
-        "movePips": -53.4,
-        "text": "Price fell 53.4 pips from 1.3431 to 1.3377; the phase covered 56.6 pips. It traded through Asian high. It ended inside the lower half of Asia."
-      },
-      {
-        "title": "After New York AM",
-        "time": "10:00\u201316:00 NY",
-        "status": "complete",
-        "open": 1.337864,
-        "high": 1.340572,
-        "low": 1.337506,
-        "close": 1.339387,
-        "rangePips": 30.7,
-        "movePips": 15.2,
-        "text": "Price rose 15.2 pips from 1.3379 to 1.3394; the phase covered 30.7 pips. It traded through Asian low. It ended inside the upper half of Asia."
-      }
-    ],
-    "method": "Deterministic five-minute candle summary from 20:00 New York through the latest available candle; no AI generation is used during refreshes."
+    "status": "waiting",
+    "headline": "Waiting for the Asian range",
+    "summary": "The rolling account begins when the 20:00 New York candle opens.",
+    "timeline": []
   },
-  "forecastAudit": {
-    "tradeDate": "2026-10-30",
-    "capturedAt": "2026-10-30T00:43:27.476814-04:00",
-    "locked": true,
-    "forecast": {
-      "direction": "Neutral",
-      "score": -3,
-      "maxScore": 15,
-      "confidence": "event-risk",
-      "expectedFirstRaid": "Either edge",
-      "targetLabel": "No directional target",
-      "targetPrice": null,
-      "invalidationLabel": "Wait for London confirmation",
-      "invalidationPrice": null,
-      "confirmation": "Wait for one side to be swept; the reclaim and displacement define direction",
-      "reason": "Frozen top-down score -3/15; higher timeframes disagree."
-    },
-    "asianRange": {
-      "start": "2026-10-29T20:00:00-04:00",
-      "end": "2026-10-30T00:00:00-04:00",
-      "open": 1.33799,
-      "high": 1.34077,
-      "low": 1.337649,
-      "close": 1.339262,
-      "rangePips": 31.2,
-      "midpoint": 1.339209,
-      "midnightOpen": 1.339316,
-      "quality": "expanded"
-    },
-    "topDown": [
-      {
-        "label": "Previous month",
-        "direction": "bearish",
-        "weight": 5,
-        "range": "1.3203\u20131.3570",
-        "close": 1.323276
-      },
-      {
-        "label": "Previous week",
-        "direction": "bullish",
-        "weight": 4,
-        "range": "1.3305\u20131.3417",
-        "close": 1.340393
-      },
-      {
-        "label": "Prior day",
-        "direction": "bearish",
-        "weight": 3,
-        "range": "1.3273\u20131.3312",
-        "close": 1.33063
-      },
-      {
-        "label": "Completed 4H",
-        "direction": "bullish",
-        "weight": 2,
-        "range": "1.3376\u20131.3408",
-        "close": 1.339262
-      },
-      {
-        "label": "Completed 1H",
-        "direction": "bearish",
-        "weight": 1,
-        "range": "1.3388\u20131.3404",
-        "close": 1.339262
-      }
-    ],
-    "btmmAtCapture": {
-      "expectedPattern": "M or W after the first stop hunt",
-      "pattern": {
-        "name": "Half Batman",
-        "shape": "M",
-        "direction": "bearish",
-        "status": "forming",
-        "firstExtreme": 1.340411,
-        "secondExtreme": 1.339351,
-        "apex": 1.338849,
-        "gapPips": 10.6,
-        "at": 1793333100,
-        "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
-      },
-      "asiaStopHunt": "None recorded",
-      "hodLod": "Unconfirmed \u00b7 no completed rejection",
-      "levelCount": {
-        "label": "Level 0 \u00b7 accumulation",
-        "direction": "inside",
-        "distancePips": 0.0,
-        "bandPips": 25,
-        "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
-      },
-      "adr": {
-        "averagePips": 52.7,
-        "usedPips": 3.8,
-        "usedPercent": 7.2
-      },
-      "emas": {
-        "ema13": 1.33916,
-        "ema50": 1.339185,
-        "mayo200": 1.337307,
-        "alignment": "bearish",
-        "mayoDistancePips": 16.7,
-        "recentMayoTouch": false
-      },
-      "tdiProxy": {
-        "rsi13": 39.8,
-        "signal2": 41.4,
-        "state": "bearish",
-        "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
-      },
-      "railroadTracks": {
-        "active": false,
-        "direction": "neutral",
-        "note": "No qualified two-candle railroad-track reversal."
-      }
-    },
-    "news": {
-      "risk": "medium",
-      "eventCount": 5,
-      "disruptiveCount": 1,
-      "events": [
-        {
-          "title": "Employment Cost Index q/q",
-          "currency": "USD",
-          "impact": "Medium",
-          "timeUtc": "2026-10-30T12:30:00+00:00"
-        }
-      ]
-    },
-    "checkpoints": {
-      "midnight": {
-        "observedAt": "2026-10-30T00:43:27.476814-04:00",
-        "status": "forecast locked"
-      }
-    },
-    "result": null
-  },
+  "forecastAudit": null,
   "forecastStats": {
     "completed": 0,
     "directional": 0,
@@ -521,64 +265,35 @@
       "group": "both"
     },
     {
-      "key": "ARH",
-      "label": "Asian range high",
-      "price": 1.34077,
-      "side": "buy",
-      "group": "session"
-    },
-    {
-      "key": "AREQ",
-      "label": "Asian equilibrium",
-      "price": 1.339209,
-      "side": "mid",
-      "group": "session"
-    },
-    {
-      "key": "ARL",
-      "label": "Asian range low",
-      "price": 1.337649,
-      "side": "sell",
-      "group": "session"
-    },
-    {
-      "key": "MO",
-      "label": "Midnight open",
-      "price": 1.339316,
-      "side": "open",
-      "group": "session"
-    },
-    {
-      "key": "TGT",
-      "label": "Asian low",
-      "price": 1.337649,
-      "side": "sell",
-      "group": "session",
-      "focus": true
-    },
-    {
       "key": "EMA13",
       "label": "BTMM fast EMA",
-      "price": 1.339088,
+      "price": 1.339113,
       "side": "buy",
       "group": "btmm"
     },
     {
       "key": "EMA50",
       "label": "BTMM 50 EMA",
-      "price": 1.339325,
+      "price": 1.339341,
       "side": "mid",
       "group": "btmm"
     },
     {
       "key": "MAYO",
       "label": "BTMM 200 EMA",
-      "price": 1.339525,
+      "price": 1.339531,
       "side": "open",
       "group": "btmm"
     }
   ],
   "candles": [
+    {
+      "t": 1793223000,
+      "o": 1.332303,
+      "h": 1.332463,
+      "l": 1.332303,
+      "c": 1.332374
+    },
     {
       "t": 1793223300,
       "o": 1.332214,
@@ -756,9 +471,9 @@
     },
     {
       "t": 1793230800,
-      "o": 1.332978,
+      "o": 1.33296,
       "h": 1.333067,
-      "l": 1.332978,
+      "l": 1.33296,
       "c": 1.333031
     },
     {
@@ -926,7 +641,7 @@
       "t": 1793238000,
       "o": 1.332268,
       "h": 1.332268,
-      "l": 1.332037,
+      "l": 1.332001,
       "c": 1.332161
     },
     {
@@ -2711,8 +2426,8 @@
       "t": 1793314500,
       "o": 1.338957,
       "h": 1.338957,
-      "l": 1.338903,
-      "c": 1.338903
+      "l": 1.338814,
+      "c": 1.338814
     },
     {
       "t": 1793314800,
@@ -2772,8 +2487,8 @@
     },
     {
       "t": 1793317200,
-      "o": 1.33799,
-      "h": 1.33799,
+      "o": 1.338025,
+      "h": 1.338025,
       "l": 1.337846,
       "c": 1.337846
     },
@@ -2891,9 +2606,9 @@
     },
     {
       "t": 1793322300,
-      "o": 1.33998,
+      "o": 1.339621,
       "h": 1.340339,
-      "l": 1.339926,
+      "l": 1.339621,
       "c": 1.340339
     },
     {
@@ -3018,9 +2733,9 @@
     {
       "t": 1793327700,
       "o": 1.339334,
-      "h": 1.339369,
+      "h": 1.339423,
       "l": 1.339316,
-      "c": 1.339316
+      "c": 1.339423
     },
     {
       "t": 1793328000,
@@ -3601,7 +3316,7 @@
       "o": 1.342318,
       "h": 1.342462,
       "l": 1.342246,
-      "c": 1.342354
+      "c": 1.342462
     },
     {
       "t": 1793352900,
@@ -3691,8 +3406,8 @@
       "t": 1793356500,
       "o": 1.343147,
       "h": 1.343147,
-      "l": 1.342769,
-      "c": 1.342769
+      "l": 1.342841,
+      "c": 1.342841
     },
     {
       "t": 1793356800,
@@ -4599,13 +4314,6 @@
     },
     {
       "t": 1793395500,
-      "o": 1.338939,
-      "h": 1.338939,
-      "l": 1.338939,
-      "c": 1.338939
-    },
-    {
-      "t": 1793395783,
       "o": 1.338939,
       "h": 1.338939,
       "l": 1.338939,
