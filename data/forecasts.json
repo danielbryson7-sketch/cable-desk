@@ -692,7 +692,142 @@
         }
       },
       "result": null
+    },
+    "2026-11-16": {
+      "tradeDate": "2026-11-16",
+      "capturedAt": "2026-11-16T00:10:07.153996-05:00",
+      "locked": true,
+      "forecast": {
+        "direction": "Bullish",
+        "score": 11,
+        "maxScore": 15,
+        "confidence": "mixed",
+        "expectedFirstRaid": "Asian low",
+        "targetLabel": "Prior-day high",
+        "targetPrice": 1.325012,
+        "invalidationLabel": "Top-down sell-side invalidation",
+        "invalidationPrice": 1.320934,
+        "confirmation": "Sweep sell-side liquidity, reclaim it, then print bullish 5m displacement",
+        "reason": "Frozen top-down score +11/15; weekly discount supports longs."
+      },
+      "asianRange": {
+        "start": "2026-11-15T20:00:00-05:00",
+        "end": "2026-11-16T00:00:00-05:00",
+        "open": 1.321283,
+        "high": 1.321633,
+        "low": 1.320324,
+        "close": 1.320777,
+        "rangePips": 13.1,
+        "midpoint": 1.320979,
+        "midnightOpen": 1.32076,
+        "quality": "clean"
+      },
+      "topDown": [
+        {
+          "label": "Previous month",
+          "direction": "bullish",
+          "weight": 5,
+          "range": "1.3139\u20131.3434",
+          "close": 1.337864
+        },
+        {
+          "label": "Previous week",
+          "direction": "bullish",
+          "weight": 4,
+          "range": "1.3344\u20131.3502",
+          "close": 1.345605
+        },
+        {
+          "label": "Prior day",
+          "direction": "bullish",
+          "weight": 3,
+          "range": "1.3209\u20131.3250",
+          "close": 1.323136
+        },
+        {
+          "label": "Completed 4H",
+          "direction": "bearish",
+          "weight": 2,
+          "range": "1.3203\u20131.3216",
+          "close": 1.320777
+        },
+        {
+          "label": "Completed 1H",
+          "direction": "bullish",
+          "weight": 1,
+          "range": "1.3203\u20131.3208",
+          "close": 1.320777
+        }
+      ],
+      "btmmAtCapture": {
+        "expectedPattern": "W / Half Batman below ARL",
+        "pattern": {
+          "name": "W pattern",
+          "shape": "W",
+          "direction": "bullish",
+          "status": "forming",
+          "firstExtreme": 1.320917,
+          "secondExtreme": 1.321056,
+          "apex": 1.321633,
+          "gapPips": 1.4,
+          "at": 1794795900,
+          "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
+        },
+        "asiaStopHunt": "None recorded",
+        "hodLod": "Unconfirmed \u00b7 no completed rejection",
+        "levelCount": {
+          "label": "Level 0 \u00b7 accumulation",
+          "direction": "inside",
+          "distancePips": 0.0,
+          "bandPips": 25,
+          "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
+        },
+        "adr": {
+          "averagePips": 79.5,
+          "usedPips": 2.3,
+          "usedPercent": 2.9
+        },
+        "emas": {
+          "ema13": 1.320724,
+          "ema50": 1.32088,
+          "mayo200": 1.32166,
+          "alignment": "bearish",
+          "mayoDistancePips": -7.6,
+          "recentMayoTouch": false
+        },
+        "tdiProxy": {
+          "rsi13": 56.8,
+          "signal2": 57.7,
+          "state": "mixed",
+          "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
+        },
+        "railroadTracks": {
+          "active": false,
+          "direction": "neutral",
+          "note": "No qualified two-candle railroad-track reversal."
+        }
+      },
+      "news": {
+        "risk": "high",
+        "eventCount": 6,
+        "disruptiveCount": 1,
+        "events": [
+          {
+            "title": "Fed Chairman Warsh Speaks",
+            "currency": "USD",
+            "impact": "High",
+            "timeUtc": "2026-11-16T17:00:00+00:00"
+          }
+        ]
+      },
+      "checkpoints": {
+        "midnight": {
+          "observedAt": "2026-11-16T00:10:07.153996-05:00",
+          "status": "forecast locked"
+        }
+      },
+      "result": null
     }
   },
-  "lastUpdatedAt": "2026-11-13T19:41:29.759627-06:00"
+  "lastUpdatedAt": "2026-11-15T23:10:07.153996-06:00"
 }
