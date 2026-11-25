@@ -827,7 +827,154 @@
         }
       },
       "result": null
+    },
+    "2026-11-25": {
+      "tradeDate": "2026-11-25",
+      "capturedAt": "2026-11-25T00:41:15.898752-05:00",
+      "locked": true,
+      "forecast": {
+        "direction": "Bearish",
+        "score": -5,
+        "maxScore": 15,
+        "confidence": "event-risk",
+        "expectedFirstRaid": "Asian high",
+        "targetLabel": "Previous-week low",
+        "targetPrice": 1.307959,
+        "invalidationLabel": "Top-down buy-side invalidation",
+        "invalidationPrice": 1.314319,
+        "confirmation": "Sweep buy-side liquidity, reject it, then print bearish 5m displacement",
+        "reason": "Frozen top-down score -5/15; weekly discount: do not chase shorts."
+      },
+      "asianRange": {
+        "start": "2026-11-24T20:00:00-05:00",
+        "end": "2026-11-25T00:00:00-05:00",
+        "open": 1.311217,
+        "high": 1.311527,
+        "low": 1.308883,
+        "close": 1.308935,
+        "rangePips": 26.4,
+        "midpoint": 1.310205,
+        "midnightOpen": 1.308935,
+        "quality": "clean"
+      },
+      "topDown": [
+        {
+          "label": "Previous month",
+          "direction": "bullish",
+          "weight": 5,
+          "range": "1.3139\u20131.3434",
+          "close": 1.337864
+        },
+        {
+          "label": "Previous week",
+          "direction": "bearish",
+          "weight": 4,
+          "range": "1.3080\u20131.3224",
+          "close": 1.308644
+        },
+        {
+          "label": "Prior day",
+          "direction": "bearish",
+          "weight": 3,
+          "range": "1.3013\u20131.3143",
+          "close": 1.309466
+        },
+        {
+          "label": "Completed 4H",
+          "direction": "bearish",
+          "weight": 2,
+          "range": "1.3089\u20131.3115",
+          "close": 1.308935
+        },
+        {
+          "label": "Completed 1H",
+          "direction": "bearish",
+          "weight": 1,
+          "range": "1.3089\u20131.3095",
+          "close": 1.308935
+        }
+      ],
+      "btmmAtCapture": {
+        "expectedPattern": "M / Half Batman above ARH",
+        "pattern": {
+          "name": "M pattern",
+          "shape": "M",
+          "direction": "bearish",
+          "status": "confirmed",
+          "firstExtreme": 1.309483,
+          "secondExtreme": 1.309175,
+          "apex": 1.308661,
+          "gapPips": 3.1,
+          "at": 1795584000,
+          "rule": "Two swing extremes 6\u201348 candles apart; Half Batman misses the first extreme by 5\u201312 pips; confirmation requires an apex close."
+        },
+        "asiaStopHunt": "None recorded",
+        "hodLod": "Unconfirmed \u00b7 no completed rejection",
+        "levelCount": {
+          "label": "Level 1 drop",
+          "direction": "below",
+          "distancePips": 3.1,
+          "bandPips": 25,
+          "note": "Mechanical observation bands, not an assertion that price must reverse at Level 3."
+        },
+        "adr": {
+          "averagePips": 80.8,
+          "usedPips": 6.5,
+          "usedPercent": 8.0
+        },
+        "emas": {
+          "ema13": 1.308932,
+          "ema50": 1.309655,
+          "mayo200": 1.309921,
+          "alignment": "bearish",
+          "mayoDistancePips": -13.5,
+          "recentMayoTouch": false
+        },
+        "tdiProxy": {
+          "rsi13": 30.1,
+          "signal2": 29.0,
+          "state": "mixed",
+          "note": "Transparent RSI-13 / 2-period signal proxy; not a proprietary TDI feed."
+        },
+        "railroadTracks": {
+          "active": false,
+          "direction": "neutral",
+          "note": "No qualified two-candle railroad-track reversal."
+        }
+      },
+      "news": {
+        "risk": "high",
+        "eventCount": 13,
+        "disruptiveCount": 3,
+        "events": [
+          {
+            "title": "Core PCE Price Index m/m",
+            "currency": "USD",
+            "impact": "High",
+            "timeUtc": "2026-11-25T13:30:00+00:00"
+          },
+          {
+            "title": "Prelim GDP q/q",
+            "currency": "USD",
+            "impact": "High",
+            "timeUtc": "2026-11-25T13:30:00+00:00"
+          },
+          {
+            "title": "Prelim GDP Price Index q/q",
+            "currency": "USD",
+            "impact": "Medium",
+            "timeUtc": "2026-11-25T13:30:00+00:00"
+          }
+        ]
+      },
+      "checkpoints": {
+        "midnight": {
+          "observedAt": "2026-11-25T00:41:15.898752-05:00",
+          "status": "forecast locked"
+        }
+      },
+      "result": null
     }
   },
-  "lastUpdatedAt": "2026-11-24T17:39:16.503537-06:00"
+  "lastUpdatedAt": "2026-11-24T23:41:15.898752-06:00"
 }
